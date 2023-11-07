@@ -1,14 +1,11 @@
 import React from "react";
 import "./listcards.css";
-import testImage1 from "../../images/noma.jpeg";
-import testImage2 from "../../images/durum.jpeg";
-
 const personalLists = [
 	["Durum Bar", "Doma", "Friheden", "Reffen", "Hart", "Bird"],
 	["Llama", "Apollo Bar", "Safari", "Osteria 16"],
 ];
 
-const images = [testImage1, testImage2];
+const images = ["/noma.jpeg", "/durum.jpeg"];
 
 function ListCards() {
 	const titles = ["💖 Favourites", "🌠 Wishlist"];
