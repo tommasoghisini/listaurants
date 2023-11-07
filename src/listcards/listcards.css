@@ -1,0 +1,58 @@
+
+.card {
+    background-color: #E4CCFF;
+    width: 80vw;
+    height: 16.666vh;
+    padding: 20px;
+    border: 1px solid #ccc;
+    display: flex;
+    align-items: center;
+  }
+  
+  .content {
+    display: flex;
+    align-items: center;
+    width: 100%;
+  }
+
+  .text-container {
+    display: flex;
+    flex-direction: column; 
+  }
+
+  .title {
+    color: #9746FF;
+    font-family: 'Inter', sans-serif; /* Use Inter font or sans-serif as a fallback */
+    font-weight: 600; /* Semi-bold weight for the text */
+    font-size: 48px;
+    font-weight: bold;
+    text-align: left;
+    margin-bottom: 10px;
+  }
+  
+  .text {
+    font-size: 16px;
+    color: grey;
+    font-family: 'Inter', sans-serif; /* Use Inter font or sans-serif as a fallback */
+    font-weight: 600; /* Semi-bold weight for the text */
+    font-weight: bold;
+    text-align: left;
+    margin: 10px 0; 
+    
+  }
+  
+  .image-container {
+    background-color: #E4CCFF;
+    width: 10vw;
+    height: 10vw;
+    margin-right: 20px; 
+  }
+
+
+  .image-placeholder {
+    max-width: 10vw;
+    height: 10vw;
+    margin-right: 20px;
+    border-radius: 10px;
+  }
+
