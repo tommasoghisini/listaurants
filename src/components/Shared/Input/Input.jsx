@@ -1,13 +1,14 @@
 import React from 'react';
 import './Input.css';
 
-function Input({ type, name, placeholder }) {
+function Input({ type, label, name, value, onChange, placeholder, required }) {
   return (
     <div>
-        <p className='name'>{name}</p>
-        <input className="input" type={type} placeholder={placeholder} />
+      <label className='name'>{label}</label>
+      <input className="input" type={type} name={name} value={value} onChange={onChange} placeholder={placeholder} required={required} />
     </div>
   );
 }
 
 export default Input;
+
