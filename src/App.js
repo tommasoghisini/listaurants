@@ -1,11 +1,22 @@
-import './App.css';
+import "./App.css";
+import { Routes, Route } from "react-router-dom";
+
+import LoginPage from "./pages/LoginPage/LoginPage";
+import ProfilePage from "./pages/ProfilePage/ProfilePage";
 
 function App() {
-  return (
-    <div className="App">
-      <h1>App</h1>
-    </div>
-  );
+	return (
+		<Routes>
+			<Route
+				path="/"
+				element={<LoginPage />}
+			/>
+			<Route
+				path="/profile"
+				element={<ProfilePage />}
+			/>
+		</Routes>
+	);
 }
 
 export default App;
