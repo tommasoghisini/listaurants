@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import Icon from '../Icon/Icon';
+import Icon from '../shared/Icon/Icon';
 import './NavItem.css';
 
 const NavItem = ({ icon, activeColor, defaultColor, to, text }) => {
