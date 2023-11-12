@@ -5,7 +5,7 @@ import "./MainPage.css";
 function MainPage() {
 	return (
 		<>
-			<TopBar />
+			<TopBar pageName={"Home"} />
 			<Post />
 		</>
 	);
