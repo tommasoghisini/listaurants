@@ -1,3 +1,4 @@
+import ProfilePicture from "../../shared/ProfilePicture/ProfilePicture";
 import LikeCommentSave from "../LikeCommentSave/LikeCommentSave";
 import "./Post.css";
 
@@ -5,10 +6,9 @@ function Post() {
 	return (
 		<div class="post">
 			<div class="post-header">
-				<img
-					src="/profilePic2.png"
-					alt="logo"
-					class="post-logo"
+				<ProfilePicture
+					imgSrc="/profilePic2.png"
+					height="50px"
 				/>
 				<div class="post-header-discription">
 					<div class="post-title">Bob added Noma to their favorites</div>
@@ -40,10 +40,9 @@ function Post() {
 				</div>
 				<LikeCommentSave />
 				<div class="comment-section">
-					<img
-						src="/profilePic.png"
-						alt="logo"
-						class="header-logo"
+					<ProfilePicture
+						imgSrc="/profilePic.png"
+						height="30px"
 					/>
 					<input
 						type="text"
