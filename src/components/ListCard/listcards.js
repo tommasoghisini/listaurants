@@ -1,7 +1,7 @@
 import React from "react";
 import "./listcards.css";
-import testImage1 from "../../images/noma.jpeg";
-import testImage2 from "../../images/durum.jpeg";
+import testImage1 from "../../assets/images/noma.jpeg"
+import testImage2 from "../../assets/images/durum.jpeg";
 
 const personalLists = [
 	["Durum Bar", "Doma", "Friheden", "Reffen", "Hart", "Bird"],
