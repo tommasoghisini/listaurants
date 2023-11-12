@@ -8,10 +8,12 @@ function Post() {
 			<div class="post-header">
 				<ProfilePicture
 					imgSrc="/profilePic2.png"
-					height="50px"
+					height="40px"
 				/>
 				<div class="post-header-discription">
-					<div class="post-title">Bob added Noma to their favorites</div>
+					<div class="post-title">
+						Bob added <strong>Noma</strong> to their <strong>Favorites</strong>
+					</div>
 					<div class="categories">
 						<div class="category">Asian</div>
 						<div class="category">$$$</div>
@@ -23,9 +25,9 @@ function Post() {
 				<div class="post-text">
 					I think this was a cool place. There is a variety of vegan options!
 				</div>
-				<div className="image-container">
+				<div className="post-image-container">
 					<img
-						src=""
+						src="/restaurant1.jpeg"
 						alt="Restaurant"
 						className="post-image"
 					/>
