@@ -1,5 +1,5 @@
 import React from "react";
-import Input from "../../components/Input/Input";
+import Input from "../shared/Input/Input";
 import "./LoginForm.css";
 
 const LoginForm = ({
