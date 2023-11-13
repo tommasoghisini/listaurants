@@ -10,21 +10,18 @@ import MainPage from "./pages/MainPage/MainPage";
 import BottomNavBar from "./components/NavBar/NavBar";
 import { Fragment } from "react";
 
-
 function App() {
-
 	const location = useLocation();
-	
-	return (
 
+	return (
 		<Fragment>
 			<Routes>
-         <Route
+				<Route
 					path="/home"
 					element={<MainPage />}
 				/>
 				<Route
-					path="/login"
+					path="/"
 					element={<LoginPage />}
 				/>
 				<Route
@@ -32,11 +29,9 @@ function App() {
 					element={<ProfilePage />}
 				/>
 			</Routes>
-			{location.pathname !== "/login" && <BottomNavBar />}
-		</Fragment >
+			{location.pathname !== "/" && <BottomNavBar />}
+		</Fragment>
 	);
-
-  
 }
 
 export default App;
