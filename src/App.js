@@ -1,4 +1,5 @@
 import "./App.css";
+
 import { Routes, Route, useLocation } from "react-router-dom";
 
 import LoginPage from "./pages/LoginPage/LoginPage";
@@ -7,6 +8,7 @@ import BottomNavBar from "./components/NavBar/NavBar";
 import { Fragment } from "react";
 
 function App() {
+
 	const location = useLocation();
 	
 	return (
@@ -24,6 +26,8 @@ function App() {
 			{location.pathname !== "/login" && <BottomNavBar />}
 		</Fragment >
 	);
+
+  
 }
 
 export default App;
