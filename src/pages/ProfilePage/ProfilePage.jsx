@@ -21,22 +21,33 @@ function ProfilePage() {
       <h1 className="page-title">Profile</h1>
       <div className="profile-section">
         <div className="profile-picture">
+    <div className="container">
+      <h1 className="page-title">Profile</h1>
+      <div className="profile-section">
+        <div className="profile-picture">
           <RoundProfilePicture />
         </div>
         <p className="profile-name">Alice</p>
+        <p className="profile-name">Alice</p>
       </div>
+      <div className="buttons-container">
       <div className="buttons-container">
         <Button
           text="Edit Profile"
           onClick={handleEditProfileClick}
           className="button"
         />
+          className="button"
+        />
         <Button
           text="30 Friends"
           onClick={handleFriendsClick}
           className="button"
+          className="button"
         />
       </div>
+      <div className="cards-container">
+        <ListCards className="cards" />
       <div className="cards-container">
         <ListCards className="cards" />
       </div>
