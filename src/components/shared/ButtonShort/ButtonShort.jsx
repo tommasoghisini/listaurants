@@ -1,9 +1,9 @@
 import React from "react";
-import "./Button.css";
+import "./ButtonShort.css";
 
 const Button = ({ text, onClick }) => {
   return (
-    <button className="button" onClick={onClick}>
+    <button className="button-short" onClick={onClick}>
       {text}
     </button>
   );
