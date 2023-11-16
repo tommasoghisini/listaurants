@@ -8,7 +8,7 @@ const personalLists = [
   ["Llama", "Apollo Bar", "Safari", "Osteria 16"],
 ];
 
-const images = [testImage1, testImage2];
+const images = ["/noma.jpeg", "/durum.jpeg"];
 
 function ListCards() {
   const titles = ["💖 Favourites", "🌠 Wishlist"];
@@ -28,7 +28,6 @@ function ListCards() {
             title={title}
             text={truncatedText.join(", ")}
             imageSource={images[index]}
-            style={{ margin: "0 10px" }} // Add margin to each card
           />
         );
       })}
@@ -38,14 +37,14 @@ function ListCards() {
 
 function Card({ title, text, imageSource }) {
   return (
-    <div className="card">
-      <div className="content">
+    <div className="list-card">
+      <div className="list-content">
         <div className="image-container">
           <img src={imageSource} alt="Image" className="image-placeholder" />
         </div>
         <div className="text-container">
-          <h1 className="title">{title}</h1>
-          <h1 className="text">{text}</h1>
+          <h1 className="list-title">{title}</h1>
+          <h1 className="list-text">{text}</h1>
         </div>
       </div>
     </div>
