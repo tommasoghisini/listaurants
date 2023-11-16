@@ -9,6 +9,7 @@ import MainPage from "./pages/MainPage/MainPage";
 import BottomNavBar from "./components/NavBar/NavBar";
 import { Fragment } from "react";
 import NotificationPage from "./pages/NotificationPage/NotificationPage";
+import FriendsPage from "./pages/FriendsPage/FriendsPage";
 
 function App() {
 	const location = useLocation();
