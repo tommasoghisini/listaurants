@@ -1,6 +1,8 @@
 import "./App.css";
 
+
 import { Routes, Route, useLocation } from "react-router-dom";
+
 
 import LoginPage from "./pages/LoginPage/LoginPage";
 import ProfilePage from "./pages/ProfilePage/ProfilePage";
@@ -26,8 +28,6 @@ function App() {
 			{location.pathname !== "/login" && <BottomNavBar />}
 		</Fragment >
 	);
-
-  
 }
 
 export default App;
