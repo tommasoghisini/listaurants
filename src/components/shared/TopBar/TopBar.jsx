@@ -8,7 +8,7 @@ function TopBar({ pageName }) {
 		<div className="top-bar">
 			<div className="top-bar-name">{pageName}</div>
 			<img
-				src="/notification.svg"
+				src="./icons/notification.svg"
 				onClick={() => {
 					navigate("/notification");
 				}}

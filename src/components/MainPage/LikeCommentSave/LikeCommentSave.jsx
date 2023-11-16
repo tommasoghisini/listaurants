@@ -5,7 +5,7 @@ function LikeCommentSave() {
 			<div class="like-button">
 				<div class="like-text">Like</div>
 				<img
-					src="/like.svg"
+					src="/icons/like.svg"
 					alt="like"
 					class="like-image"
 				/>
@@ -13,7 +13,7 @@ function LikeCommentSave() {
 			<div class="like-button">
 				<div class="like-text">Comment</div>
 				<img
-					src="/comment.svg"
+					src="/icons/comment.svg"
 					alt="like"
 					class="comment-image"
 				/>
@@ -21,7 +21,7 @@ function LikeCommentSave() {
 			<div class="like-button">
 				<div class="like-text">Save</div>
 				<img
-					src="/save.svg"
+					src="/icons/save.svg"
 					alt="like"
 					class="like-image"
 				/>
