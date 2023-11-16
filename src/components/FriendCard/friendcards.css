@@ -1,0 +1,68 @@
+.friend-card {
+    background-color: #fff;
+    width: 80vw;
+    height: 6vh;
+    padding: 20px;
+    border: 1px solid #fff;
+    display: flex;
+    align-items: center;
+    border-radius: 2vw;
+    margin-bottom: 2vh;
+  }
+  
+  .friend-content {
+    display: flex;
+    align-items: center;
+    width: 100%;
+  }
+
+  .friend-name {
+    color: #000;
+    font-family: "Inter", sans-serif; 
+    font-weight: 600; 
+    font-size:  1.8vh;
+    text-align: left;
+    margin-bottom: 5px;
+  }
+
+  .friend-text {
+    color: #000;
+    font-family: "Inter", sans-serif; 
+    font-size:  1.5vh;
+    text-align: left;
+    margin-bottom: 10px;
+    font-weight: 100;
+  }
+
+  .profile-image-wrapper {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .profile-image-border {
+    width: 70%; 
+    height: auto; 
+    border-radius: 50%; 
+    border: 3px solid black; 
+    overflow: hidden; 
+  }
+  
+  .profile-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; 
+    border-radius: 50%; 
+  }
+
+  .remove-button{
+    background-color: #d9d9d9; 
+    color: #000; 
+    font-size:  1.5vh; 
+    padding: 5px 20px; 
+    border: none; 
+    border-radius: 5px; 
+
+  }
