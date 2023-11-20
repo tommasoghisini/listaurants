@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import Button from "../../components/shared/Button/Button";
+import Button from "../../../components/shared/Button/Button";
 import { useNavigate } from "react-router-dom";
-import ForgotPassword from "../../components/ForgotPassword/ForgotPassword";
-import Signup from "../../components/SignupForm/SignupForm";
+import ForgotPassword from "../../../components/ForgotPassword/ForgotPassword";
+import Signup from "../../../components/SignupForm/SignupForm";
 import "./LoginPage.css";
-import LoginForm from "../../components/LoginForm/LoginForm";
+import LoginForm from "../../../components/LoginForm/LoginForm";
 
 function LoginPage() {
 	const [email, setEmail] = useState("");
@@ -28,7 +28,7 @@ function LoginPage() {
 	};
 
 	return (
-		<div>
+		<div className="login-page">
 			<h1 className="title">Your Restaurant Finder</h1>
 			<LoginForm
 				email={email}

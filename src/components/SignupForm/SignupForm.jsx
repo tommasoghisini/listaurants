@@ -1,12 +1,19 @@
-import React from 'react';
-import './SignupForm.css';
+import React from "react";
+import "./SignupForm.css";
 
 function Signup() {
-  return (
-    <div className='signup'>
-      <p>Don't have an account yet? <a href="#" className='signup-link'>Sign up now</a></p>
-    </div>
-  );
+	return (
+		<div className="signup">
+			<p>
+				Don't have an account yet?{" "}
+				<a
+					href="/signup"
+					className="signup-link">
+					Sign up now
+				</a>
+			</p>
+		</div>
+	);
 }
 
 export default Signup;
