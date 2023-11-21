@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import "./SignupNamePage.css";
 import Input from "../../../components/shared/Input/Input";
 import Button from "../../../components/shared/Button/Button";
+import TopbarSignup from "../../../components/TopbarSignup/TopbarSignup";
 
 const SignupNamePage = () => {
 	const [name, setName] = useState("");
@@ -24,13 +25,10 @@ const SignupNamePage = () => {
 	return (
 		<div className="signup-page">
 			<div>
-				<div className="signup-top-bar">
-					<img
-						src="./icons/back.svg"
-						alt="back"
-						style={{ height: "15px" }}
-					/>
-				</div>
+				<TopbarSignup
+					prevProgress={0.4}
+					progressMax={0.6}
+				/>
 
 				<h1 className="title">What's your preferred username?</h1>
 				<div className="input-field">
