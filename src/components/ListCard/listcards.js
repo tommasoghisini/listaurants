@@ -1,7 +1,5 @@
 import React from "react";
 import "./listcards.css";
-import testImage1 from "../../assets/images/noma.jpeg";
-import testImage2 from "../../assets/images/durum.jpeg";
 
 const personalLists = [
   ["Durum Bar", "Doma", "Friheden", "Reffen", "Hart", "Bird"],
@@ -28,6 +26,7 @@ function ListCards() {
             title={title}
             text={truncatedText.join(", ")}
             imageSource={images[index]}
+            //style={{ margin: "0 10px" }} // Add margin to each card
           />
         );
       })}

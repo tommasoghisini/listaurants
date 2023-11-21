@@ -20,9 +20,7 @@ body {
 }
 
 .profile-picture {
-  margin-bottom: 5px;
-
-  /*possible styles for the profilepicture*/
+  margin-bottom: 10px;
 }
 
 .profile-name {
