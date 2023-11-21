@@ -8,13 +8,13 @@ function TopBar({ pageName }) {
 		<div className="top-bar">
 			<div className="top-bar-name">{pageName}</div>
 			<img
-				src="/notification.svg"
+				src="./icons/notification.svg"
 				onClick={() => {
 					navigate("/notification");
 				}}
 				alt="notification"
 				style={{ height: "20px" }}
-				class="top-bar-notification"
+				className="top-bar-notification"
 			/>
 		</div>
 	);

@@ -1,0 +1,19 @@
+.signup-page {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	padding: 7% 6%;
+	height: 100vh;
+}
+
+.title {
+	font-size: 32px;
+	font-weight: bold;
+	text-align: left;
+	margin-bottom: 40px;
+	margin-top: 40px;
+}
+
+.error-message {
+	color: red;
+}

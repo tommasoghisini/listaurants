@@ -7,7 +7,7 @@
     "category_3": "Vegan",
     "postText": "I think this was a cool place. There is a variety of vegan options! ",
     "restaurantAddress": "Strandgade 93, 1401 København, Denmark",
-    "imgSrcUser": "./profilePic2.png",
-    "imgSrcCommenter":"./profilePic.png",
-    "imgSrcRestaurant": "./restaurant1.jpeg"
+    "imgSrcUser": "./images/profilePic2.png",
+    "imgSrcCommenter":"./images/profilePic.png",
+    "imgSrcRestaurant": "./images/restaurant1.jpeg"
 }
