@@ -1,7 +1,7 @@
 import React from "react";
 import "./ButtonShort.css";
 
-const Button = ({ text, onClick }) => {
+const ButtonSh = ({ text, onClick }) => {
   return (
     <button className="button-short" onClick={onClick}>
       {text}
@@ -9,4 +9,4 @@ const Button = ({ text, onClick }) => {
   );
 };
 
-export default Button;
+export default ButtonSh;

@@ -1,8 +1,9 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import ListCards from "../../components/ListCard/listcards";
-import RoundProfilePicture from "../../components/ProfilePicture/ProfilePicture";
-import Button from "../../components/shared/ButtonShort/ButtonShort";
+import ProfilePicture from "../../components/ProfilePicture/ProfilePicture";
+import ButtonSh from "../../components/shared/ButtonShort/ButtonShort";
+import TopBar from "../../components/shared/TopBar/TopBar";
 import "./ProfilePage.css";
 
 function ProfilePage() {
@@ -13,29 +14,21 @@ function ProfilePage() {
   };
 
   const handleFriendsClick = () => {
-    navigate("/friends");
+    navigate("/FriendsPage");
   };
 
   return (
     <div className="container">
-      <h1 className="page-title">Profile</h1>
+      <TopBar pageName="Profile" />
       <div className="profile-section">
         <div className="profile-picture">
-          <RoundProfilePicture />
+          <ProfilePicture />
         </div>
         <p className="profile-name">Alice</p>
       </div>
       <div className="buttons-container">
-        <Button
-          text="Edit Profile"
-          onClick={handleEditProfileClick}
-          className="button"
-        />
-        <Button
-          text="30 Friends"
-          onClick={handleFriendsClick}
-          className="button"
-        />
+        <ButtonSh text="Edit Profile" onClick={handleEditProfileClick} />
+        <ButtonSh text="30 Friends" onClick={handleFriendsClick} />
       </div>
       <div className="cards-container">
         <ListCards className="cards" />
