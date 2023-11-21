@@ -46,6 +46,10 @@ body {
   background-color: #e4ccff;
 }
 
+.button.pressed {
+  background-color: #a080e0; /* Change to the color you want when pressed */
+}
+
 .cards-container {
   display: flex;
   justify-content: center;
