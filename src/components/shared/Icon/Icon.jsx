@@ -1,9 +1,10 @@
-import React from 'react';
+import React from "react";
 
-const Icon = ({ icon, fill }) => (
-  <svg style={{ fill: fill }}>
-    {icon}
-  </svg>
+const Icon = ({ src }) => (
+	<img
+		src={src}
+		alt="icon"
+	/>
 );
 
 export default Icon;

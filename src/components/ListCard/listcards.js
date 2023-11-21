@@ -6,7 +6,7 @@ const personalLists = [
   ["Llama", "Apollo Bar", "Safari", "Osteria 16"],
 ];
 
-const images = ["/noma.jpeg", "/durum.jpeg"];
+const images = ["/images/noma.jpeg", "/images/durum.jpeg"];
 
 function ListCards() {
   const titles = ["💖 Favourites", "🌠 Wishlist"];
@@ -26,7 +26,6 @@ function ListCards() {
             title={title}
             text={truncatedText.join(", ")}
             imageSource={images[index]}
-            //style={{ margin: "0 10px" }} // Add margin to each card
           />
         );
       })}

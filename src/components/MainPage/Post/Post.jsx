@@ -14,22 +14,22 @@ function Post({
 	restaurantAddress,
 }) {
 	return (
-		<div class="post">
-			<div class="post-header">
+		<div className="post">
+			<div className="post-header">
 				<ProfilePicture
 					imgSrc={imgSrcUser}
 					height="40px"
 				/>
-				<div class="post-header-discription">
-					<div class="post-title">
+				<div className="post-header-discription">
+					<div className="post-title">
 						{userName} added <strong>{restaurantName}</strong> to their{" "}
 						<strong>{listName}</strong>
 					</div>
 					<Categories categories={categories}></Categories>
 				</div>
 			</div>
-			<div class="post-content">
-				<div class="post-text">{postText}</div>
+			<div className="post-content">
+				<div className="post-text">{postText}</div>
 				<div className="post-image-container">
 					<img
 						src={imgSrcRestaurant}
@@ -44,7 +44,7 @@ function Post({
 					</div>
 				</div>
 				<LikeCommentSave />
-				<div class="comment-section">
+				<div className="comment-section">
 					<ProfilePicture
 						imgSrc={imgSrcCommenter}
 						height="30px"
@@ -52,7 +52,7 @@ function Post({
 					<input
 						type="text"
 						placeholder="What do you think?"
-						class="comment-input"
+						className="comment-input"
 					/>
 				</div>
 			</div>
@@ -62,9 +62,9 @@ function Post({
 
 function Categories({ categories }) {
 	return (
-		<div class="categories">
+		<div className="categories">
 			{categories.map((category) => {
-				return <div class="category">{category}</div>;
+				return <div className="category">{category}</div>;
 			})}
 		</div>
 	);

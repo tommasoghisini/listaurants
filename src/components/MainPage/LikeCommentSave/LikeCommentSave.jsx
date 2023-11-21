@@ -1,29 +1,29 @@
 import "./LikeCommentSave.css";
 function LikeCommentSave() {
 	return (
-		<div class="button-container">
-			<div class="like-button">
-				<div class="like-text">Like</div>
+		<div className="button-container">
+			<div className="like-button">
+				<div className="like-text">Like</div>
 				<img
-					src="/like.svg"
+					src="/icons/like.svg"
 					alt="like"
-					class="like-image"
+					className="like-image"
 				/>
 			</div>
-			<div class="like-button">
-				<div class="like-text">Comment</div>
+			<div className="like-button">
+				<div className="like-text">Comment</div>
 				<img
-					src="/comment.svg"
+					src="/icons/comment.svg"
 					alt="like"
-					class="comment-image"
+					className="comment-image"
 				/>
 			</div>
-			<div class="like-button">
-				<div class="like-text">Save</div>
+			<div className="like-button">
+				<div className="like-text">Save</div>
 				<img
-					src="/save.svg"
+					src="/icons/save.svg"
 					alt="like"
-					class="like-image"
+					className="like-image"
 				/>
 			</div>
 		</div>

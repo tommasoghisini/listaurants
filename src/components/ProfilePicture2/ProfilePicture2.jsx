@@ -1,5 +1,5 @@
 import React from "react";
-import AliceImage from "../../assets/images/Alice.jpeg";
+import AliceImage from "../../../public/images/Alice.jpeg";
 import "./ProfilePicture2.css";
 
 function ProfilePicture2() {
