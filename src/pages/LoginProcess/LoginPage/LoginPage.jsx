@@ -1,12 +1,11 @@
 import React, { useState } from "react";
 import Parse from 'parse/dist/parse.min.js';
+import Button from "../../../components/shared/Button/Button";
 import { useNavigate } from "react-router-dom";
-
-import Button from "../../components/shared/Button/Button";
-import LoginForm from "../../components/LoginForm/LoginForm";
-import ForgotPassword from "../../components/ForgotPassword/ForgotPassword";
-import Signup from "../../components/SignupForm/SignupForm";
+import ForgotPassword from "../../../components/ForgotPassword/ForgotPassword";
+import Signup from "../../../components/SignupForm/SignupForm";
 import "./LoginPage.css";
+import LoginForm from "../../../components/LoginForm/LoginForm";
 
 function LoginPage() {
 	const [email, setEmail] = useState("");

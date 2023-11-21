@@ -14,7 +14,7 @@ function TopBar({ pageName }) {
 				}}
 				alt="notification"
 				style={{ height: "20px" }}
-				class="top-bar-notification"
+				className="top-bar-notification"
 			/>
 		</div>
 	);
