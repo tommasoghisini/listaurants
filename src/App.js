@@ -39,7 +39,7 @@ function App() {
 		<Fragment>
 			<Routes>
 				<Route path="/" element={<LoginPage />} />
-				<Route path="/signup" element={<SignUpPage />} />
+				<Route path="/signup" element={<SignupPage />} />
 				<Route path="/home" element={<MainPage />} />
 				<Route path="/notification" element={<NotificationPage />} />
 				<Route path="/profile" element={<ProfilePage />} />
