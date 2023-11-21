@@ -1,6 +1,7 @@
 import CategoryButton from "../../components/shared/CategoryButton/CategoryButton";
 import Button from "../../components/shared/Button/Button";
 import "./AddRestaurantPage1.css";
+import { useNavigate } from "react-router-dom";
 
 const titles = ["Wishlist", "Favourites"];
 
@@ -9,6 +10,14 @@ const color_choosen = "var(--primary-color)";
 
 
 function AddRestaurantPage1() {
+
+  const navigate = useNavigate();
+
+  const handleNextPage = () => {
+		navigate("p2");
+	};
+
+
   return (
     <div className="add-restaurant-page">
       <div className="add-restaurant-fields">
@@ -63,7 +72,7 @@ function AddRestaurantPage1() {
         </form>
 
         <div className="add-restaurant-button">
-          <Button text="Next" />
+          <Button text="Next" onClick={handleNextPage} />
         </div>
       </div>
     </div>
