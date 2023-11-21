@@ -11,10 +11,14 @@ import SignupNamePage from "./pages/LoginProcess/SignupNamePage/SignupNamePage";
 
 import MainPage from "./pages/MainPage/MainPage";
 import NotificationPage from "./pages/NotificationPage/NotificationPage";
+
 import AddProfilePicture from "./pages/LoginProcess/AddProfilePicture/AddProfilePicture";
 import AddedProfilePicture from "./pages/LoginProcess/AddedProfilePicture/AddedProfilePicture";
 import BottomNavBar from "./components/NavBar/NavBar";
-
+import AddRestaurantPage1 from "./pages/AddRestaurantPage1/AddRestaurantPage1";
+import AddRestaurantPage2 from "./pages/AddRestaurantPage2/AddRestaurantPage2";
+import AddRestaurantPage3 from "./pages/AddRestaurantPage3/AddRestaurantPage3";
+       
 const PARSE_APPLICATION_ID = 'LQnwm0hvEVNo9UTc5XH0xryIdfqgKCDelr6ETCSJ';
 const PARSE_HOST_URL = 'https://parseapi.back4app.com/';
 const PARSE_JAVASCRIPT_KEY = 'ci5dv6jVNkOpT6A2O57lA9fTZK0c8HMWCEtV2eLM';
@@ -47,10 +51,14 @@ function App() {
 				<Route path="/signup-name" element={<SignupNamePage />}></Route>
 				<Route path="/add-picture/:username" element={<AddProfilePicture />} />
 				<Route path="/added-picture/:username" element={<AddedProfilePicture />}></Route>
+        <Route path="/add" element={<AddRestaurantPage1 />} />
+		<Route path="/add/p2" element={<AddRestaurantPage2/>} />
+		<Route path="/add/p2/done" element={<AddRestaurantPage3/>} />
 			</Routes>
 			{!noNavBarPaths.includes(basePath) && location.pathname !== "/signup" && <BottomNavBar />}
 		</Fragment>
 	);
+
 }
 
 export default App;
