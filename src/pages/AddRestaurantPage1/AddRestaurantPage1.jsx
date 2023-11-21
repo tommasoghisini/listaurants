@@ -2,7 +2,7 @@ import CategoryButton from "../../components/shared/CategoryButton/CategoryButto
 import Button from "../../components/shared/Button/Button";
 import "./AddRestaurantPage1.css";
 
-const titles = ["🌠 Wishlist", "💖 Favourites"];
+const titles = ["Wishlist", "Favourites"];
 
 const color_choosen = "var(--primary-color)";
 
