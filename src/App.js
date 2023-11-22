@@ -5,6 +5,8 @@ import Parse from "parse/dist/parse.min.js";
 import "./App.css";
 import LoginPage from "./pages/LoginProcess/LoginPage/LoginPage";
 import ProfilePage from "./pages/ProfilePage/ProfilePage";
+import FriendsPage from "./pages/FriendsPage/FriendsPage";
+import EditProfilePage from "./pages/EditProfilePage/EditProfilePage";
 import SignupPage from "./pages/LoginProcess/SignupPage/SignupPage";
 import VerificationPage from "./pages/LoginProcess/VerificationPage/VerificationPage";
 import SignupNamePage from "./pages/LoginProcess/SignupNamePage/SignupNamePage";
@@ -46,6 +48,8 @@ function App() {
         <Route path="/home" element={<MainPage />} />
         <Route path="/notification" element={<NotificationPage />} />
         <Route path="/profile" element={<ProfilePage />} />
+        <Route path="/friendspage" element={<FriendsPage />} />
+        <Route path="/editprofilepage" element={<EditProfilePage />} />
         <Route path="/verification" element={<VerificationPage />} />
         <Route path="/signup-name" element={<SignupNamePage />}></Route>
         <Route path="/add-picture/:username" element={<AddProfilePicture />} />

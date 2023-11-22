@@ -9,41 +9,71 @@ import BackButton from "../../components/shared/GoBackButton/GoBackButton";
 
 function ProfilePage() {
   const navigate = useNavigate();
-
   const [editProfilePressed, setEditProfilePressed] = useState(false);
-
   const [friendsPressed, setFriendsPressed] = useState(false);
+  const [editMode, setEditMode] = useState(false);
+  const [name, setName] = useState("Alice");
 
-  const handleEditProfile = () => {
-    navigate("/EditProfilePage");
-    /*setEditProfilePressed(true);*/
+  const handleEditProfileClick = () => {
+    navigate("/editprofilepage");
+    setEditProfilePressed(true);
   };
 
-  const handleFriendsPage = () => {
-    navigate("/FriendsPage");
-    /*setFriendsPressed(true);*/
+  const handleFriendsClick = () => {
+    navigate("/friendspage");
+    setFriendsPressed(true);
+  };
+
+  const handleNameChange = (e) => {
+    setName(e.target.value); // Update name as user types
+  };
+
+  const handleNameSubmit = () => {
+    setEditMode(false);
+    // where is server, where do i write name change?
   };
 
   return (
     <div className="container">
       <TopBar pageName="Profile" />
       <BackButton />
+      {/*<div className="profile-section">*/}
+      {/*  <div className="profile-picture">*/}
+      {/*    <ProfilePicture2 />*/}
+      {/*  </div>*/}
+      {/*  <p className="profile-name">Alice</p>*/}
+      {/*</div>*/}
       <div className="profile-section">
         <div className="profile-picture">
           <ProfilePicture2 />
         </div>
-        <p className="profile-name">Alice</p>
+        {editMode ? (
+          <div className="profile-name-edit">
+            <input type="text" value={name} onChange={handleNameChange} />
+            <button onClick={handleNameSubmit}>Submit</button>
+          </div>
+        ) : (
+          <p className="profile-name">
+            {name}
+            <img
+              src="https://www.svgrepo.com/show/75500/edit-button.svg"
+              alt="Edit"
+              onClick={() => setEditMode(true)}
+              className="edit-icon"
+            />
+          </p>
+        )}
       </div>
       <div className="buttons-container">
         <ButtonSh
           text="Edit Profile"
-          onClick={handleEditProfile}
-          /*className={editProfilePressed ? "button pressed" : "button"}*/
+          onClick={handleEditProfileClick}
+          className={editProfilePressed ? "button pressed" : "button"}
         />
         <ButtonSh
           text="30 Friends"
-          onClick={handleFriendsPage}
-          /*className={friendsPressed ? "button pressed" : "button"}*/
+          onClick={handleFriendsClick}
+          className={friendsPressed ? "button pressed" : "button"}
         />
       </div>
       <div className="cards-container">
