@@ -1,0 +1,16 @@
+.back-button-container {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+
+.back-button {
+  background: greenyellow;
+  border: none;
+  cursor: pointer;
+}
+
+.back-button img {
+  width: 16px;
+  height: auto;
+}
