@@ -12,7 +12,7 @@ function ProfilePage() {
   const [editProfilePressed, setEditProfilePressed] = useState(false);
   const [friendsPressed, setFriendsPressed] = useState(false);
   const [editMode, setEditMode] = useState(false);
-  const [name, setName] = useState("Alice");
+  
 
   const handleEditProfileClick = () => {
     navigate("/editprofilepage");
@@ -22,15 +22,6 @@ function ProfilePage() {
   const handleFriendsClick = () => {
     navigate("/friendspage");
     setFriendsPressed(true);
-  };
-
-  const handleNameChange = (e) => {
-    setName(e.target.value); // Update name as user types
-  };
-
-  const handleNameSubmit = () => {
-    setEditMode(false);
-    // where is server, where do i write name change?
   };
 
   return (
@@ -47,22 +38,8 @@ function ProfilePage() {
         <div className="profile-picture">
           <ProfilePicture2 />
         </div>
-        {editMode ? (
-          <div className="profile-name-edit">
-            <input type="text" value={name} onChange={handleNameChange} />
-            <button onClick={handleNameSubmit}>Submit</button>
-          </div>
-        ) : (
-          <p className="profile-name">
-            {name}
-            <img
-              src="https://www.svgrepo.com/show/75500/edit-button.svg"
-              alt="Edit"
-              onClick={() => setEditMode(true)}
-              className="edit-icon"
-            />
-          </p>
-        )}
+        <p className="profile-name">Alice</p> 
+        
       </div>
       <div className="buttons-container">
         <ButtonSh
