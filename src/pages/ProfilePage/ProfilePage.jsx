@@ -25,7 +25,7 @@ function ProfilePage() {
   };
 
   return (
-    <div className="container">
+    <div className="container-sana">
       <TopBar pageName="Profile" />
       <BackButton />
       {/*<div className="profile-section">*/}

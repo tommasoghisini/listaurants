@@ -53,10 +53,7 @@ function App() {
         <Route path="/verification" element={<VerificationPage />} />
         <Route path="/signup-name" element={<SignupNamePage />}></Route>
         <Route path="/add-picture/:username" element={<AddProfilePicture />} />
-        <Route
-          path="/added-picture/:username"
-          element={<AddedProfilePicture />}
-        ></Route>
+        <Route path="/added-picture/:username" element={<AddedProfilePicture />} />
         <Route path="/add" element={<AddRestaurantPage1 />} />
         <Route path="/add/p2" element={<AddRestaurantPage2 />} />
         <Route path="/add/p2/done" element={<AddRestaurantPage3 />} />
