@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import "./SignupPage.css";
 import Input from "../../../components/shared/Input/Input";
 import Button from "../../../components/shared/Button/Button";
+import TopbarSignup from "../../../components/TopbarSignup/TopbarSignup";
 
 const SignupPage = () => {
 	const [email, setEmail] = useState("");
@@ -29,14 +30,10 @@ const SignupPage = () => {
 	return (
 		<div className="signup-page">
 			<div>
-				<div className="signup-top-bar">
-					<img
-						src="./icons/close.svg"
-						alt="back"
-						style={{ height: "15px" }}
-					/>
-				</div>
-
+				<TopbarSignup
+					prevProgress={0}
+					progressMax={0.2}
+				/>
 				<h1 className="title">Create your account</h1>
 				<div className="input-field">
 					<Input
