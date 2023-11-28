@@ -48,7 +48,7 @@ function App() {
 				<Route path="/add-picture/:username" element={<AddProfilePicture />} />
 				<Route path="/added-picture/:username" element={<AddedProfilePicture />}></Route>
 			</Routes>
-			{!noNavBarPaths.includes(basePath) && location.pathname !== "/signup" && <BottomNavBar />}
+			{!noNavBarPaths.includes(basePath) && <BottomNavBar />}
 		</Fragment>
 	);
 }
