@@ -41,27 +41,29 @@ function App() {
   const basePath = location.pathname.split("/")[1];
 
   return (
-    <Fragment>
-      <Routes>
-        <Route path="/" element={<LoginPage />} />
-        <Route path="/signup" element={<SignupPage />} />
-        <Route path="/home" element={<MainPage />} />
-        <Route path="/notification" element={<NotificationPage />} />
-        <Route path="/profile" element={<ProfilePage />} />
-        <Route path="/friendspage" element={<FriendsPage />} />
-        <Route path="/editprofilepage" element={<EditProfilePage />} />
-        <Route path="/verification" element={<VerificationPage />} />
-        <Route path="/signup-name" element={<SignupNamePage />}></Route>
-        <Route path="/add-picture/:username" element={<AddProfilePicture />} />
-        <Route path="/added-picture/:username" element={<AddedProfilePicture />} />
-        <Route path="/add" element={<AddRestaurantPage1 />} />
-        <Route path="/add/p2" element={<AddRestaurantPage2 />} />
-        <Route path="/add/p2/done" element={<AddRestaurantPage3 />} />
-      </Routes>
+    <div className="app-container">
+      <div className="content">
+        <Routes>
+          <Route path="/" element={<LoginPage />} />
+          <Route path="/signup" element={<SignupPage />} />
+          <Route path="/home" element={<MainPage />} />
+          <Route path="/notification" element={<NotificationPage />} />
+          <Route path="/profile" element={<ProfilePage />} />
+          <Route path="/friendspage" element={<FriendsPage />} />
+          <Route path="/editprofilepage" element={<EditProfilePage />} />
+          <Route path="/verification" element={<VerificationPage />} />
+          <Route path="/signup-name" element={<SignupNamePage />}></Route>
+          <Route path="/add-picture/:username" element={<AddProfilePicture />} />
+          <Route path="/added-picture/:username" element={<AddedProfilePicture />} />
+          <Route path="/add" element={<AddRestaurantPage1 />} />
+          <Route path="/add/p2" element={<AddRestaurantPage2 />} />
+          <Route path="/add/p2/done" element={<AddRestaurantPage3 />} />
+        </Routes>
+      </div>
       {!noNavBarPaths.includes(basePath) && location.pathname !== "/signup" && (
         <BottomNavBar />
       )}
-    </Fragment>
+    </div>
   );
 }
 
