@@ -63,8 +63,14 @@ function Post({
 function Categories({ categories }) {
 	return (
 		<div className="categories">
-			{categories.map((category) => {
-				return <div className="category">{category}</div>;
+			{categories.map((category, index) => {
+				return (
+					<div
+						key={index}
+						className="category">
+						{category}
+					</div>
+				);
 			})}
 		</div>
 	);

@@ -6,8 +6,6 @@ import { useEffect, useState } from "react";
 import Parse from "parse/dist/parse.min.js";
 
 function MainPage() {
-	console.log(postData);
-
 	const userName = postData["userName"];
 	const categories = [
 		postData["category_1"],
@@ -16,7 +14,7 @@ function MainPage() {
 	];
 	const imgSrcUser = postData["imgSrcUser"];
 	const imgSrcCommenter = postData["imgSrcCommenter"];
-	const imgSrcRestaurant = postData["imgSrcRestaurant"];
+	const defaultImgSrcRestaurant = "/icons/defaultImage.svg";
 
 	const [posts, setPosts] = useState([]);
 
@@ -40,7 +38,7 @@ function MainPage() {
 			);
 
 			const posts = userPosts.map((userPost) => {
-				let imgSrcRestaurant = postData["imgSrcRestaurant"];
+				let imgSrcRestaurant = defaultImgSrcRestaurant;
 				try {
 					imgSrcRestaurant = userPost.get("image").url();
 				} catch (error) {
@@ -51,9 +49,13 @@ function MainPage() {
 				const postText = userPost.get("text");
 				const restaurantName = userPost.get("restaurantName");
 				const restaurantAddress = userPost.get("restaurantAddress");
+				const time = userPost.get("updatedAt");
 
-				return (
+				return [
+					time,
+
 					<Post
+						key={userPost.id}
 						imgSrcUser={imgSrcUser}
 						imgSrcRestaurant={imgSrcRestaurant}
 						imgSrcCommenter={imgSrcCommenter}
@@ -63,8 +65,8 @@ function MainPage() {
 						postText={postText}
 						restaurantName={restaurantName}
 						restaurantAddress={restaurantAddress}
-					/>
-				);
+					/>,
+				];
 			});
 			setPosts(posts);
 		};
@@ -76,10 +78,12 @@ function MainPage() {
 			<div className="main-page">
 				<TopBar pageName={"Home"} />
 				<div className="main-page-posts">
-					{posts.map((post) => {
-						console.log(1);
-						return post;
-					})}
+					{posts
+						// Sort posts by time
+						.sort((a, b) => b[0] - a[0])
+						.map((post) => {
+							return post[1];
+						})}
 				</div>
 			</div>
 		</>
