@@ -50,12 +50,13 @@ function MainPage() {
 				const restaurantName = userPost.get("restaurantName");
 				const restaurantAddress = userPost.get("restaurantAddress");
 				const time = userPost.get("updatedAt");
-
+				const id = userPost.id;
+				console.log(id);
 				return [
 					time,
 
 					<Post
-						key={userPost.id}
+						id={id}
 						imgSrcUser={imgSrcUser}
 						imgSrcRestaurant={imgSrcRestaurant}
 						imgSrcCommenter={imgSrcCommenter}

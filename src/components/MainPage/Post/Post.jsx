@@ -1,8 +1,11 @@
+import { initialize } from "parse";
 import ProfilePicture from "../../shared/ProfilePicture/ProfilePicture";
 import LikeCommentSave from "../LikeCommentSave/LikeCommentSave";
 import "./Post.css";
+import { useState, useEffect } from "react";
 
 function Post({
+	id,
 	imgSrcUser,
 	imgSrcRestaurant,
 	imgSrcCommenter,
@@ -13,6 +16,22 @@ function Post({
 	restaurantName,
 	restaurantAddress,
 }) {
+	// Initialize like state from localStorage
+	let initialLike = localStorage.getItem(`likeStatus-${id}`);
+	if (initialLike === null) {
+		localStorage.setItem(`likeStatus-${id}`, "false");
+		initialLike = false;
+	} else {
+		initialLike = initialLike === "true";
+	}
+	const [like, setLike] = useState(initialLike);
+	// Update localStorage whenever the like state changes
+	useEffect(() => {
+		localStorage.setItem(`likeStatus-${id}`, like);
+	}, [like]);
+
+	const [save, setSave] = useState(false);
+
 	return (
 		<div className="post">
 			<div className="post-header">
@@ -43,7 +62,12 @@ function Post({
 						</div>
 					</div>
 				</div>
-				<LikeCommentSave />
+				<LikeCommentSave
+					like={like}
+					setLike={setLike}
+					save={save}
+					setSave={setSave}
+				/>
 				<div className="comment-section">
 					<ProfilePicture
 						imgSrc={imgSrcCommenter}

@@ -1,11 +1,20 @@
 import "./LikeCommentSave.css";
-function LikeCommentSave() {
+
+function LikeCommentSave({ like, setLike, save, setSave }) {
 	return (
 		<div className="button-container">
-			<div className="like-button">
-				<div className="like-text">Like</div>
+			<div
+				className="like-button"
+				onClick={() => {
+					setLike(!like);
+				}}>
+				<div
+					className="like-text"
+					style={{ color: like ? "#9746FF" : "initial" }}>
+					Like
+				</div>
 				<img
-					src="/icons/like.svg"
+					src={like ? "/icons/like_clicked.svg" : "/icons/like.svg"}
 					alt="like"
 					className="like-image"
 				/>
@@ -18,10 +27,18 @@ function LikeCommentSave() {
 					className="comment-image"
 				/>
 			</div>
-			<div className="like-button">
-				<div className="like-text">Save</div>
+			<div
+				className="like-button"
+				onClick={() => {
+					setSave(!save);
+				}}>
+				<div
+					className="like-text"
+					style={{ color: save ? "#9746FF" : "initial" }}>
+					Save
+				</div>
 				<img
-					src="/icons/save.svg"
+					src={save ? "/icons/save_clicked.svg" : "/icons/save.svg"}
 					alt="like"
 					className="like-image"
 				/>
