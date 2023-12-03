@@ -1,55 +1,84 @@
 import React from "react";
+import Parse from "parse/dist/parse.min.js";
 import "./friendcards.css";
 
-function FriendCard() {
-	const titles = ["Bob Dylan", "Cate Blanchett"];
-	const texts = ["1 friend", "2 friends"];
-
-	return (
-		<div>
-			{titles.map((title, index) => (
-				<Card
-					key={index}
-					title={title}
-					text={texts[index]}
-				/>
-			))}
-		</div>
-	);
+function FriendCards({
+  filteredUsers,
+  friendNames,
+  addedNames,
+  currentUserName,
+}) {
+  return (
+    <div>
+      {filteredUsers.map((user, index) => (
+        <Card
+          key={index}
+          user={user}
+          currentUserName={currentUserName}
+          isFriend={(friendNames ?? []).includes(user)}
+          isAdded={(addedNames ?? []).includes(user)}
+        />
+      ))}
+    </div>
+  );
 }
 
-function Card({ title, text }) {
-	const handleRemove = () => {
-		// Implement the logic for removing the friend
-		console.log(`Removing friend: ${title}`);
-	};
+function Card({ user, isFriend, currentUserName, isAdded }) {
+  const handleAction = async () => {
+    if (isFriend) {
+      console.log('Trying to remove friend')
 
-	return (
-		<div className="friend-card">
-			<div className="friend-content">
-				<div className="image-container">
-					<div className="profile-image-border">
-						<div className="profile-image-wrapper">
-							<img
-								src={"/images/bob.jpeg"}
-								alt="Profile"
-								className="profile-image"
-							/>
-						</div>
-					</div>
-				</div>
-				<div className="text-container">
-					<h1 className="friend-name">{title}</h1>
-					<h1 className="friend-text">{text}</h1>
-				</div>
-				<button
-					className="remove-button"
-					onClick={handleRemove}>
-					Remove
-				</button>
-			</div>
-		</div>
-	);
+
+    } else {
+      console.log(`Adding friend: ${user}`);
+      try {
+        const Friendship = Parse.Object.extend("Friendship");
+        const newFriendship = new Friendship();
+
+        newFriendship.set("user1", {
+          __type: "Pointer",
+          className: "_User",
+          objectId: currentUserName,
+        });
+        newFriendship.set("user2", {
+          __type: "Pointer",
+          className: "_User",
+          objectId: user,
+        });
+        newFriendship.set("status", "Pending");
+
+        const result = await newFriendship.save();
+
+        console.log("Friendship added successfully:", result);
+      } catch (error) {
+        console.error("Error adding friend:", error);
+      }
+    }
+  };
+
+  return (
+    <div className="friend-card">
+      <div className="friend-content">
+        <div className="image-container">
+          <div className="profile-image-border">
+            <div className="profile-image-wrapper">
+              <img
+                src={"images/bob.jpeg"}
+                alt="Profile"
+                className="profile-image"
+              />
+            </div>
+          </div>
+        </div>
+        <div className="text-container">
+          <h1 className="friend-name">{user}</h1>
+        </div>
+        <button className="action-button" onClick={handleAction}>
+          {isAdded ? "Added" : isFriend ? "Remove" : "Add"}
+        </button>
+      </div>
+    </div>
+  );
 }
 
-export default FriendCard;
+export default FriendCards;
