@@ -39,20 +39,11 @@ function App() {
 
 	const [isAuthenticated, setIsAuthenticated] = useState(false);
 
-	useEffect(() => {
-		const checkUser = async () => {
-			const currentUser = await Parse.User.current();
-			setIsAuthenticated(currentUser !== null);
-		};
-
-		checkUser();
-	}, []);
-
 	return (
 		<AuthContext.Provider value={isAuthenticated}>
 			<Fragment>
 				<Routes>
-					<Route path="/" element={<LoginPage />} />
+					<Route path="/" element={<LoginPage setIsAuthenticated={setIsAuthenticated}/>} />
 					<Route path="/signup" element={<SignupPage />} />
 					<Route path="/home" element={<ProtectedRoute><MainPage /></ProtectedRoute>} />
 					<Route path="/notification" element={<NotificationPage />} />
