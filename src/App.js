@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useState, useEffect } from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
 import Parse from "parse/dist/parse.min.js";
 
@@ -28,41 +28,88 @@ Parse.initialize(PARSE_APPLICATION_ID, PARSE_JAVASCRIPT_KEY);
 Parse.serverURL = PARSE_HOST_URL;
 
 function App() {
-  const location = useLocation();
-  const noNavBarPaths = [
-    "",
-    "add-picture",
-    "added-picture",
-    "signup",
-    "verification",
-    "signup-name",
-  ];
+	const location = useLocation();
+	const noNavBarPaths = [
+		"",
+		"add-picture",
+		"added-picture",
+		"signup",
+		"verification",
+		"signup-name",
+	];
+	const [isNavbarVisible, setIsNavbarVisible] = useState(true);
+	// Listen for changes in the route
+	useEffect(() => {
+		// Reset navbar visibility when the route changes
+		setIsNavbarVisible(true);
+	}, [location.pathname]);
 
-  const basePath = location.pathname.split("/")[1];
+	const basePath = location.pathname.split("/")[1];
 
-  return (
-    <Fragment>
-      <Routes>
-        <Route path="/" element={<LoginPage />} />
-        <Route path="/signup" element={<SignupPage />} />
-        <Route path="/home" element={<MainPage />} />
-        <Route path="/notification" element={<NotificationPage />} />
-        <Route path="/profile" element={<ProfilePage />} />
-        <Route path="/friendspage" element={<FriendsPage />} />
-        <Route path="/editprofilepage" element={<EditProfilePage />} />
-        <Route path="/verification" element={<VerificationPage />} />
-        <Route path="/signup-name" element={<SignupNamePage />}></Route>
-        <Route path="/add-picture/:username" element={<AddProfilePicture />} />
-        <Route path="/added-picture/:username" element={<AddedProfilePicture />} />
-        <Route path="/add" element={<AddRestaurantPage1 />} />
-        <Route path="/add/p2" element={<AddRestaurantPage2 />} />
-        <Route path="/add/p2/done" element={<AddRestaurantPage3 />} />
-      </Routes>
-      {!noNavBarPaths.includes(basePath) && location.pathname !== "/signup" && (
-        <BottomNavBar />
-      )}
-    </Fragment>
-  );
+	return (
+		<Fragment>
+			<Routes>
+				<Route
+					path="/"
+					element={<LoginPage />}
+				/>
+				<Route
+					path="/signup"
+					element={<SignupPage />}
+				/>
+				<Route
+					path="/home"
+					element={<MainPage setIsNavbarVisible={setIsNavbarVisible} />}
+				/>
+				<Route
+					path="/notification"
+					element={<NotificationPage />}
+				/>
+				<Route
+					path="/profile"
+					element={<ProfilePage />}
+				/>
+				<Route
+					path="/friendspage"
+					element={<FriendsPage />}
+				/>
+				<Route
+					path="/editprofilepage"
+					element={<EditProfilePage />}
+				/>
+				<Route
+					path="/verification"
+					element={<VerificationPage />}
+				/>
+				<Route
+					path="/signup-name"
+					element={<SignupNamePage />}></Route>
+				<Route
+					path="/add-picture/:username"
+					element={<AddProfilePicture />}
+				/>
+				<Route
+					path="/added-picture/:username"
+					element={<AddedProfilePicture />}
+				/>
+				<Route
+					path="/add"
+					element={<AddRestaurantPage1 />}
+				/>
+				<Route
+					path="/add/p2"
+					element={<AddRestaurantPage2 />}
+				/>
+				<Route
+					path="/add/p2/done"
+					element={<AddRestaurantPage3 />}
+				/>
+			</Routes>
+			{isNavbarVisible &&
+				!noNavBarPaths.includes(basePath) &&
+				location.pathname !== "/signup" && <BottomNavBar />}
+		</Fragment>
+	);
 }
 
 export default App;
