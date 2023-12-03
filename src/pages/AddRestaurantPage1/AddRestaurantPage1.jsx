@@ -18,7 +18,7 @@ function AddRestaurantPage1() {
   const [restaurantComment, setRestaurantComment] = useState("");
 
   const [selectedImage, setSelectedImage] = useState(null);
-  const [selectedRestaurantInfo, setSelectedRestaurantInfo] = useState(null); // Lifted state
+  const [selectedRestaurantInfo, setSelectedRestaurantInfo] = useState(null);
 
 
   useEffect(() => {
@@ -114,7 +114,7 @@ function AddRestaurantPage1() {
       const savedPost = await post.save();
       alert(`Success! Post was successfully added!`);
   
-      navigate("p2/done");
+      navigate("p2");
     } catch (error) {
       alert(`Error! ${error}`);
     }

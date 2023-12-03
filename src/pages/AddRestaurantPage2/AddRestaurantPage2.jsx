@@ -1,6 +1,6 @@
-import "./AddRestaurantPage3.css";
+import "./AddRestaurantPage2.css";
 
-function AddRestaurantPage3() {
+function AddRestaurantPage2() {
 
   return (
     <div className="add-restaurant-page">
@@ -11,4 +11,4 @@ function AddRestaurantPage3() {
   );
 }
 
-export default AddRestaurantPage3;
+export default AddRestaurantPage2;
