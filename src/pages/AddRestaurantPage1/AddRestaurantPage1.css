@@ -1,0 +1,47 @@
+.add-restaurant-page {
+  display: flex;
+  flex-direction: column;
+  height: 90vh;
+  background-color: #f9f3ef;
+  justify-content: space-between;
+}
+
+.add-restaurant-fields {
+  width: 90vw;
+  height: 80vh;
+}
+
+.restaurant-input-field {
+  width: 90vw;
+  padding: 20px;
+  
+}
+
+.restaurant-input-field label {
+  display: block;
+  margin-bottom: 5px;
+  font-family: "Inter", sans-serif;
+  font-size: 1.7vh;
+  color: #000;
+}
+
+.restaurant-input-field input {
+  width: 90vw;
+  padding: 8px;
+  box-sizing: border-box;
+  border-radius: 1.5vw;
+  color: #000;
+}
+
+.restaurant-input-field select {
+  width: 90vw;
+  padding: 8px;
+  box-sizing: border-box;
+  border-radius: 1.5vw;
+}
+
+.add-restaurant-button {
+  width: 90vw;
+  padding: 20px;
+}
+

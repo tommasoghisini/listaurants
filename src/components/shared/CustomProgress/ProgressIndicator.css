@@ -1,0 +1,19 @@
+.container {
+	width: 180px;
+	height: 5px;
+	background-color: #e2e2e2;
+	border-radius: 10px;
+	overflow: hidden; /* This ensures the clipping effect */
+}
+
+.clipper {
+	height: 100%;
+	transition: width 1s ease; /* This gives the animation effect */
+	display: flex; /* Using flex to properly align the child progress bar */
+}
+
+.progress-bar {
+	flex-grow: 1; /* This will make the progress bar fill the clipper */
+	background-color: var(--primary-color); /* primary color of your theme */
+	border-radius: 10px; /* Match the border-radius for smooth edges */
+}

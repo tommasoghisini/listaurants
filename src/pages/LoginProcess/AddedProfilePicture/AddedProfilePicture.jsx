@@ -1,6 +1,7 @@
 import "./AddedProfilePicture.css";
 import { useNavigate, useParams } from "react-router-dom";
 import Button from "../../../components/shared/Button/Button";
+import TopbarSignup from "../../../components/TopbarSignup/TopbarSignup";
 
 const AddedProfilePicture = () => {
 	const navigate = useNavigate();
@@ -15,13 +16,11 @@ const AddedProfilePicture = () => {
 	return (
 		<div className="verification-page">
 			<div>
-				<div className="signup-top-bar">
-					<img
-						src="/icons/back.svg"
-						alt="back"
-						style={{ height: "15px" }}
-					/>
-				</div>
+				<TopbarSignup
+					prevProgress={0.8}
+					progressMax={1}
+				/>
+
 				<h1 className="title">
 					Welcome {username}, your account is all set up!
 				</h1>

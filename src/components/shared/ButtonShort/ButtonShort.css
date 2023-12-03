@@ -1,0 +1,8 @@
+.button-short {
+  width: 231px;
+  height: 56px;
+  border-radius: 10px;
+  font-size: large;
+  background: #e4ccff;
+  font-family: "Inter", sans-serif;
+}
