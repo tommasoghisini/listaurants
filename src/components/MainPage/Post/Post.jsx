@@ -15,6 +15,8 @@ function Post({
 	postText,
 	restaurantName,
 	restaurantAddress,
+	handleSaveClicked,
+	saveClicked,
 }) {
 	// Initialize like state from localStorage
 	let initialLike = localStorage.getItem(`likeStatus-${id}`);
@@ -29,8 +31,6 @@ function Post({
 	useEffect(() => {
 		localStorage.setItem(`likeStatus-${id}`, like);
 	}, [like]);
-
-	const [save, setSave] = useState(false);
 
 	return (
 		<div className="post">
@@ -65,8 +65,8 @@ function Post({
 				<LikeCommentSave
 					like={like}
 					setLike={setLike}
-					save={save}
-					setSave={setSave}
+					saveClicked={saveClicked}
+					handleSaveClicked={handleSaveClicked}
 				/>
 				<div className="comment-section">
 					<ProfilePicture

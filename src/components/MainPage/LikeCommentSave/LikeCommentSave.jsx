@@ -1,6 +1,6 @@
 import "./LikeCommentSave.css";
 
-function LikeCommentSave({ like, setLike, save, setSave }) {
+function LikeCommentSave({ like, setLike, save, handleSaveClicked }) {
 	return (
 		<div className="button-container">
 			<div
@@ -29,9 +29,7 @@ function LikeCommentSave({ like, setLike, save, setSave }) {
 			</div>
 			<div
 				className="like-button"
-				onClick={() => {
-					setSave(!save);
-				}}>
+				onClick={handleSaveClicked}>
 				<div
 					className="like-text"
 					style={{ color: save ? "#9746FF" : "initial" }}>
