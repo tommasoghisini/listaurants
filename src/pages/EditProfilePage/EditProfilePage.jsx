@@ -1,6 +1,7 @@
 import React, { useState } from "react";
+import Parse from "parse/dist/parse.min.js";
 import { useNavigate } from "react-router-dom";
-import ProfilePicture2 from "../../components/ProfilePicture2/ProfilePicture2"; 
+import ProfilePicture2 from "../../components/ProfilePicture2/ProfilePicture2";
 import Button from "../../components/shared/Button/Button";
 import "./EditProfilePage.css";
 import GoBackButton from "../../components/shared/GoBackButton/GoBackButton";
@@ -18,13 +19,30 @@ function EditProfilePage() {
     console.log("Saving edits...");
   };
 
-  const handleLogOut = () => {
-    console.log("Logging out...");
+  const handleLogOut = async () => {
+    try {
+      await Parse.User.logOut();
+      console.log("Logged out successfully");
+      navigate("/"); // Navigate to login page or wherever you want
+    } catch (error) {
+      console.log("Error while logging out: ", error);
+    }
   };
 
-  const handleDeleteAccount = () => {
-    console.log("Deleting account...");
+  const handleDeleteAccount = async () => {
+    const confirmDelete = window.confirm("Are you sure you want to delete your account?");
+    if (confirmDelete) {
+      const currentUser = Parse.User.current();
+      try {
+        await currentUser.destroy();
+        console.log("Account deleted successfully");
+        navigate("/");
+      } catch (error) {
+        console.log("Error while deleting account: ", error);
+      }
+    }
   };
+
 
   const handleNameChange = (e) => {
     setName(e.target.value); // Update name as user types
@@ -57,8 +75,8 @@ function EditProfilePage() {
               className="edit-icon" //I MOVED LINE 41-56 HERE FROM PROFILE PAGE
             />
           </p>
-        )} 
-        
+        )}
+
       </div>
       <div className="buttons-container">
         <div className="button-container">
