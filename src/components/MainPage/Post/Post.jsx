@@ -80,6 +80,7 @@ function Post({
 					/>
 				</div>
 			</div>
+			<div className="divider"></div>
 		</div>
 	);
 }

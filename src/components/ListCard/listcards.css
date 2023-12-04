@@ -1,7 +1,7 @@
 .list-card {
   background-color: #e4ccff;
-  width: 90vw;
-  height: 10vh;
+  width: 90%;
+  height: 30%;
   padding: 10px;
   border: 1px solid #ccc;
   display: flex;
@@ -32,8 +32,8 @@
 }
 
 .text-container {
-  flex: 1; /* This allows the text container to take up the remaining space */
-  padding-left: 1vh; /* Adjust as needed for spacing between image and text */
+  flex: 1; 
+  padding-left: 1vh;
 }
 
 .list-title {

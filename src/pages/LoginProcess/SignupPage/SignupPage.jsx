@@ -6,7 +6,7 @@ import Button from "../../../components/shared/Button/Button";
 import TopbarSignup from "../../../components/TopbarSignup/TopbarSignup";
 import Parse from "parse/dist/parse.min.js";
 
-const SignupPage = () => {
+const SignupPage = ({ setIsAuthenticated }) => {
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 	const [confirmPassword, setConfirmPassword] = useState("");
@@ -32,7 +32,7 @@ const SignupPage = () => {
 				`Success! User ${createdUser.getUsername()} was successfully created!`
 			);
 			console.log(email, password, confirmPassword);
-
+			setIsAuthenticated(true);
 			navigate("/verification"); // Navigate to the next page
 			return true;
 		} catch (error) {
