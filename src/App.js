@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useEffect} from "react";
+import React, { Fragment, useState, useEffect } from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
 import Parse from "parse/dist/parse.min.js";
 import AuthContext from "./components/AuthContext/AuthContext";
@@ -30,30 +30,59 @@ Parse.initialize(PARSE_APPLICATION_ID, PARSE_JAVASCRIPT_KEY);
 Parse.serverURL = PARSE_HOST_URL;
 
 function App() {
-  const location = useLocation();
-  const noNavBarPaths = [
-    "",
-    "add-picture",
-    "added-picture",
-    "signup",
-    "verification",
-    "signup-name",
-  ];
+	const location = useLocation();
+	const noNavBarPaths = [
+		"",
+		"add-picture",
+		"added-picture",
+		"signup",
+		"verification",
+		"signup-name",
+	];
+	const [isNavbarVisible, setIsNavbarVisible] = useState(true);
+	// Listen for changes in the route
+	useEffect(() => {
+		// Reset navbar visibility when the route changes
+		setIsNavbarVisible(true);
+	}, [location.pathname]);
 
 	const basePath = location.pathname.split("/")[1];
 
 	const [isAuthenticated, setIsAuthenticated] = useState(false);
 
 	const routes = [
-		{ path: "/", component: LoginPage, isProtected: false, extraProps: { setIsAuthenticated } },
-		{ path: "/signup", component: SignupPage, isProtected: false, extraProps: { setIsAuthenticated }},
-		{ path: "/home", component: MainPage, isProtected: true },
+		{
+			path: "/",
+			component: LoginPage,
+			isProtected: false,
+			extraProps: { setIsAuthenticated },
+		},
+		{
+			path: "/signup",
+			component: SignupPage,
+			isProtected: false,
+			extraProps: { setIsAuthenticated },
+		},
+		{
+			path: "/home",
+			component: MainPage,
+			isProtected: true,
+			extraProps: { setIsNavbarVisible },
+		},
 		{ path: "/notification", component: NotificationPage, isProtected: true },
 		{ path: "/profile", component: ProfilePage, isProtected: true },
 		{ path: "/friendspage", component: FriendsPage, isProtected: true },
 		{ path: "/editprofilepage", component: EditProfilePage, isProtected: true },
-		{ path: "/add-picture/:username", component: AddProfilePicture, isProtected: true },
-		{ path: "/added-picture/:username", component: AddedProfilePicture, isProtected: true },
+		{
+			path: "/add-picture/:username",
+			component: AddProfilePicture,
+			isProtected: true,
+		},
+		{
+			path: "/added-picture/:username",
+			component: AddedProfilePicture,
+			isProtected: true,
+		},
 		{ path: "/verification", component: VerificationPage, isProtected: true },
 		{ path: "/signup-name", component: SignupNamePage, isProtected: true },
 		{ path: "/add", component: AddRestaurantPage1, isProtected: true },
@@ -63,23 +92,29 @@ function App() {
 
 	return (
 		<AuthContext.Provider value={isAuthenticated}>
-		  <Fragment>
-			<Routes>
-			  {routes.map((route) => (
-				<Route 
-				  path={route.path} 
-				  element={route.isProtected ? 
-					<ProtectedRoute>{<route.component {...route.extraProps} />}</ProtectedRoute> : 
-					<route.component {...route.extraProps} />}
-				/>
-			  ))}
-			</Routes>
-			{!noNavBarPaths.includes(basePath) && (
-			  <BottomNavBar />
-			)}
-		  </Fragment>
+			<Fragment>
+				<Routes>
+					{routes.map((route) => (
+						<Route
+							path={route.path}
+							element={
+								route.isProtected ? (
+									<ProtectedRoute>
+										{<route.component {...route.extraProps} />}
+									</ProtectedRoute>
+								) : (
+									<route.component {...route.extraProps} />
+								)
+							}
+						/>
+					))}
+				</Routes>
+				{isNavbarVisible && !noNavBarPaths.includes(basePath) && (
+					<BottomNavBar />
+				)}
+			</Fragment>
 		</AuthContext.Provider>
-	  );
+	);
 }
 
 export default App;

@@ -58,6 +58,8 @@ body {
 .post-image {
 	width: 100%;
 	height: auto;
+	aspect-ratio: 1 / 1; /* Ensures a square ratio */
+	object-fit: cover;
 }
 .post-text {
 	padding-top: 5px;
