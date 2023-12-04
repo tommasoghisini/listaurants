@@ -1,4 +1,59 @@
-.button-container {
-  display: block;
-  margin-bottom: 10px; /* Adjust the margin as needed */
+.container-sana {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center everything in the main container */
+}
+
+.profile-picture {
+  /* Styling for profile picture, not sure what do i need yet */
+}
+
+.name-and-buttons-container {
+  text-align: center;
+  width: fit-content;
+  margin: auto;
+}
+
+.profile-name-edit {
+  width: 100%;
+  text-align: center;
+}
+
+.buttons-container-edit-profile {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  color: #9746ff;
+}
+
+.button-container-edit-profile button,
+.buttons-container-edit-profile button {
+  background-color: #9746ff;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.button-container-edit-profile button:hover,
+.buttons-container-edit-profile button:hover {
+  background-color: #5a395a;
+}
+
+.profile-name-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.profile-name {
+  margin: 0;
+}
+
+.edit-icon {
+  cursor: pointer;
 }

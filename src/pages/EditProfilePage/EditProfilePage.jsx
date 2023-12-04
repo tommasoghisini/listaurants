@@ -1,21 +1,40 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import ProfilePicture2 from "../../components/ProfilePicture2/ProfilePicture2"; 
+import ProfilePicture2 from "../../components/ProfilePicture2/ProfilePicture2";
 import Button from "../../components/shared/Button/Button";
 import "./EditProfilePage.css";
 import GoBackButton from "../../components/shared/GoBackButton/GoBackButton";
+import Parse from "parse/dist/parse.min";
 
 function EditProfilePage() {
   const navigate = useNavigate();
-  const [editMode, setEditMode] = useState(false); //I moved this from profilepage
-  const [name, setName] = useState("Alice"); //I moved this from profilepage
+  const [editMode, setEditMode] = useState(false);
+  const [name, setName] = useState("");
+
+  useEffect(() => {
+    const currentUser = Parse.User.current();
+    if (currentUser) {
+      setName(currentUser.get("name") || "Alice"); // fallback for al least something
+    }
+  }, []);
 
   const handleGoBack = () => {
     navigate(-1);
   };
 
-  const handleSaveEdits = () => {
+  const handleSaveEdits = async () => {
     console.log("Saving edits...");
+    const currentUser = Parse.User.current();
+    if (currentUser) {
+      currentUser.set("name", name);
+      try {
+        await currentUser.save();
+        console.log("Name updated successfully");
+        navigate("/profile");
+      } catch (error) {
+        console.error("Error updating name:", error);
+      }
+    }
   };
 
   const handleLogOut = () => {
@@ -27,47 +46,40 @@ function EditProfilePage() {
   };
 
   const handleNameChange = (e) => {
-    setName(e.target.value); // Update name as user types
+    setName(e.target.value);
   };
 
   const handleNameSubmit = () => {
     setEditMode(false);
-    // where is server, where do i write name change? I MOVED line 29-37 HERE FROM PROFILE PAGE
+    handleSaveEdits();
   };
 
   return (
-    <div className="container">
+    <div className="container-sana">
       <GoBackButton />
-      <div className="profile-section">
-        <div className="profile-picture">
-          <ProfilePicture2 />
-        </div>
+      <div className="profile-picture">
+        <ProfilePicture2 showEditButton={true} />
+      </div>
+      <div className="name-and-buttons-container">
         {editMode ? (
           <div className="profile-name-edit">
             <input type="text" value={name} onChange={handleNameChange} />
             <button onClick={handleNameSubmit}>Submit</button>
           </div>
         ) : (
-          <p className="profile-name">
-            {name}
+          <div className="profile-name-container">
+            <span className="profile-name">{name}</span>
             <img
               src="https://www.svgrepo.com/show/75500/edit-button.svg"
               alt="Edit"
               onClick={() => setEditMode(true)}
-              className="edit-icon" //I MOVED LINE 41-56 HERE FROM PROFILE PAGE
+              className="edit-icon"
             />
-          </p>
-        )} 
-        
-      </div>
-      <div className="buttons-container">
-        <div className="button-container">
+          </div>
+        )}
+        <div className="buttons-container-edit-profile">
           <Button text="Save Edits" onClick={handleSaveEdits} />
-        </div>
-        <div className="button-container">
           <Button text="Log out" onClick={handleLogOut} />
-        </div>
-        <div className="button-container">
           <Button text="Delete Account" onClick={handleDeleteAccount} />
         </div>
       </div>

@@ -1,12 +1,22 @@
 .optional-text {
-	font-size: 0.5em; /* Adjust the value as needed */
-	font-weight: lighter;
+  font-size: 0.5em; /* Adjust the value as needed */
+  font-weight: lighter;
 }
 
 .profile-img-default {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: center;
-	padding-top: 4%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding-top: 4%;
+}
+
+.file-input-label {
+  display: inline-block;
+  margin: 10px 0;
+  padding: 10px 20px;
+  background-color: #4caf50; /* Example color */
+  color: white;
+  cursor: pointer;
+  border-radius: 4px;
 }
