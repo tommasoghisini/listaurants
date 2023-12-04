@@ -5,6 +5,7 @@ import postData from "../../data/user1.json";
 import { useEffect, useState } from "react";
 import Parse from "parse/dist/parse.min.js";
 import SaveListOverlay from "../../components/MainPage/SaveListOverlay/SaveListOverlay";
+import NoPosts from "../../components/NoPosts/NoPosts";
 
 function MainPage({ setIsNavbarVisible }) {
 	const userName = postData["userName"];
@@ -134,24 +135,28 @@ function MainPage({ setIsNavbarVisible }) {
 
 	return (
 		<>
-			<div className="main-page">
-				<TopBar pageName={"Home"} />
-				<div className="main-page-posts">
-					{posts
-						// Sort posts by time
-						.sort((a, b) => b[0] - a[0])
-						.map((post) => {
-							return post[1];
-						})}
-				</div>
+		  <div className="main-page">
+			<TopBar pageName={"Home"} />
+			<div className="main-page-posts">
+			  {posts.length === 0 ? (
+				<NoPosts/>
+			  ) : (
+				posts
+				  // Sort posts by time
+				  .sort((a, b) => b[0] - a[0])
+				  .map((post) => {
+					return post[1];
+				  })
+			  )}
 			</div>
-			<SaveListOverlay
-				isOpen={isOverlayOpen}
-				onClose={handleOverlayClose}
-				onSave={handleSaveToList}
-			/>
+		  </div>
+		  <SaveListOverlay
+			isOpen={isOverlayOpen}
+			onClose={handleOverlayClose}
+			onSave={handleSaveToList}
+		  />
 		</>
-	);
+	  );
 }
 
 export default MainPage;
