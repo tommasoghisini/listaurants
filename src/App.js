@@ -22,12 +22,14 @@ import AddRestaurantPage1 from "./pages/AddRestaurantPage1/AddRestaurantPage1";
 import AddRestaurantPage2 from "./pages/AddRestaurantPage2/AddRestaurantPage2";
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
 
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const PARSE_APPLICATION_ID = "LQnwm0hvEVNo9UTc5XH0xryIdfqgKCDelr6ETCSJ";
 const PARSE_HOST_URL = "https://parseapi.back4app.com/";
 const PARSE_JAVASCRIPT_KEY = "ci5dv6jVNkOpT6A2O57lA9fTZK0c8HMWCEtV2eLM";
 Parse.initialize(PARSE_APPLICATION_ID, PARSE_JAVASCRIPT_KEY);
 Parse.serverURL = PARSE_HOST_URL;
+Parse.setAsyncStorage(AsyncStorage);
 
 function App() {
 	const location = useLocation();
@@ -47,7 +49,6 @@ function App() {
 	}, [location.pathname]);
 
 	const basePath = location.pathname.split("/")[1];
-
 
 	const [isAuthenticated, setIsAuthenticated] = useState(false);
 
@@ -119,7 +120,6 @@ function App() {
 			</Fragment>
 		</AuthContext.Provider>
 	);
-
 }
 
 export default App;

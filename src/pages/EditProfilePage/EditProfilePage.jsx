@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Parse from "parse/dist/parse.min.js";
 import { useNavigate } from "react-router-dom";
 import ProfilePicture2 from "../../components/ProfilePicture2/ProfilePicture2";
@@ -7,90 +7,115 @@ import "./EditProfilePage.css";
 import GoBackButton from "../../components/shared/GoBackButton/GoBackButton";
 
 function EditProfilePage() {
-  const navigate = useNavigate();
-  const [editMode, setEditMode] = useState(false); //I moved this from profilepage
-  const [name, setName] = useState("Alice"); //I moved this from profilepage
+	const navigate = useNavigate();
+	const [editMode, setEditMode] = useState(false);
+	const [name, setName] = useState("");
 
-  const handleGoBack = () => {
-    navigate(-1);
-  };
+	useEffect(() => {
+		const currentUser = Parse.User.current();
+		if (currentUser) {
+			setName(currentUser.get("name") || "Anonymous"); // fallback for al least something
+		}
+	}, []);
 
-  const handleSaveEdits = () => {
-    console.log("Saving edits...");
-  };
+	const handleGoBack = () => {
+		navigate(-1);
+	};
 
-  const handleLogOut = async () => {
-    try {
-      await Parse.User.logOut();
-      console.log("Logged out successfully");
-      navigate("/"); // Navigate to login page or wherever you want
-    } catch (error) {
-      console.log("Error while logging out: ", error);
-    }
-  };
+	const handleSaveEdits = async () => {
+		console.log("Saving edits...");
+		const currentUser = Parse.User.current();
+		if (currentUser) {
+			currentUser.set("name", name);
+			try {
+				await currentUser.save();
+				console.log("Name updated successfully");
+				navigate("/profile");
+			} catch (error) {
+				console.error("Error updating name:", error);
+			}
+		}
+	};
 
-  const handleDeleteAccount = async () => {
-    const confirmDelete = window.confirm("Are you sure you want to delete your account?");
-    if (confirmDelete) {
-      const currentUser = Parse.User.current();
-      try {
-        await currentUser.destroy();
-        console.log("Account deleted successfully");
-        navigate("/");
-      } catch (error) {
-        console.log("Error while deleting account: ", error);
-      }
-    }
-  };
+	const handleLogOut = async () => {
+		try {
+			await Parse.User.logOut();
+			console.log("Logged out successfully");
+			navigate("/"); // Navigate to login page or wherever you want
+		} catch (error) {
+			console.log("Error while logging out: ", error);
+		}
+	};
 
+	const handleDeleteAccount = async () => {
+		const confirmDelete = window.confirm(
+			"Are you sure you want to delete your account?"
+		);
+		if (confirmDelete) {
+			const currentUser = Parse.User.current();
+			try {
+				await currentUser.destroy();
+				console.log("Account deleted successfully");
+				navigate("/");
+			} catch (error) {
+				console.log("Error while deleting account: ", error);
+			}
+		}
+	};
 
-  const handleNameChange = (e) => {
-    setName(e.target.value); // Update name as user types
-  };
+	const handleNameChange = (e) => {
+		setName(e.target.value);
+	};
 
-  const handleNameSubmit = () => {
-    setEditMode(false);
-    // where is server, where do i write name change? I MOVED line 29-37 HERE FROM PROFILE PAGE
-  };
+	const handleNameSubmit = () => {
+		setEditMode(false);
+		handleSaveEdits();
+	};
 
-  return (
-    <div className="container">
-      <GoBackButton />
-      <div className="profile-section">
-        <div className="profile-picture">
-          <ProfilePicture2 />
-        </div>
-        {editMode ? (
-          <div className="profile-name-edit">
-            <input type="text" value={name} onChange={handleNameChange} />
-            <button onClick={handleNameSubmit}>Submit</button>
-          </div>
-        ) : (
-          <p className="profile-name">
-            {name}
-            <img
-              src="https://www.svgrepo.com/show/75500/edit-button.svg"
-              alt="Edit"
-              onClick={() => setEditMode(true)}
-              className="edit-icon" //I MOVED LINE 41-56 HERE FROM PROFILE PAGE
-            />
-          </p>
-        )}
-
-      </div>
-      <div className="buttons-container">
-        <div className="button-container">
-          <Button text="Save Edits" onClick={handleSaveEdits} />
-        </div>
-        <div className="button-container">
-          <Button text="Log out" onClick={handleLogOut} />
-        </div>
-        <div className="button-container">
-          <Button text="Delete Account" onClick={handleDeleteAccount} />
-        </div>
-      </div>
-    </div>
-  );
+	return (
+		<div className="container-sana">
+			{/* <GoBackButton /> */}
+			<div className="profile-picture-edit-page">
+				<ProfilePicture2 showEditButton={true} />
+			</div>
+			<div className="name-and-buttons-container">
+				{editMode ? (
+					<div className="profile-name-edit">
+						<input
+							type="text"
+							value={name}
+							onChange={handleNameChange}
+						/>
+						<button onClick={handleNameSubmit}>Submit</button>
+					</div>
+				) : (
+					<div className="profile-name-container">
+						<span className="profile-name">{name}</span>
+						<img
+							src="https://www.svgrepo.com/show/75500/edit-button.svg"
+							alt="Edit"
+							onClick={() => setEditMode(true)}
+							className="edit-icon"
+						/>
+					</div>
+				)}
+				<div className="buttons-container-edit-profile">
+					<Button
+						text="Save Edits"
+						onClick={handleSaveEdits}
+					/>
+					<Button
+						text="Log out"
+						onClick={handleLogOut}
+					/>
+					<Button
+						text="Delete Account"
+						onClick={handleDeleteAccount}
+					/>
+				</div>
+			</div>
+		</div>
+	);
 }
 
 export default EditProfilePage;

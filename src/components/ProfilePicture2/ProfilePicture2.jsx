@@ -1,45 +1,66 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
+import Parse from "parse/dist/parse.min";
 import "./ProfilePicture2.css";
 
-// const images = ["/images/Alice.jpeg"];
-
-// function ProfilePicture2() {
-//   return (
-//     <div className="profile-container">
-//       {/*<img className="profile-picture" src={AliceImage} alt="Alice" />*/}
-//       <img className="profile-picture" src={images[0]} alt="Alice" />
-//     </div>
-//   );
-// }
-//
-// export default ProfilePicture2;
-
-function ProfilePicture2() {
+function ProfilePicture2({ showEditButton }) {
   const [image, setImage] = useState("/images/Alice.jpeg");
+  const fileInputRef = useRef(null);
 
-  const handleImageChange = (event) => {
+  useEffect(() => {
+    const fetchProfilePicture = async () => {
+      const currentUser = Parse.User.current();
+      if (currentUser && currentUser.get("profilePicture")) {
+        const profilePictureFile = currentUser.get("profilePicture");
+        setImage(profilePictureFile.url());
+      }
+    };
+
+    fetchProfilePicture();
+  }, []);
+
+  const handleImageChange = async (event) => {
     if (event.target.files && event.target.files[0]) {
-      let img = event.target.files[0];
-      setImage(URL.createObjectURL(img));
+      const file = event.target.files[0];
+      setImage(URL.createObjectURL(file)); // Temporarily show the selected image
+
+      try {
+        const parseFile = new Parse.File(file.name, file);
+        await parseFile.save();
+
+        const currentUser = Parse.User.current();
+        if (currentUser) {
+          currentUser.set("profilePicture", parseFile);
+          await currentUser.save();
+          console.log("Profile picture updated successfully");
+        }
+      } catch (error) {
+        console.error("Error while uploading file: ", error);
+      }
     }
   };
 
   return (
     <div className="profile-container">
       <img className="profile-picture" src={image} alt="Profile" />
-      <input
-        type="file"
-        id="file-input"
-        style={{ display: "none" }}
-        accept="image/*"
-        onChange={handleImageChange}
-      />
-      <label htmlFor="file-input" className="edit-profile-picture">
-        <img
-          src="https://www.svgrepo.com/show/75500/edit-button.svg"
-          alt="Edit Profile"
-        />
-      </label>
+      {showEditButton && (
+        <>
+          <input
+            type="file"
+            id="file-input"
+            style={{ display: "none" }}
+            accept="image/*"
+            onChange={handleImageChange}
+            ref={fileInputRef}
+          />
+          <label htmlFor="file-input" className="edit-profile-picture">
+            <img
+              src="https://www.svgrepo.com/show/75500/edit-button.svg"
+              alt="Edit Profile"
+              onClick={() => fileInputRef.current.click()}
+            />
+          </label>
+        </>
+      )}
     </div>
   );
 }
