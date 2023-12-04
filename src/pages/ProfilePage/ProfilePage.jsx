@@ -34,7 +34,7 @@ function ProfilePage() {
   return (
     <div className="container-sana">
       <TopBar pageName="Profile" />
-      <BackButton />
+      {/*<BackButton />*/}
       <div className="profile-section">
         <div className="profile-picture">
           <ProfilePicture2 showEditButton={false} />
