@@ -1,32 +1,88 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Parse from "parse/dist/parse.min.js";
 import { useNavigate } from "react-router-dom";
 import Button from "../../components/shared/Button/Button";
 import "./AddRestaurantPage1.css";
-import CategoryButton from "../../components/shared/CategoryButton/CategoryButton";
 import UploadImageButton from "../../components/shared/UploadImageButton/UploadImageButton";
 
-const color_choosen = "var(--primary-color)";
 const titles = ["Wishlist", "Favourites"];
 
 function AddRestaurantPage1() {
   const navigate = useNavigate();
   const [restaurantName, setRestaurantName] = useState("");
+  const [restaurantOptions, setRestaurantOptions] = useState([]);
+  const [restaurantMapping, setRestaurantMapping] = useState({});
+
   const [restaurantAddress, setRestaurantAddress] = useState("");
   const [selectedList, setSelectedList] = useState("Wishlist");
   const [restaurantComment, setRestaurantComment] = useState("");
-  const [selectedImage, setSelectedImage] = useState(null);
 
+  const [selectedImage, setSelectedImage] = useState(null);
+  const [selectedRestaurantInfo, setSelectedRestaurantInfo] = useState(null);
+
+
+  useEffect(() => {
+    async function fetchRestaurantOptions() {
+      try {
+        const Restaurant = Parse.Object.extend("Restaurant");
+        const query = new Parse.Query(Restaurant);
+        const results = await query.find();
+
+        const mapping = results.map((restaurant) => ({
+          name: restaurant.get("name"),
+          address: restaurant.get("address"),
+          image: restaurant.get("image"),
+        }));
+
+        setRestaurantOptions(mapping.map((restaurant) => restaurant.name));
+        setRestaurantMapping(mapping);
+      } catch (error) {
+        console.error("Error fetching restaurant names:", error);
+      }
+    }
+
+    fetchRestaurantOptions();
+  }, []);
+
+  const handleRestaurantChange = async (e) => {
+    const selectedRestaurant = e.target.value;
+    setRestaurantName(selectedRestaurant);
+    const selectedRestaurantInfo = restaurantMapping.find(
+      (restaurant) => restaurant.name === selectedRestaurant
+    );
+  
+    if (selectedRestaurantInfo) {
+      setRestaurantAddress(selectedRestaurantInfo.address);
+      if (selectedRestaurantInfo.image) {
+        try {
+          const imageUrl = selectedRestaurantInfo.image.url();
+          console.log(imageUrl);
+          setSelectedImage(imageUrl);
+        } catch (error) {
+          console.error("Error getting image URL from Parse:", error);
+          setSelectedImage(null);
+        }
+      } else {
+        setSelectedImage(null);
+      }
+  
+      setSelectedRestaurantInfo(selectedRestaurantInfo);
+    }
+  };
+  
   const handleImageChange = (event) => {
     const file = event.target.files[0];
     if (file && file.type.startsWith("image/")) {
       setSelectedImage(file);
+    } else if (event.target.value.startsWith("http")) {
+      setSelectedImage(event.target.value);
     } else {
-      alert("Please select a valid image file.");
+      alert("Please select a valid image file");
     }
   };
 
   const handleChooseFileClick = () => {};
+
 
   const handleNextPage = async () => {
     try {
@@ -36,6 +92,11 @@ function AddRestaurantPage1() {
         return;
       }
 
+      if (!restaurantName) {
+        alert("Please select a restaurant name");
+        return;
+      }
+  
       const Post = Parse.Object.extend("Post");
       const post = new Post();
       post.set("userId", currentUser.id);
@@ -43,35 +104,22 @@ function AddRestaurantPage1() {
       post.set("restaurantAddress", restaurantAddress);
       post.set("savedToList", selectedList);
       post.set("text", restaurantComment);
-
-      if (selectedImage) {
-        const base64Image = await convertImageToBase64(selectedImage);
-        const file = new Parse.File("restaurantImage.png", {
-          base64: base64Image,
-        });
+  
+      if (selectedImage instanceof File) {
+        const file = new Parse.File("image.jpg", selectedImage);
         await file.save();
         post.set("image", file);
-      }
-
+      } 
+  
       const savedPost = await post.save();
-      alert(
-        `Success! Post ${savedPost.restaurantName} was successfully added!`
-      );
-
-      navigate("p2/done");
+      alert(`Success! Post was successfully added!`);
+  
+      navigate("p2");
     } catch (error) {
       alert(`Error! ${error}`);
     }
   };
-
-  const convertImageToBase64 = (imageFile) => {
-    return new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.readAsDataURL(imageFile);
-      reader.onload = () => resolve(reader.result.split(",")[1]);
-      reader.onerror = (error) => reject(error);
-    });
-  };
+  
 
   return (
     <div className="add-restaurant-page">
@@ -81,15 +129,23 @@ function AddRestaurantPage1() {
         <form>
           <div className="restaurant-input-field">
             <label htmlFor="restaurantName">Name of the Restaurant</label>
-            <input
-              type="text"
+            <select
               id="restaurantName"
               value={restaurantName}
-              onChange={(e) => setRestaurantName(e.target.value)}
-            />
+              onChange={handleRestaurantChange}
+            >
+              <option value="" disabled>
+                Select a restaurant
+              </option>
+              {restaurantOptions.map((name, index) => (
+                <option key={index} value={name}>
+                  {name}
+                </option>
+              ))}
+            </select>
           </div>
 
-          <div className="restaurant-input-field">
+          <div className="restaurant-input-field" style={{ display: "none" }}>
             <label htmlFor="restaurantAddress">Address of the Restaurant</label>
             <input
               type="text"
@@ -98,6 +154,7 @@ function AddRestaurantPage1() {
               onChange={(e) => setRestaurantAddress(e.target.value)}
             />
           </div>
+
 
           <div className="restaurant-input-field">
             <label htmlFor="chooseList">Choose List</label>

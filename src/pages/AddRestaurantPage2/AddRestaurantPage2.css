@@ -1,23 +1,10 @@
-.restaurant-comment-input-field label {
-  display: block;
-  margin-bottom: 5px;
-  font-family: "Inter", sans-serif;
-  font-size: 1.7vh;
-  color: #000;
-}
 
-.restaurant-comment-input-field textarea {
-  width: 90vw;
-  height: 15vh;
-  padding: 8px;
-  box-sizing: border-box;
-  border-radius: 1.5vw;
-  color: #000;
-  font-family: "Inter", sans-serif;
-}
-
-
-.restaurant-comment-input-field {
-  width: 90vw;
-  padding: 20px;
-}
+  .save-publish-text {
+    font-size: 4vh;
+    font-family: "Inter", sans-serif; 
+    font-weight: bold;
+    margin-top: 40vh;
+    margin-left: 40vw;
+    display: flex;
+    flex-direction: column;
+  }

@@ -20,8 +20,8 @@ import AddedProfilePicture from "./pages/LoginProcess/AddedProfilePicture/AddedP
 import BottomNavBar from "./components/NavBar/NavBar";
 import AddRestaurantPage1 from "./pages/AddRestaurantPage1/AddRestaurantPage1";
 import AddRestaurantPage2 from "./pages/AddRestaurantPage2/AddRestaurantPage2";
-import AddRestaurantPage3 from "./pages/AddRestaurantPage3/AddRestaurantPage3";
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
+
 
 const PARSE_APPLICATION_ID = "LQnwm0hvEVNo9UTc5XH0xryIdfqgKCDelr6ETCSJ";
 const PARSE_HOST_URL = "https://parseapi.back4app.com/";
@@ -47,6 +47,7 @@ function App() {
 	}, [location.pathname]);
 
 	const basePath = location.pathname.split("/")[1];
+
 
 	const [isAuthenticated, setIsAuthenticated] = useState(false);
 
@@ -87,7 +88,6 @@ function App() {
 		{ path: "/signup-name", component: SignupNamePage, isProtected: true },
 		{ path: "/add", component: AddRestaurantPage1, isProtected: true },
 		{ path: "/add/p2", component: AddRestaurantPage2, isProtected: true },
-		{ path: "/add/p2/done", component: AddRestaurantPage3, isProtected: true },
 	];
 
 	return (
@@ -115,6 +115,7 @@ function App() {
 			</Fragment>
 		</AuthContext.Provider>
 	);
+
 }
 
 export default App;
