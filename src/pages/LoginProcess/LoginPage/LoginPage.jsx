@@ -7,7 +7,7 @@ import Signup from "../../../components/SignupForm/SignupForm";
 import "./LoginPage.css";
 import LoginForm from "../../../components/LoginForm/LoginForm";
 
-function LoginPage() {
+function LoginPage({ setIsAuthenticated }) {
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 	const [currentUser, setCurrentUser] = useState(null);
@@ -47,6 +47,8 @@ function LoginPage() {
 			setPassword('');
 			// Update state variable holding current user
 			getCurrentUser();
+			// Set authentication state to true and redirect to home page
+			setIsAuthenticated(true);
 			navigate("/home"); // Navigate to the main page
 			return true;
 		} catch (error) {

@@ -4,15 +4,16 @@ import "./SignupPage.css";
 import Input from "../../../components/shared/Input/Input";
 import Button from "../../../components/shared/Button/Button";
 import TopbarSignup from "../../../components/TopbarSignup/TopbarSignup";
+import Parse from "parse/dist/parse.min.js";
 
-const SignupPage = () => {
+const SignupPage = ({ setIsAuthenticated }) => {
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 	const [confirmPassword, setConfirmPassword] = useState("");
 	const [errorMessage, setErrorMessage] = useState("");
 	const navigate = useNavigate();
 
-	const handleSubmit = (e) => {
+	const handleSubmit = async (e) => {
 		e.preventDefault();
 		// Add logic to handle account creation
 		if (email === "" || password === "" || confirmPassword === "") {
@@ -23,8 +24,22 @@ const SignupPage = () => {
 			setErrorMessage("Passwords do not match");
 			return;
 		}
-		console.log(email, password, confirmPassword);
-		navigate("/verification");
+
+		try {
+			// Since the signUp method returns a Promise, we need to call it using await
+			const createdUser = await Parse.User.signUp(email, password);
+			alert(
+				`Success! User ${createdUser.getUsername()} was successfully created!`
+			);
+			console.log(email, password, confirmPassword);
+			setIsAuthenticated(true);
+			navigate("/verification"); // Navigate to the next page
+			return true;
+		} catch (error) {
+			// signUp can fail if any parameter is blank or failed an uniqueness check on the server
+			alert(`Error! ${error}`);
+			return false;
+		}
 	};
 
 	return (
