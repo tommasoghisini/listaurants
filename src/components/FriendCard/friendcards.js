@@ -29,6 +29,49 @@ function Card({ user, isFriend, currentUserName, isAdded }) {
       console.log('Trying to remove friend')
 
 
+    try {
+      const Friendship = Parse.Object.extend("Friendship");
+      const query1 = new Parse.Query(Friendship);
+      const query2 = new Parse.Query(Friendship);
+
+      // Query for the friendship where user2=user
+      query1.equalTo("user1", {
+        __type: "Pointer",
+        className: "_User",
+        objectId: currentUserName,
+      });
+      query1.equalTo("user2", {
+        __type: "Pointer",
+        className: "_User",
+        objectId: user,
+      });
+
+      // Query for the friendship where user1=user
+      query2.equalTo("user1", {
+        __type: "Pointer",
+        className: "_User",
+        objectId: user,
+      });
+      query2.equalTo("user2", {
+        __type: "Pointer",
+        className: "_User",
+        objectId: currentUserName,
+      });
+
+      const mainQuery = Parse.Query.or(query1, query2);
+
+      const rowToDelete = await mainQuery.first();
+      if (rowToDelete) {
+        const result = await rowToDelete.destroy();
+        console.log("Friendship removed successfully:", result);
+      } else {
+        console.log("Friendship not found");
+      }
+    } catch (error) {
+      console.error("Error removing friend:", error);
+    }
+
+
     } else {
       console.log(`Adding friend: ${user}`);
       try {
@@ -48,6 +91,7 @@ function Card({ user, isFriend, currentUserName, isAdded }) {
         newFriendship.set("status", "Pending");
 
         const result = await newFriendship.save();
+        
 
         console.log("Friendship added successfully:", result);
       } catch (error) {

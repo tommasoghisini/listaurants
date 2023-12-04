@@ -12,8 +12,13 @@ function FriendsPage() {
 
   useEffect(() => {
     async function fetchAll() {
+      const currentUser = Parse.User.current();
+      if (currentUser) {
+        const currentUserName = currentUser.getUsername();
+        setCurrentUserName(currentUserName);
       try {
         const userQuery = new Parse.Query("_User");
+        userQuery.notEqualTo("objectId", currentUser.id); 
         const allUsers = await userQuery.find();
         const allNames = allUsers.map((user) => user.get("username"));
         setAllNames(allNames);
@@ -21,7 +26,7 @@ function FriendsPage() {
         console.error("Error fetching friend data:", error);
       }
     }
-
+  } 
     fetchAll();
   }, []);
 
