@@ -14,7 +14,7 @@ function EditProfilePage() {
   useEffect(() => {
     const currentUser = Parse.User.current();
     if (currentUser) {
-      setName(currentUser.get("name") || "Alice"); // fallback for al least something
+      setName(currentUser.get("name") || "Anonymous"); // fallback for al least something
     }
   }, []);
 
@@ -57,7 +57,7 @@ function EditProfilePage() {
   return (
     <div className="container-sana">
       {/* <GoBackButton /> */}
-      <div className="profile-picture">
+      <div className="profile-picture-edit-page">
         <ProfilePicture2 showEditButton={true} />
       </div>
       <div className="name-and-buttons-container">
