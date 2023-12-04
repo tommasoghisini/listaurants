@@ -1,18 +1,18 @@
 .add-restaurant-page {
   display: flex;
   flex-direction: column;
-  height: 90vh;
+  height: 90%;
   background-color: #f9f3ef;
   justify-content: space-between;
 }
 
 .add-restaurant-fields {
-  width: 90vw;
-  height: 80vh;
+  width: 90%;
+  height: 80%;
 }
 
 .restaurant-input-field {
-  width: 90vw;
+  width: 90%;
   padding: 20px;
   
 }
@@ -26,7 +26,7 @@
 }
 
 .restaurant-input-field input {
-  width: 90vw;
+  width: 90%;
   padding: 8px;
   box-sizing: border-box;
   border-radius: 1.5vw;
@@ -34,14 +34,14 @@
 }
 
 .restaurant-input-field select {
-  width: 90vw;
+  width: 90%;
   padding: 8px;
   box-sizing: border-box;
   border-radius: 1.5vw;
 }
 
 .add-restaurant-button {
-  width: 90vw;
+  width: 90%;
   padding: 20px;
 }
 

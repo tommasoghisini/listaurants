@@ -1,19 +1,21 @@
 .friend-card {
     background-color: #fff;
-    width: 80vw;
-    height: 6vh;
+    width: 90%;
+    height: 15%;
     padding: 20px;
     border: 1px solid #fff;
     display: flex;
     align-items: center;
-    border-radius: 2vw;
+    border-radius: 2vh;
     margin-bottom: 2vh;
+    overflow: hidden;
   }
   
   .friend-content {
     display: flex;
     align-items: center;
     width: 100%;
+    overflow: hidden;
   }
 
   .friend-name {
@@ -34,28 +36,13 @@
     font-weight: 100;
   }
 
-  .profile-image-wrapper {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
 
   .profile-image-border {
-    width: 70%; 
-    height: auto; 
     border-radius: 50%; 
-    border: 3px solid black; 
+    border: 2px solid black; 
     overflow: hidden; 
   }
   
-  .profile-image {
-    width: 100%;
-    height: 100%;
-    object-fit: cover; 
-    border-radius: 50%; 
-  }
 
   .remove-button{
     background-color: #d9d9d9; 
