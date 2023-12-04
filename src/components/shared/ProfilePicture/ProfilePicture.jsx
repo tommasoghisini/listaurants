@@ -13,7 +13,7 @@ function ProfilePicture({ imgSrc, height }) {
 			src={imgSrc}
 			alt="logo"
 			style={{ height: height }}
-			className="profile-picture"
+			className="profile-image"
 		/>
 	);
 }

@@ -93,25 +93,29 @@ function App() {
 	return (
 		<AuthContext.Provider value={isAuthenticated}>
 			<Fragment>
-				<Routes>
-					{routes.map((route) => (
-						<Route
-							path={route.path}
-							element={
-								route.isProtected ? (
-									<ProtectedRoute>
-										{<route.component {...route.extraProps} />}
-									</ProtectedRoute>
-								) : (
-									<route.component {...route.extraProps} />
-								)
-							}
-						/>
-					))}
-				</Routes>
-				{isNavbarVisible && !noNavBarPaths.includes(basePath) && (
-					<BottomNavBar />
-				)}
+				<div className="app-container">
+					<div className="content">
+						<Routes>
+							{routes.map((route) => (
+								<Route
+									path={route.path}
+									element={
+										route.isProtected ? (
+											<ProtectedRoute>
+												{<route.component {...route.extraProps} />}
+											</ProtectedRoute>
+										) : (
+											<route.component {...route.extraProps} />
+										)
+									}
+								/>
+							))}
+						</Routes>
+					</div>
+					{isNavbarVisible && !noNavBarPaths.includes(basePath) && (
+						<BottomNavBar />
+					)}
+				</div>
 			</Fragment>
 		</AuthContext.Provider>
 	);
