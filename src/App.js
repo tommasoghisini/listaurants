@@ -18,8 +18,8 @@ import NotificationPage from "./pages/NotificationPage/NotificationPage";
 import AddProfilePicture from "./pages/LoginProcess/AddProfilePicture/AddProfilePicture";
 import AddedProfilePicture from "./pages/LoginProcess/AddedProfilePicture/AddedProfilePicture";
 import BottomNavBar from "./components/NavBar/NavBar";
-import AddRestaurantPage1 from "./pages/AddRestaurantPage1/AddRestaurantPage1";
-import AddRestaurantPage2 from "./pages/AddRestaurantPage2/AddRestaurantPage2";
+import AddRestaurantPage1 from "./pages/AddRestaurantPage/AddRestaurantPage1";
+import AddRestaurantPage2 from "./pages/AddRestaurantPage/AddRestaurantPage2";
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
 
 import AsyncStorage from "@react-native-async-storage/async-storage";

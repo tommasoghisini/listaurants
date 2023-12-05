@@ -1,4 +1,4 @@
-import "./AddRestaurantPage2.css";
+import "./AddRestaurantPage1.css";
 
 function AddRestaurantPage2() {
 
