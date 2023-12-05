@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Parse from "parse/dist/parse.min.js";
 import "./friendcards.css";
 import ProfilePicture from "../shared/ProfilePicture/ProfilePicture";
@@ -25,8 +25,16 @@ function FriendCards({
 }
 
 function Card({ user, isFriend, currentUserName, isAdded }) {
+  const [added, setAdded] = useState(isAdded);
+  const [friend, setFriend] = useState(isFriend);
+
+
   const handleAction = async () => {
-    if (isFriend) {
+    if (added) {
+      console.log("Already added");
+      return;
+    }
+    if (friend) {
       console.log("Trying to remove friend");
 
       try {
@@ -63,6 +71,8 @@ function Card({ user, isFriend, currentUserName, isAdded }) {
         const rowToDelete = await mainQuery.first();
         if (rowToDelete) {
           const result = await rowToDelete.destroy();
+          setAdded(false);
+          setFriend(false);
           console.log("Friendship removed successfully:", result);
         } else {
           console.log("Friendship not found");
@@ -89,6 +99,7 @@ function Card({ user, isFriend, currentUserName, isAdded }) {
         newFriendship.set("status", "Pending");
 
         const result = await newFriendship.save();
+        setAdded(true);
 
         console.log("Friendship added successfully:", result);
       } catch (error) {
@@ -107,7 +118,7 @@ function Card({ user, isFriend, currentUserName, isAdded }) {
           <h1 className="friend-name">{user}</h1>
         </div>
         <button className="action-button" onClick={handleAction}>
-          {isAdded ? "Added" : isFriend ? "Remove" : "Add"}
+          {added? "Added" : friend? "Remove" : "Add"}
         </button>
       </div>
     </div>
