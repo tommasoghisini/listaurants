@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import Button from "../../components/shared/Button/Button";
 import "./AddRestaurantPage1.css";
 import UploadImageButton from "../../components/shared/UploadImageButton/UploadImageButton";
+import TopBar from "../../components/shared/TopBar/TopBar";
 
 const titles = ["Wishlist", "Favourites"];
 
@@ -19,7 +20,6 @@ function AddRestaurantPage1() {
 
   const [selectedImage, setSelectedImage] = useState(null);
   const [selectedRestaurantInfo, setSelectedRestaurantInfo] = useState(null);
-
 
   useEffect(() => {
     async function fetchRestaurantOptions() {
@@ -50,7 +50,7 @@ function AddRestaurantPage1() {
     const selectedRestaurantInfo = restaurantMapping.find(
       (restaurant) => restaurant.name === selectedRestaurant
     );
-  
+
     if (selectedRestaurantInfo) {
       setRestaurantAddress(selectedRestaurantInfo.address);
       if (selectedRestaurantInfo.image) {
@@ -65,11 +65,11 @@ function AddRestaurantPage1() {
       } else {
         setSelectedImage(null);
       }
-  
+
       setSelectedRestaurantInfo(selectedRestaurantInfo);
     }
   };
-  
+
   const handleImageChange = (event) => {
     const file = event.target.files[0];
     if (file && file.type.startsWith("image/")) {
@@ -83,7 +83,6 @@ function AddRestaurantPage1() {
 
   const handleChooseFileClick = () => {};
 
-
   const handleNextPage = async () => {
     try {
       const currentUser = Parse.User.current();
@@ -96,7 +95,7 @@ function AddRestaurantPage1() {
         alert("Please select a restaurant name");
         return;
       }
-  
+
       const Post = Parse.Object.extend("Post");
       const post = new Post();
       post.set("userId", currentUser.id);
@@ -104,28 +103,27 @@ function AddRestaurantPage1() {
       post.set("restaurantAddress", restaurantAddress);
       post.set("savedToList", selectedList);
       post.set("text", restaurantComment);
-  
+
       if (selectedImage instanceof File) {
         const file = new Parse.File("image.jpg", selectedImage);
         await file.save();
         post.set("image", file);
-      } 
-  
+      }
+
       const savedPost = await post.save();
       alert(`Success! Post was successfully added!`);
-  
+
       navigate("p2");
     } catch (error) {
       alert(`Error! ${error}`);
     }
   };
-  
 
   return (
     <div className="add-restaurant-page">
+      <TopBar pageName={"Add a Restaurant"} />
       <div className="add-restaurant-fields">
-        <div className="friend-title">Add a Restaurant</div>
-
+        
         <form>
           <div className="restaurant-input-field">
             <label htmlFor="restaurantName">Name of the Restaurant</label>
@@ -154,7 +152,6 @@ function AddRestaurantPage1() {
               onChange={(e) => setRestaurantAddress(e.target.value)}
             />
           </div>
-
 
           <div className="restaurant-input-field">
             <label htmlFor="chooseList">Choose List</label>

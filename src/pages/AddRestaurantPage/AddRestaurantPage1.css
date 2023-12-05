@@ -9,12 +9,13 @@
 .add-restaurant-fields {
   width: 90%;
   height: 80%;
+  padding-top: 20px;
 }
 
 .restaurant-input-field {
   width: 100%;
   padding: 20px;
-  
+
 }
 
 .restaurant-input-field label {
