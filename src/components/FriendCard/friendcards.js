@@ -73,6 +73,8 @@ function Card({ user, isFriend, currentUserName, isAdded }) {
           const result = await rowToDelete.destroy();
           setAdded(false);
           setFriend(false);
+          isFriend=false;
+          isAdded=false;
           console.log("Friendship removed successfully:", result);
         } else {
           console.log("Friendship not found");
@@ -100,6 +102,7 @@ function Card({ user, isFriend, currentUserName, isAdded }) {
 
         const result = await newFriendship.save();
         setAdded(true);
+        isAdded=true;
 
         console.log("Friendship added successfully:", result);
       } catch (error) {
