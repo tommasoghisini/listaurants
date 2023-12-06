@@ -56,7 +56,7 @@ function ProfilePicture2({ showEditButton }) {
             <img
               src="https://www.svgrepo.com/show/75500/edit-button.svg"
               alt="Edit Profile"
-              onClick={() => fileInputRef.current.click()}
+              // onClick={() => fileInputRef.current.click()}
             />
           </label>
         </>
