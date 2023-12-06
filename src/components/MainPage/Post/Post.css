@@ -26,7 +26,7 @@ body {
 }
 
 .post-header-discription {
-	padding-left: 4%;
+	padding-left: 10px;
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
@@ -47,7 +47,9 @@ body {
 	font-family: "Inter";
 	font-weight: 600;
 	color: var(--primary-color);
-	width: 40px;
+	min-width: 30px;
+	width: auto;
+	padding: 0px 5px;
 	margin-right: 6px;
 }
 

@@ -12,7 +12,7 @@ function ProfilePicture({ imgSrc, height }) {
 		<img
 			src={imgSrc}
 			alt="logo"
-			style={{ height: height }}
+			style={{ height: height, width: height }}
 			className="profile-image"
 		/>
 	);

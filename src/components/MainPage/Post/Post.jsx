@@ -71,7 +71,7 @@ function Post({
 				<div className="comment-section">
 					<ProfilePicture
 						imgSrc={imgSrcCommenter}
-						height="30px"
+						height="35px"
 					/>
 					<input
 						type="text"
