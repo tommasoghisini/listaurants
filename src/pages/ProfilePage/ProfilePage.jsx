@@ -20,10 +20,26 @@ function ProfilePage() {
 		if (currentUser) {
 			setUserName(currentUser.get("name") || "Alice"); // dunno if necessary
 
-			const friendshipQuery1 = new Parse.Query("Friendship");
-			friendshipQuery1.equalTo("user1", currentUser.getUsername());
-			friendshipQuery1.equalTo("status", "Friends");
-			friendshipQuery1.count().then((count) => {
+			const FriendshipData = Parse.Object.extend("Friendship");
+			const User = Parse.Object.extend("User");
+			const userPointer = new User();
+			userPointer.id = currentUser.getUsername();
+
+			// Query for friendships where current user is user1
+			const queryUser1 = new Parse.Query(FriendshipData);
+			queryUser1.equalTo("user1", userPointer);
+			queryUser1.equalTo("status", "Friends");
+			queryUser1.include("user2"); // Include user2 data
+
+			// Query for friendships where current user is user2
+			const queryUser2 = new Parse.Query(FriendshipData);
+			queryUser2.equalTo("user2", userPointer);
+			queryUser2.equalTo("status", "Friends");
+			queryUser2.include("user1"); // Include user1 data
+
+			// Combine the queries
+			const combinedQuery = Parse.Query.or(queryUser1, queryUser2);
+			combinedQuery.count().then((count) => {
 				setFriendsNumber(count);
 			});
 		}

@@ -112,33 +112,66 @@ function MainPage({ setIsNavbarVisible }) {
 		}
 	};
 
-	const fetchFriends = async (userId) => {
+	const fetchUserId = async (userName) => {
 		try {
-			const FriendshipData = Parse.Object.extend("Friendship");
-			const query = new Parse.Query(FriendshipData);
+			const UserData = Parse.Object.extend("User");
+			const query = new Parse.Query(UserData);
+			query.equalTo("username", userName);
+			const result = await query.first();
 
-			// Create a pointer to the User object
-			const User = Parse.Object.extend("User");
-			const userPointer = new User();
-			userPointer.id = userId;
-
-			// Query friendships where user1 is the current user
-			query.equalTo("user1", userPointer);
-			query.equalTo("status", "Friends");
-
-			// Execute the query
-			const results = await query.find();
-
-			// Map results to get user2's id
-			const friends = results.map((friendship) => {
-				const user2 = friendship.get("user2");
-				return user2 ? user2.id : null;
-			});
-
-			return friends;
+			if (result) {
+				return result.id;
+			} else {
+				console.log("No user found");
+			}
 		} catch (error) {
 			console.error(error);
 		}
+	};
+
+	const fetchFriends = async (userName) => {
+		try {
+			const FriendshipData = Parse.Object.extend("Friendship");
+			const User = Parse.Object.extend("User");
+			const userPointer = new User();
+			userPointer.id = userName;
+
+			// Query for friendships where current user is user1
+			const queryUser1 = new Parse.Query(FriendshipData);
+			queryUser1.equalTo("user1", userPointer);
+			queryUser1.equalTo("status", "Friends");
+			queryUser1.include("user2"); // Include user2 data
+
+			// Query for friendships where current user is user2
+			const queryUser2 = new Parse.Query(FriendshipData);
+			queryUser2.equalTo("user2", userPointer);
+			queryUser2.equalTo("status", "Friends");
+			queryUser2.include("user1"); // Include user1 data
+
+			// Combine the queries
+			const combinedQuery = Parse.Query.or(queryUser1, queryUser2);
+			const results = await combinedQuery.find();
+
+			const friends = results.map((friendship) => {
+				// Check if the current user is user1 or user2 and return the other user's id
+				if (friendship.get("user1").id === userName) {
+					return friendship.get("user2").id;
+				} else {
+					return friendship.get("user1").id;
+				}
+			});
+
+			return friends.filter((friend) => friend !== null);
+		} catch (error) {
+			console.error(error);
+		}
+	};
+
+	// Helper function to fetch friends' user IDs
+	const fetchFriendsUserIds = async (username) => {
+		const friends = await fetchFriends(username);
+		const userIdPromises = friends.map((friend) => fetchUserId(friend));
+		return await Promise.all(userIdPromises);
 	};
 
 	useEffect(() => {
@@ -156,13 +189,15 @@ function MainPage({ setIsNavbarVisible }) {
 			const query = new Parse.Query(PostData);
 			const results = await query.find();
 
-			// // Get friends
-			// const friends = await fetchFriends(currentUser.getUsername());
+			// Get friends
+			const friends = await fetchFriendsUserIds(currentUser.getUsername());
 
-			// console.log("Friends:", friends);
+			console.log("Friends:", friends);
 			// Filter results first
 			const userPosts = results.filter(
-				(result) => result.get("userId") === currentUser.id
+				(result) =>
+					result.get("userId") === currentUser.id ||
+					friends.includes(result.get("userId"))
 			);
 
 			const postPromises = userPosts.map(async (userPost) => {
