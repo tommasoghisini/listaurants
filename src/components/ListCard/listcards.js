@@ -2,9 +2,9 @@ import React from "react";
 import "./listcards.css";
 
 const personalLists = [
-  ["Durum Bar", "Doma", "Friheden", "Reffen", "Hart", "Bird"],
-  ["Llama", "Apollo Bar", "Safari", "Osteria 16"],
-];
+  ["Check out their Favourites"], 
+  ["Check out their Wishlist"],
+]; //To be changed after demo 
 
 const images = ["/images/noma.jpeg", "/images/durum.jpeg"];
 
