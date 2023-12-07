@@ -1,8 +1,13 @@
 .button-short {
-  width: 231px;
+  width: 175px;
   height: 56px;
   border-radius: 10px;
   font-size: large;
   background: #e4ccff;
   font-family: "Inter", sans-serif;
+  color: #9746ff;
+}
+
+.button-short:active {
+  background: #f9f3ef; /* Background color changes to page background color when button is pressed */
 }

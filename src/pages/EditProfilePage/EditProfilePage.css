@@ -29,9 +29,9 @@
 
 .button-container-edit-profile button,
 .buttons-container-edit-profile button {
-  background-color: #9746ff;
-  color: white;
-  border: none;
+  background-color: #f9f3ef;
+  color: #9746ff;
+  border: 2px solid #9746ff;
   padding: 10px 20px;
   border-radius: 4px;
   cursor: pointer;
@@ -40,7 +40,8 @@
 
 .button-container-edit-profile button:hover,
 .buttons-container-edit-profile button:hover {
-  background-color: #5a395a;
+  background-color: #9746ff;
+  color: #f9f3ef;
 }
 
 .profile-name-container {
