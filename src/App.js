@@ -11,7 +11,7 @@ import EditProfilePage from "./pages/EditProfilePage/EditProfilePage";
 import SignupPage from "./pages/LoginProcess/SignupPage/SignupPage";
 import VerificationPage from "./pages/LoginProcess/VerificationPage/VerificationPage";
 import SignupNamePage from "./pages/LoginProcess/SignupNamePage/SignupNamePage";
-
+import ListPage from "./pages/ListPage/ListPage";
 import MainPage from "./pages/MainPage/MainPage";
 import NotificationPage from "./pages/NotificationPage/NotificationPage";
 
@@ -74,6 +74,7 @@ function App() {
 		{ path: "/notification", component: NotificationPage, isProtected: true },
 		{ path: "/profile", component: ProfilePage, isProtected: true },
 		{ path: "/friendspage", component: FriendsPage, isProtected: true },
+		{ path: "/list/:listname", component: ListPage, isProtected: true },
 		{ path: "/editprofilepage", component: EditProfilePage, isProtected: true },
 		{
 			path: "/add-picture/:username",
