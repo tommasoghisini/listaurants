@@ -6,7 +6,7 @@
 }
 
 .profile-picture-edit-page {
-  /* Styling for profile picture, not sure what do i need yet */
+  /* Styling for profile picture, not sure what i need yet */
 }
 
 .name-and-buttons-container {
@@ -27,7 +27,7 @@
   color: #9746ff;
 }
 
-.button-container-edit-profile button,
+/* .button-container-edit-profile button, */
 .buttons-container-edit-profile button {
   background-color: #f9f3ef;
   color: #9746ff;
@@ -38,7 +38,7 @@
   transition: background-color 0.3s;
 }
 
-.button-container-edit-profile button:hover,
+/* .button-container-edit-profile button:hover, */
 .buttons-container-edit-profile button:hover {
   background-color: #9746ff;
   color: #f9f3ef;
@@ -49,6 +49,8 @@
   align-items: center;
   justify-content: center;
   gap: 10px;
+  margin-top: 30px;
+  margin-bottom: 120px;
 }
 
 .profile-name {
