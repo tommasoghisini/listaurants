@@ -21,6 +21,10 @@
 }
 
 .buttons-container-edit-profile {
+  position: fixed;
+  top: 70%;
+  right: 550px;
+  transform: translateY(-50%);
   display: flex;
   flex-direction: column;
   gap: 5px;
