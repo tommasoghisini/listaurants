@@ -13,12 +13,11 @@ function ProfilePage() {
 	const [friendsPressed, setFriendsPressed] = useState(false);
 	const [userName, setUserName] = useState(""); // State to store the user's name
 	const [friendsNumber, setFriendsNumber] = useState(0); // State to store the number of friends
+	const [Wishlist, setWishlist] = useState([]);
+	const [Favourites, setFavourites] = useState([]);
 
-	useEffect(() => {
-		const currentUser = Parse.User.current();
+	const fetchFriendsNumber = async (currentUser) => {
 		if (currentUser) {
-			setUserName(currentUser.get("name") || "Anonymous"); // dunno if necessary
-
 			const FriendshipData = Parse.Object.extend("Friendship");
 			const User = Parse.Object.extend("User");
 			const userPointer = new User();
@@ -38,9 +37,35 @@ function ProfilePage() {
 
 			// Combine the queries
 			const combinedQuery = Parse.Query.or(queryUser1, queryUser2);
-			combinedQuery.count().then((count) => {
-				setFriendsNumber(count);
-			});
+			const count = await combinedQuery.count();
+			setFriendsNumber(count);
+		}
+	};
+
+	const fetchRestaurants = async (currentUser) => {
+		console.log("fetching restaurants");
+		const RestaurantData = Parse.Object.extend("Post");
+		const query = new Parse.Query(RestaurantData);
+		query.equalTo("userId", currentUser.id);
+		const results = await query.find();
+		const Wishlist = results.filter(
+			(post) => post.get("savedToList") === "Wishlist"
+		);
+		const Favourites = results.filter(
+			(post) => post.get("savedToList") === "Favourites"
+		);
+
+		setWishlist(Wishlist);
+		setFavourites(Favourites);
+		console.log("fetching restaurants done");
+	};
+
+	useEffect(() => {
+		const currentUser = Parse.User.current();
+		if (currentUser) {
+			setUserName(currentUser.get("name"));
+			fetchFriendsNumber(currentUser);
+			fetchRestaurants(currentUser);
 		}
 	}, []);
 
@@ -78,7 +103,11 @@ function ProfilePage() {
 				/>
 			</div>
 			<div className="cards-container">
-				<ListCards className="cards" />
+				<ListCards
+					className="cards"
+					Wishlist={Wishlist}
+					Favourites={Favourites}
+				/>
 			</div>
 		</div>
 	);
