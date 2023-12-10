@@ -75,7 +75,7 @@ function EditProfilePage() {
   return (
     <div className="container-sana">
       {/* <GoBackButton /> */}
-      <div className="profile-picture-edit-page">
+      <div>
         <ProfilePicture2 showEditButton={true} />
       </div>
       <div className="name-and-buttons-container">
