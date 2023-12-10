@@ -9,8 +9,7 @@ import NoPosts from "../../components/NoPosts/NoPosts";
 import LoadingComponent from "../../components/LoadingComponent/LoadingComponent";
 
 function MainPage({ setIsNavbarVisible }) {
-	const imgSrcCommenter = postData["imgSrcCommenter"];
-	const defaultImgSrcRestaurant = "/icons/defaultImage.svg";
+	const defaultImgSrc = "/icons/defaultImage.svg";
 
 	// Store the selected post information
 	const [selectedPostInfo, setSelectedPostInfo] = useState(null);
@@ -104,7 +103,7 @@ function MainPage({ setIsNavbarVisible }) {
 					postData["category_1"],
 					postData["category_2"],
 					postData["category_3"],
-					defaultImgSrcRestaurant,
+					defaultImgSrc,
 				];
 			}
 		} catch (error) {
@@ -184,6 +183,8 @@ function MainPage({ setIsNavbarVisible }) {
 				console.log("No user logged in");
 				return;
 			}
+
+			const imgSrcCommenter = currentUser.get("profilePicture").url();
 
 			const PostData = Parse.Object.extend("Post");
 			const query = new Parse.Query(PostData);
