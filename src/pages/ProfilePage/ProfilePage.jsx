@@ -63,7 +63,7 @@ function ProfilePage() {
 	useEffect(() => {
 		const currentUser = Parse.User.current();
 		if (currentUser) {
-			setUserName(currentUser.get("name"));
+			setUserName(currentUser.get("name") || "Anonymous");
 			fetchFriendsNumber(currentUser);
 			fetchRestaurants(currentUser);
 		}
