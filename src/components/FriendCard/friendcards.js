@@ -103,12 +103,11 @@ const Card = React.memo(({ user, isFriend, currentUserName, isAdded }) => {
           objectId: user,
         });
 
-        // For the demo we will just add Friend status directly without the pending status
-        newFriendship.set("status", "Friends");
+        newFriendship.set("status", "Pending");
 
         const result = await newFriendship.save();
-        setFriend(true); //To change after demo
-        isFriend = true; //To change after demo
+        setAdded(true); 
+        isAdded= true;
 
         console.log("Friendship added successfully:", result);
       } catch (error) {
