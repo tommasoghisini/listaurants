@@ -85,7 +85,7 @@ function AddRestaurantPage1() {
 		} else if (event.target.value.startsWith("http")) {
 			setSelectedImage(event.target.value);
 		} else {
-			alert("Please select a valid image file");
+			console.log("Not a valid image file");
 		}
 	};
 
@@ -95,12 +95,12 @@ function AddRestaurantPage1() {
 		try {
 			const currentUser = Parse.User.current();
 			if (!currentUser) {
-				alert("User not logged in");
+				console.log("User not logged in");
 				return;
 			}
 
 			if (!restaurantName) {
-				alert("Please select a restaurant name");
+				console.log("No choice of restaurant");
 				return;
 			}
 
@@ -120,7 +120,6 @@ function AddRestaurantPage1() {
 			}
 
 			const savedPost = await post.save();
-			alert(`Success! Post was successfully added!`);
 
 			navigate("p2");
 		} catch (error) {
