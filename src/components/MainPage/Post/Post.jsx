@@ -1,4 +1,3 @@
-import { initialize } from "parse";
 import ProfilePicture from "../../shared/ProfilePicture/ProfilePicture";
 import LikeCommentSave from "../LikeCommentSave/LikeCommentSave";
 import "./Post.css";
@@ -101,4 +100,4 @@ function Categories({ categories }) {
 	);
 }
 
-export default Post;
+export { Categories, Post };

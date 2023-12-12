@@ -1,4 +1,4 @@
-import Post from "../../components/MainPage/Post/Post";
+import { Post } from "../../components/MainPage/Post/Post";
 import TopBar from "../../components/shared/TopBar/TopBar";
 import "./MainPage.css";
 import postData from "../../data/user1.json";

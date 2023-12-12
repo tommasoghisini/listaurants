@@ -5,7 +5,6 @@ import ProfilePicture2 from "../../components/ProfilePicture2/ProfilePicture2";
 import ButtonSh from "../../components/shared/ButtonShort/ButtonShort";
 import TopBar from "../../components/shared/TopBar/TopBar";
 import "./ProfilePage.css";
-import BackButton from "../../components/shared/GoBackButton/GoBackButton";
 import Parse from "parse/dist/parse.min";
 
 function ProfilePage() {
