@@ -33,6 +33,9 @@ function Post({
 	// Store the comment
 	const [comment, setComment] = useState("");
 	const handleCommentSubmit = () => {
+		if (comment === "") {
+			return;
+		}
 		const Comment = Parse.Object.extend("Comment");
 		const newComment = new Comment();
 		newComment.set("userID", Parse.User.current().id);
