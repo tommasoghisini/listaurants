@@ -1,6 +1,12 @@
 import "./LikeCommentSave.css";
 
-function LikeCommentSave({ like, setLike, save, handleSaveClicked }) {
+function LikeCommentSave({
+	like,
+	setLike,
+	save,
+	handleSaveClicked,
+	handleCommentClicked,
+}) {
 	return (
 		<div className="button-container">
 			<div
@@ -19,7 +25,9 @@ function LikeCommentSave({ like, setLike, save, handleSaveClicked }) {
 					className="like-image"
 				/>
 			</div>
-			<div className="like-button">
+			<div
+				className="like-button"
+				onClick={handleCommentClicked}>
 				<div className="like-text">Comment</div>
 				<img
 					src="/icons/comment.svg"

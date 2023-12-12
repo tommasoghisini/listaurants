@@ -111,7 +111,7 @@ function ListPage() {
 					className="close-icon"
 					onClick={goBack}
 				/>
-				<div className="top-bar-name">{listname}</div>
+				<div className="list-top-bar-name">{listname}</div>
 			</div>
 			<div className="list-items">
 				{loading ? (
