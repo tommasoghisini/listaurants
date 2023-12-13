@@ -23,17 +23,17 @@ function ProfilePage() {
 			const userPointer = new User();
 			userPointer.id = currentUser.getUsername();
 
-      // Query for friendships where current user is user1
-      const queryUser1 = new Parse.Query(FriendshipData);
-      queryUser1.equalTo("user1", userPointer);
-      queryUser1.equalTo("status", "Friends");
-      queryUser1.include("user2"); // Include user2 data
+			// Query for friendships where current user is user1
+			const queryUser1 = new Parse.Query(FriendshipData);
+			queryUser1.equalTo("user1", userPointer);
+			queryUser1.equalTo("status", "Friends");
+			queryUser1.include("user2"); // Include user2 data
 
-      // Query for friendships where current user is user2
-      const queryUser2 = new Parse.Query(FriendshipData);
-      queryUser2.equalTo("user2", userPointer);
-      queryUser2.equalTo("status", "Friends");
-      queryUser2.include("user1"); // Include user1 data
+			// Query for friendships where current user is user2
+			const queryUser2 = new Parse.Query(FriendshipData);
+			queryUser2.equalTo("user2", userPointer);
+			queryUser2.equalTo("status", "Friends");
+			queryUser2.include("user1"); // Include user1 data
 
 			// Combine the queries
 			const combinedQuery = Parse.Query.or(queryUser1, queryUser2);
@@ -69,25 +69,22 @@ function ProfilePage() {
 		}
 	}, []);
 
+	const handleEditProfileClick = () => {
+		navigate("/editprofilepage");
+		setEditProfilePressed(true);
+	};
 
-  const handleEditProfileClick = () => {
-    navigate("/editprofilepage");
-    setEditProfilePressed(true);
-  };
+	const handleFriendsClick = () => {
+		navigate("/friendspage");
+		setFriendsPressed(true);
+	};
 
-  const handleFriendsClick = () => {
-    navigate("/friendspage");
-    setFriendsPressed(true);
-  };
-  
 	return (
 		<div className="container-sana">
 			<TopBar pageName="Profile" />
 			{/*<BackButton />*/}
 			<div className="profile-section">
-				<div className="profile-picture">
-					<ProfilePicture2 showEditButton={false} />
-				</div>
+				<ProfilePicture2 showEditButton={false} />
 				<p className="profile-name">{userName}</p>{" "}
 				{/* dsplay the user name from our app db */}
 			</div>
@@ -112,8 +109,6 @@ function ProfilePage() {
 			</div>
 		</div>
 	);
-
-
 }
 
 export default ProfilePage;
