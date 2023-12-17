@@ -7,9 +7,11 @@ import Parse from "parse/dist/parse.min.js";
 import SaveListOverlay from "../../components/MainPage/SaveListOverlay/SaveListOverlay";
 import NoPosts from "../../components/NoPosts/NoPosts";
 import LoadingComponent from "../../components/LoadingComponent/LoadingComponent";
+import { useNavigate } from "react-router-dom";
 
 function MainPage({ setIsNavbarVisible }) {
 	const defaultImgSrc = "/icons/defaultImage.svg";
+	const navigate = useNavigate();
 
 	// Store the selected post information
 	const [selectedPostInfo, setSelectedPostInfo] = useState(null);
@@ -30,6 +32,8 @@ function MainPage({ setIsNavbarVisible }) {
 	const handleSaveToList = async (listName) => {
 		// Handle the logic to save the post to the selected list
 		if (selectedPostInfo) {
+			
+
 			// Create a new Post object using Parse
 			const PostObject = Parse.Object.extend("Post");
 			const newPost = new PostObject();
@@ -37,6 +41,7 @@ function MainPage({ setIsNavbarVisible }) {
 			const originalPostQuery = new Parse.Query(PostObject);
 			originalPostQuery.equalTo("objectId", selectedPostInfo.id); // Use the ID of the selected post
 			const originalPost = await originalPostQuery.first();
+		  
 
 			if (originalPost && originalPost.get("image")) {
 				// Set the image from the original post
@@ -51,6 +56,15 @@ function MainPage({ setIsNavbarVisible }) {
 			newPost.set("text", "");
 			newPost.set("restaurantName", selectedPostInfo.restaurantName);
 			newPost.set("restaurantAddress", selectedPostInfo.restaurantAddress);
+			newPost.set("restaurantId", selectedPostInfo.restaurantId); 
+
+			if (listName === "Favourites") {
+				console.log("Restaurant ID:  ", selectedPostInfo.restaurantId?.id);
+				const idToURL = selectedPostInfo.restaurantId?.id;
+				const edit="";
+				navigate(`/add?restIdParameter=${idToURL}&edit=${edit}`);
+				return; 
+			  }
 
 			// Save the new Post object to the Parse database
 			try {
@@ -224,6 +238,7 @@ function MainPage({ setIsNavbarVisible }) {
 					<Post
 						id={id}
 						imgSrcUser={imgSrcUser}
+						restaurantId={restaurantId}
 						imgSrcRestaurant={imgSrcRestaurant}
 						imgSrcCommenter={imgSrcCommenter}
 						userName={userName}
@@ -238,6 +253,7 @@ function MainPage({ setIsNavbarVisible }) {
 								imgSrcRestaurant: imgSrcRestaurant,
 								restaurantName: restaurantName,
 								restaurantAddress: restaurantAddress,
+								restaurantId: restaurantId,
 							});
 						}}
 						saveClicked={isOverlayOpen}
