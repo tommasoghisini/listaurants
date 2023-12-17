@@ -41,7 +41,9 @@ function AddRestaurantPage1() {
           },
         }));
 
-        setRestaurantMapping(restaurantMapping);
+        
+        const sortedOptions = restaurantMapping.slice().sort((a, b) => a.name.localeCompare(b.name));
+        setRestaurantMapping(sortedOptions);
 
         const urlSearchParams = new URLSearchParams(window.location.search);
         const idParameter = urlSearchParams.get("restIdParameter");
@@ -140,7 +142,7 @@ function AddRestaurantPage1() {
         console.log("No choice of restaurant");
         return;
       }
-
+      
 
       if (isEdit === 1) {
         //Find the existing post
@@ -196,6 +198,10 @@ function AddRestaurantPage1() {
     }
   };
 
+  const handleListChange = (e) => {
+    setSelectedList(e.target.value);
+  };
+
   return (
     <div className="add-restaurant-page">
       <TopBar pageName={"Add a Restaurant"} />
@@ -234,7 +240,7 @@ function AddRestaurantPage1() {
             <select
               id="chooseList"
               value={selectedList}
-              onChange={(e) => setSelectedList(e.target.value)}
+              onChange={handleListChange}
             >
               {titles.map((title, index) => (
                 <option key={index} value={title}>
@@ -244,26 +250,27 @@ function AddRestaurantPage1() {
             </select>
           </div>
 
-          <div className="restaurant-comment-input-field">
-            <label htmlFor="restaurantComment">
-              What do you think about the restaurant?
-            </label>
-            <textarea
-              id="restaurantComment"
-              rows={4}
-              placeholder="Write your comment here..."
-              value={restaurantComment}
-              onChange={(e) => setRestaurantComment(e.target.value)}
-            />
-          </div>
-
-          <div className="restaurant-comment-input-field">
-            <UploadImageButton
-              selectedImage={selectedImage}
-              handleImageChange={handleImageChange}
-              handleChooseFileClick={handleChooseFileClick}
-            />
-          </div>
+          {selectedList === "Favourites" && (
+            <div>
+              <div className="restaurant-comment-input-field">
+                <label htmlFor="restaurantComment">
+                  What do you think about the restaurant?
+                </label>
+                <textarea
+                  id="restaurantComment"
+                  rows={4}
+                  placeholder="Write your comment here..."
+                  value={restaurantComment}
+                  onChange={(e) => setRestaurantComment(e.target.value)}
+                />
+              </div>
+                <UploadImageButton
+                  selectedImage={selectedImage}
+                  handleImageChange={handleImageChange}
+                  handleChooseFileClick={handleChooseFileClick}
+                />
+            </div>
+          )}
         </form>
 
         <div className="add-restaurant-button">
