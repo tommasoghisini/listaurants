@@ -5,7 +5,6 @@ import postData from "../../data/user1.json";
 import RestaurantCard from "../../components/RestaurantCard/RestaurantCard";
 import { useState, useEffect } from "react";
 import LoadingComponent from "../../components/LoadingComponent/LoadingComponent";
-import { Link } from 'react-router-dom';
 
 function ListPage() {
 	const navigate = useNavigate();
@@ -96,6 +95,7 @@ function ListPage() {
 						restaurantAddress={restaurantAddress}
 						categories={categories}
 						comment={postText}
+						postId={id}
 					/>,
 				];
 			});
@@ -127,12 +127,6 @@ function ListPage() {
 						.map((post) => {
 							return post[1];
 						})
-						//Add Edit link on click here for every card like:
-						//const id=""
-        				//const edit = post.id;
-						//console.log(edit, "edit");
-						//<Link to={`/add?restIdParameter=${id}&edit=${edit}`}>
-						// </Link>
 				)}
 			</div>
 		</div>
