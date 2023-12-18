@@ -2,7 +2,7 @@ import { Post } from "../../components/MainPage/Post/Post";
 import TopBar from "../../components/shared/TopBar/TopBar";
 import "./MainPage.css";
 import postData from "../../data/user1.json";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Parse from "parse/dist/parse.min.js";
 import SaveListOverlay from "../../components/MainPage/SaveListOverlay/SaveListOverlay";
 import NoPosts from "../../components/NoPosts/NoPosts";
@@ -11,7 +11,9 @@ import { useNavigate } from "react-router-dom";
 
 function MainPage({ setIsNavbarVisible }) {
   const defaultImgSrc = "/icons/defaultImage.svg";
+
   const navigate = useNavigate();
+
 
   // Store the selected post information
   const [selectedPostInfo, setSelectedPostInfo] = useState(null);
@@ -32,8 +34,6 @@ function MainPage({ setIsNavbarVisible }) {
   const handleSaveToList = async (listName) => {
     // Handle the logic to save the post to the selected list
     if (selectedPostInfo) {
-
-
       // Create a new Post object using Parse
       const PostObject = Parse.Object.extend("Post");
       const newPost = new PostObject();
@@ -41,8 +41,6 @@ function MainPage({ setIsNavbarVisible }) {
       const originalPostQuery = new Parse.Query(PostObject);
       originalPostQuery.equalTo("objectId", selectedPostInfo.id); // Use the ID of the selected post
       const originalPost = await originalPostQuery.first();
-
-
       if (originalPost && originalPost.get("image")) {
         // Set the image from the original post
         newPost.set("image", originalPost.get("image"));
@@ -56,6 +54,7 @@ function MainPage({ setIsNavbarVisible }) {
       newPost.set("text", "");
       newPost.set("restaurantName", selectedPostInfo.restaurantName);
       newPost.set("restaurantAddress", selectedPostInfo.restaurantAddress);
+
       newPost.set("restaurantId", selectedPostInfo.restaurantId);
 
       if (listName === "Favourites") {
@@ -64,6 +63,7 @@ function MainPage({ setIsNavbarVisible }) {
         navigate(`/add?restIdParameter=${idToURL}&edit=${edit}`);
         return;
       }
+
 
       // Save the new Post object to the Parse database
       try {
@@ -186,6 +186,49 @@ function MainPage({ setIsNavbarVisible }) {
     return await Promise.all(userIdPromises);
   };
 
+
+  const handleLikeClick = async (currentPostId) => {
+    // Get current user as a Pointer
+    const User = Parse.Object.extend("User");
+    const userPointer = new User();
+    userPointer.id = Parse.User.current().id;
+    userPointer.name = Parse.User.current().name;
+
+    // stole the approach of pointers from above
+    const Post = Parse.Object.extend("Post");
+    const postPointer = new Post();
+    postPointer.id = currentPostId;
+
+    // for already liked posts
+    const likeQuery = new Parse.Query("likes");
+    likeQuery.equalTo("userId", userPointer);
+    likeQuery.equalTo("postId", postPointer);
+    const likeRecord = await likeQuery.first();
+
+    if (!likeRecord) {
+      // did user like it before?
+      const Like = Parse.Object.extend("likes");
+      const like = new Like();
+      like.set("userId", userPointer);
+      like.set("postId", postPointer);
+      await like.save();
+
+      // 3. new record in notifs table
+      const Notification = Parse.Object.extend("Notifications");
+      const notification = new Notification();
+      notification.set("userId", userPointer);
+      notification.set(
+        "message",
+        `${userPointer.get("name")} likes your post about ${postPointer.get(
+          "restaurantName"
+        )}`
+      );
+      notification.set("userToBeNotified", postPointer.get("userId"));
+      await notification.save();
+    }
+  };
+
+
   useEffect(() => {
     setLoading(true);
     const fetchPosts = async () => {
@@ -216,7 +259,7 @@ function MainPage({ setIsNavbarVisible }) {
 
       const postPromises = userPosts.map(async (userPost) => {
         const restaurantId = userPost.get("restaurantId");
-
+        
         let [category_1, category_2, category_3, restaurantClassImage] =
           await fetchRestaurantData(restaurantId);
 
@@ -226,14 +269,18 @@ function MainPage({ setIsNavbarVisible }) {
         const postText = userPost.get("text");
         const restaurantName = userPost.get("restaurantName");
         const restaurantAddress = userPost.get("restaurantAddress");
+
         const time = userPost.get("createdAt");
+
         const id = userPost.id;
         const [userName, imgSrcUser] = await fetchUserData(
           userPost.get("userId")
         );
+
         const imgSrcRestaurant = userPost.get("image")
           ? userPost.get("image").url()
           : restaurantClassImage;
+
 
         return [
           time,
@@ -256,10 +303,11 @@ function MainPage({ setIsNavbarVisible }) {
                 imgSrcRestaurant: imgSrcRestaurant,
                 restaurantName: restaurantName,
                 restaurantAddress: restaurantAddress,
-                restaurantId: restaurantId,
+                restaurantId: restaurantId,       
               });
             }}
             saveClicked={isOverlayOpen}
+            handleLikeClick={() => handleLikeClick(userPost.id)}
           />,
         ];
       });
