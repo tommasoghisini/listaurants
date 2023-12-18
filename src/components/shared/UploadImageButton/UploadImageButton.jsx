@@ -33,7 +33,7 @@ const UploadImageButton = ({
         </div>
       )}
       <label htmlFor="restaurantImage" className="choose-file-label">
-        Choose a Personal File
+        Choose a Personal Image
         <input
           type="file"
           id="restaurantImage"

@@ -5,11 +5,12 @@ import "./FriendsPage.css";
 import TopBar from "../../components/shared/TopBar/TopBar";
 
 function FriendsPage() {
-  const [allNames, setAllNames] = useState([]);
+  const [allUsers, setAllUsers] = useState([]);
   const [currentUserName, setCurrentUserName] = useState("");
+  const [currentUser, setCurrentUser] = useState("");
   const [searchValue, setSearchValue] = useState("");
   const [allFriends, setAllFriends] = useState([]);
-  const [addedUserNames, setAddedUserNames] = useState([]);
+  const [addedUsers, setAddedUsers] = useState([]);
 
   useEffect(() => {
     async function fetchAll() {
@@ -17,73 +18,76 @@ function FriendsPage() {
       if (currentUser) {
         const currentUserName = currentUser.getUsername();
         setCurrentUserName(currentUserName);
+        setCurrentUser(currentUser);
         try {
           const userQuery = new Parse.Query("_User");
           userQuery.notEqualTo("objectId", currentUser.id);
-          const allUsers = await userQuery.find();
-          const allNames = allUsers.map((user) => user.get("username"));
-          setAllNames(allNames);
-        } catch (error) {
-          console.error("Error fetching friend data:", error);
-        }
-      }
-    }
-    fetchAll();
-  }, []);
+          const allUserRows = await userQuery.find();
 
-  useEffect(() => {
-    async function fetchFriendData() {
-      const currentUser = Parse.User.current();
-      if (currentUser) {
-        const currentUserName = currentUser.getUsername();
-        setCurrentUserName(currentUserName);
-        try {
+          const allUsers = allUserRows.map((user) => {
+            return {
+              username: user.get("username"),
+              profilepicture: user.get("profilePicture")
+                ? user.get("profilePicture").url()
+                : "images/bob.jpeg", //change to standard icon
+            };
+          });
+
+          setAllUsers(allUsers);
+
           const friendshipQuery1 = new Parse.Query("Friendship");
           friendshipQuery1.equalTo("user1", currentUserName);
           friendshipQuery1.equalTo("status", "Friends");
           const result1 = await friendshipQuery1.find();
           const friends1 = result1.map(
-            (friendship) => friendship.get("user2")?.id || null
+            (friendship) => friendship.get("user2").id
           );
 
           const friendshipQuery2 = new Parse.Query("Friendship");
           friendshipQuery2.equalTo("user2", currentUserName);
           friendshipQuery2.equalTo("status", "Friends");
           const result2 = await friendshipQuery2.find();
+
           const friends2 = result2.map(
-            (friendship) => friendship.get("user1")?.id || null
+            (friendship) => friendship.get("user1").id
           );
 
-          const allFriends = friends1.concat(friends2);
+          const friends1Subset = allUsers.filter((user) =>
+            friends1.includes(user.username)
+          );
+          const friends2Subset = allUsers.filter((user) =>
+            friends2.includes(user.username)
+          );
 
+          const allFriends = friends1Subset.concat(friends2Subset);
+          console.log("All friends", allFriends);
           setAllFriends(allFriends);
 
           const friendshipQuery3 = new Parse.Query("Friendship");
           friendshipQuery3.equalTo("user1", currentUserName);
           friendshipQuery3.equalTo("status", "Pending");
           const result3 = await friendshipQuery3.find();
-          const addedUserNames = result3.map(
-            (friendship) => friendship.get("user2")?.id || null
+          const addedUsers = result3.map(
+            (friendship) => friendship.get("user2").id);
+
+          const addedSubset = allUsers.filter((user) =>
+            addedUsers.includes(user.username)
           );
 
-          setAddedUserNames(addedUserNames);
+          setAddedUsers(addedSubset);
 
-          console.log("added users:" + addedUserNames);
-          console.log("friends:" + allFriends);
         } catch (error) {
           console.error("Error fetching friend data:", error);
         }
-      } else {
-        console.log("No current user");
       }
     }
 
-    fetchFriendData();
+    fetchAll();
   }, []);
 
   const filteredUsers = searchValue
-    ? allNames.filter((name) =>
-        name.toLowerCase().includes(searchValue.toLowerCase())
+    ? allUsers.filter((user) =>
+        user.username.toLowerCase().includes(searchValue.toLowerCase())
       )
     : allFriends;
 
@@ -102,9 +106,9 @@ function FriendsPage() {
       <div className="friend-card-appearance">
         <FriendCards
           filteredUsers={filteredUsers}
-          friendNames={allFriends}
+          allFriends={allFriends}
           currentUserName={currentUserName}
-          addedNames={addedUserNames}
+          addedUsers={addedUsers}
         />
       </div>
     </div>

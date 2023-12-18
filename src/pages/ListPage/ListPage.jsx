@@ -5,6 +5,7 @@ import postData from "../../data/user1.json";
 import RestaurantCard from "../../components/RestaurantCard/RestaurantCard";
 import { useState, useEffect } from "react";
 import LoadingComponent from "../../components/LoadingComponent/LoadingComponent";
+import { Link } from 'react-router-dom';
 
 function ListPage() {
 	const navigate = useNavigate();
@@ -72,7 +73,7 @@ function ListPage() {
 
 			const postPromises = userPosts.map(async (userPost) => {
 				const restaurantId = userPost.get("restaurantId");
-				let [category_1, category_2, category_3, imgSrcRestaurant] =
+				let [category_1, category_2, category_3, tempRestaurantImage] =
 					await fetchRestaurantData(restaurantId);
 
 				const categories = [category_1, category_2, category_3];
@@ -81,6 +82,9 @@ function ListPage() {
 				const restaurantAddress = userPost.get("restaurantAddress");
 				const time = userPost.get("updatedAt");
 				const id = userPost.id;
+				const imgSrcRestaurant = userPost.get("image")
+				? userPost.get("image").url()
+				: tempRestaurantImage;
 
 				return [
 					time,
@@ -123,6 +127,12 @@ function ListPage() {
 						.map((post) => {
 							return post[1];
 						})
+						//Add Edit link on click here for every card like:
+						//const id=""
+        				//const edit = post.id;
+						//console.log(edit, "edit");
+						//<Link to={`/add?restIdParameter=${id}&edit=${edit}`}>
+						// </Link>
 				)}
 			</div>
 		</div>

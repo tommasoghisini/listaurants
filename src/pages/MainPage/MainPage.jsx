@@ -7,9 +7,13 @@ import Parse from "parse/dist/parse.min.js";
 import SaveListOverlay from "../../components/MainPage/SaveListOverlay/SaveListOverlay";
 import NoPosts from "../../components/NoPosts/NoPosts";
 import LoadingComponent from "../../components/LoadingComponent/LoadingComponent";
+import { useNavigate } from "react-router-dom";
 
 function MainPage({ setIsNavbarVisible }) {
   const defaultImgSrc = "/icons/defaultImage.svg";
+
+  const navigate = useNavigate();
+
 
   // Store the selected post information
   const [selectedPostInfo, setSelectedPostInfo] = useState(null);
@@ -37,7 +41,6 @@ function MainPage({ setIsNavbarVisible }) {
       const originalPostQuery = new Parse.Query(PostObject);
       originalPostQuery.equalTo("objectId", selectedPostInfo.id); // Use the ID of the selected post
       const originalPost = await originalPostQuery.first();
-
       if (originalPost && originalPost.get("image")) {
         // Set the image from the original post
         newPost.set("image", originalPost.get("image"));
@@ -51,6 +54,16 @@ function MainPage({ setIsNavbarVisible }) {
       newPost.set("text", "");
       newPost.set("restaurantName", selectedPostInfo.restaurantName);
       newPost.set("restaurantAddress", selectedPostInfo.restaurantAddress);
+
+      newPost.set("restaurantId", selectedPostInfo.restaurantId);
+
+      if (listName === "Favourites") {
+        const idToURL = selectedPostInfo.restaurantId?.id;
+        const edit="";
+        navigate(`/add?restIdParameter=${idToURL}&edit=${edit}`);
+        return;
+      }
+
 
       // Save the new Post object to the Parse database
       try {
@@ -173,6 +186,7 @@ function MainPage({ setIsNavbarVisible }) {
     return await Promise.all(userIdPromises);
   };
 
+
   const handleLikeClick = async (currentPostId) => {
     // Get current user as a Pointer
     const User = Parse.Object.extend("User");
@@ -214,6 +228,7 @@ function MainPage({ setIsNavbarVisible }) {
     }
   };
 
+
   useEffect(() => {
     setLoading(true);
     const fetchPosts = async () => {
@@ -244,7 +259,8 @@ function MainPage({ setIsNavbarVisible }) {
 
       const postPromises = userPosts.map(async (userPost) => {
         const restaurantId = userPost.get("restaurantId");
-        let [category_1, category_2, category_3, imgSrcRestaurant] =
+        
+        let [category_1, category_2, category_3, restaurantClassImage] =
           await fetchRestaurantData(restaurantId);
 
         const categories = [category_1, category_2, category_3];
@@ -253,11 +269,18 @@ function MainPage({ setIsNavbarVisible }) {
         const postText = userPost.get("text");
         const restaurantName = userPost.get("restaurantName");
         const restaurantAddress = userPost.get("restaurantAddress");
-        const time = userPost.get("updatedAt");
+
+        const time = userPost.get("createdAt");
+
         const id = userPost.id;
         const [userName, imgSrcUser] = await fetchUserData(
           userPost.get("userId")
         );
+
+        const imgSrcRestaurant = userPost.get("image")
+          ? userPost.get("image").url()
+          : restaurantClassImage;
+
 
         return [
           time,
@@ -265,6 +288,7 @@ function MainPage({ setIsNavbarVisible }) {
           <Post
             id={id}
             imgSrcUser={imgSrcUser}
+            restaurantId={restaurantId}
             imgSrcRestaurant={imgSrcRestaurant}
             imgSrcCommenter={imgSrcCommenter}
             userName={userName}
@@ -279,6 +303,7 @@ function MainPage({ setIsNavbarVisible }) {
                 imgSrcRestaurant: imgSrcRestaurant,
                 restaurantName: restaurantName,
                 restaurantAddress: restaurantAddress,
+                restaurantId: restaurantId,       
               });
             }}
             saveClicked={isOverlayOpen}
