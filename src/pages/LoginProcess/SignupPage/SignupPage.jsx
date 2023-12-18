@@ -28,16 +28,13 @@ const SignupPage = ({ setIsAuthenticated }) => {
 		try {
 			// Since the signUp method returns a Promise, we need to call it using await
 			const createdUser = await Parse.User.signUp(email, password);
-			alert(
-				`Success! User ${createdUser.getUsername()} was successfully created!`
-			);
 			console.log(email, password, confirmPassword);
 			setIsAuthenticated(true);
-			navigate("/verification"); // Navigate to the next page
+			navigate("/signup-name"); // Navigate to the next page
 			return true;
 		} catch (error) {
 			// signUp can fail if any parameter is blank or failed an uniqueness check on the server
-			alert(`Error! ${error}`);
+			setErrorMessage(error.message);
 			return false;
 		}
 	};

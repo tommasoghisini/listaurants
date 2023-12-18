@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Parse from 'parse/dist/parse.min.js';
+import Parse from "parse/dist/parse.min.js";
 import Button from "../../../components/shared/Button/Button";
 import { useNavigate } from "react-router-dom";
 import ForgotPassword from "../../../components/ForgotPassword/ForgotPassword";
@@ -12,6 +12,7 @@ function LoginPage({ setIsAuthenticated }) {
 	const [password, setPassword] = useState("");
 	const [currentUser, setCurrentUser] = useState(null);
 	const navigate = useNavigate();
+	const [errorMessage, setErrorMessage] = useState("");
 
 	const handleEmailChange = (event) => {
 		setEmail(event.target.value);
@@ -28,6 +29,12 @@ function LoginPage({ setIsAuthenticated }) {
 	};
 
 	const doUserLogIn = async function () {
+		// Add logic to handle account creation
+		if (email === "" || password === "") {
+			setErrorMessage("Please fill in all fields");
+			return;
+		}
+
 		// Note that these values come from state variables that we've declared before
 		const usernameValue = email;
 		const passwordValue = password;
@@ -36,15 +43,15 @@ function LoginPage({ setIsAuthenticated }) {
 			// logIn returns the corresponding ParseUser object
 			console.log(
 				`Success! User ${loggedInUser.get(
-					'username'
+					"username"
 				)} has successfully signed in!`
 			);
 			// To verify that this is in fact the current user, `current` can be used
 			const currentUser = await Parse.User.current();
 			console.log(loggedInUser === currentUser);
 			// Clear input fields
-			setEmail('');
-			setPassword('');
+			setEmail("");
+			setPassword("");
 			// Update state variable holding current user
 			getCurrentUser();
 			// Set authentication state to true and redirect to home page
@@ -53,7 +60,7 @@ function LoginPage({ setIsAuthenticated }) {
 			return true;
 		} catch (error) {
 			// Error can be caused by wrong parameters or lack of Internet connection
-			console.log(`Error! ${error.message}`);
+			setErrorMessage(error.message);
 			return false;
 		}
 	};
@@ -67,7 +74,13 @@ function LoginPage({ setIsAuthenticated }) {
 				handleEmailChange={handleEmailChange}
 				handlePasswordChange={handlePasswordChange}
 			/>
-			<ForgotPassword />
+			{errorMessage && (
+				<div
+					className="error-message"
+					style={{ marginBottom: "20px" }}>
+					{errorMessage}
+				</div>
+			)}
 			<Button
 				text="Login"
 				onClick={doUserLogIn}
