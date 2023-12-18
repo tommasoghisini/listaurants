@@ -25,63 +25,85 @@ function AddRestaurantPage1() {
   useEffect(() => {
     async function fetchRestaurantOptions() {
       try {
-        const Restaurant = Parse.Object.extend("Restaurant");
-        const query = new Parse.Query(Restaurant);
-        const results = await query.find();
-
-        const restaurantMapping = results.map((restaurant) => ({
-          name: restaurant.get("name"),
-          address: restaurant.get("address"),
-          image: restaurant.get("image"),
-          selected: "",
-          restaurantPointer: {
-            __type: "Pointer",
-            className: "Restaurant",
-            objectId: restaurant.id,
-          },
-        }));
-
-        
-        const sortedOptions = restaurantMapping.slice().sort((a, b) => a.name.localeCompare(b.name));
-        setRestaurantMapping(sortedOptions);
-
         const urlSearchParams = new URLSearchParams(window.location.search);
         const idParameter = urlSearchParams.get("restIdParameter");
         const isEdit = urlSearchParams.get("edit");
         setIsEdit(isEdit);
 
-        if (idParameter) {
-          const targetIndex = restaurantMapping.findIndex(
-            (restaurant) =>
-              restaurant.restaurantPointer.objectId === idParameter
-          );
-          if (targetIndex !== -1) {
-            const foundRestaurantName = restaurantMapping[targetIndex].name;
-            const selectedRestaurantInfo = restaurantMapping[targetIndex];
+        if (isEdit) {
+          const Post = Parse.Object.extend("Post");
+          const postQuery = new Parse.Query(Post);
+          postQuery.equalTo("objectId", isEdit);
+          const postResult = await postQuery.find();
 
-            console.log("Found Restaurant Name:", foundRestaurantName);
-            setRestaurantName(foundRestaurantName);
-
-            if (selectedRestaurantInfo) {
-              setRestaurantAddress(selectedRestaurantInfo.address);
-              if (selectedRestaurantInfo.image) {
-                try {
-                  const imageUrl = selectedRestaurantInfo.image.url();
-                  setSelectedImage(imageUrl);
-                } catch (error) {
-                  console.error("Error getting image URL from Parse:", error);
-                  setSelectedImage(null);
-                }
-              } else {
-                setSelectedImage(null);
-              }
-
-              setSelectedRestaurantInfo(selectedRestaurantInfo);
-              setRestaurantId(selectedRestaurantInfo.restaurantPointer);
-            }
+          if (postResult) {
+            const postRestaurant = postResult[0].get("restaurantId");
+            console.log("postResult found");
+            setRestaurantName(postResult[0].get("restaurantName"));
+            setSelectedList(postResult[0].get("savedToList"));
+            setSelectedImage(
+              postResult[0].get("image")
+                ? postResult[0].get("image").url()
+                : postRestaurant.get("image").url()
+            );
+            setRestaurantComment(postResult[0].get("text"));
+            setRestaurantAddress(postResult[0].get("restaurantId.address"));
           }
         } else {
-          console.log("No parameter");
+          const Restaurant = Parse.Object.extend("Restaurant");
+          const query = new Parse.Query(Restaurant);
+          const results = await query.find();
+
+          const restaurantMapping = results.map((restaurant) => ({
+            name: restaurant.get("name"),
+            address: restaurant.get("address"),
+            image: restaurant.get("image"),
+            selected: "",
+            restaurantPointer: {
+              __type: "Pointer",
+              className: "Restaurant",
+              objectId: restaurant.id,
+            },
+          }));
+
+          const sortedOptions = restaurantMapping
+            .slice()
+            .sort((a, b) => a.name.localeCompare(b.name));
+          setRestaurantMapping(sortedOptions);
+
+          if (idParameter) {
+            const targetIndex = restaurantMapping.findIndex(
+              (restaurant) =>
+                restaurant.restaurantPointer.objectId === idParameter
+            );
+            if (targetIndex !== -1) {
+              const foundRestaurantName = restaurantMapping[targetIndex].name;
+              const selectedRestaurantInfo = restaurantMapping[targetIndex];
+
+              console.log("Found Restaurant Name:", foundRestaurantName);
+              setRestaurantName(foundRestaurantName);
+
+              if (selectedRestaurantInfo) {
+                setRestaurantAddress(selectedRestaurantInfo.address);
+                if (selectedRestaurantInfo.image) {
+                  try {
+                    const imageUrl = selectedRestaurantInfo.image.url();
+                    setSelectedImage(imageUrl);
+                  } catch (error) {
+                    console.error("Error getting image URL from Parse:", error);
+                    setSelectedImage(null);
+                  }
+                } else {
+                  setSelectedImage(null);
+                }
+
+                setSelectedRestaurantInfo(selectedRestaurantInfo);
+                setRestaurantId(selectedRestaurantInfo.restaurantPointer);
+              }
+            }
+          } else {
+            console.log("No parameter");
+          }
         }
       } catch (error) {
         console.error("Error fetching restaurant options:", error);
@@ -142,36 +164,53 @@ function AddRestaurantPage1() {
         console.log("No choice of restaurant");
         return;
       }
-      
 
-      if (isEdit === 1) {
-        //Find the existing post
+      if (isEdit) {
+        const Post = Parse.Object.extend("Post");
         const existingPostQuery = new Parse.Query(Post);
-        existingPostQuery.equalTo("userId", currentUser.id);
-        existingPostQuery.equalTo("restaurantId", restaurantId);
-        existingPostQuery.equalTo("savedToList", selectedList);
-
+        existingPostQuery.equalTo("objectId", isEdit);
         const existingPost = await existingPostQuery.first();
 
         if (existingPost) {
-          existingPost.set("restaurantName", restaurantName);
-          existingPost.set("restaurantAddress", restaurantAddress);
-          existingPost.set("text", restaurantComment);
-
-          if (selectedImage instanceof File) {
-            // Update image if a new one is provided
-            const existingImage = existingPost.get("image");
-            if (existingImage) {
-              await existingImage.destroy();
+          console.log("found post");
+          if (existingPost.get("savedToList") === selectedList) {
+            console.log("No change in list");
+            existingPost.set("text", restaurantComment);
+            if (selectedImage instanceof File) {
+              const existingImage = existingPost.get("image");
+              if (existingImage) {
+                await existingImage.destroy();
+              }
+              const newImage = new Parse.File("image.jpg", selectedImage);
+              await newImage.save();
+              existingPost.set("image", newImage);
             }
-            const newImage = new Parse.File("image.jpg", selectedImage);
-            await newImage.save();
-            existingPost.set("image", newImage);
-          }
 
-          await existingPost.save();
+            await existingPost.save();
+            console.log("saved edit", existingPost.get("text"));
+          } else {
+            console.log("Changed list");
+            const Post = Parse.Object.extend("Post");
+            const post = new Post();
+            post.set("userId", existingPost.get("userId"));
+            post.set("restaurantId", existingPost.get("restaurantId"));
+            post.set("restaurantAddress", existingPost.get("restaurantAddress"));
+            post.set("restaurantName", existingPost.get("restaurantName"));
+            post.set("text", restaurantComment);
+            post.set("savedToList", selectedList);
+            post.set("image",existingPost.get("image") );
+            if (selectedImage instanceof File) {
+              const file = new Parse.File("image.jpg", selectedImage);
+              await file.save();
+              post.set("image", file);
+            }
+    
+            await post.save();
+            console.log("saved new post", post.get("text"));
+          }
         } else {
           console.log("Existing post not found");
+          return;
         }
       } else {
         const Post = Parse.Object.extend("Post");
@@ -214,14 +253,20 @@ function AddRestaurantPage1() {
               value={restaurantName}
               onChange={handleRestaurantChange}
             >
-              <option value="" disabled>
-                Select a restaurant
-              </option>
-              {restaurantMapping.map((restaurant, index) => (
-                <option key={index} value={restaurant.name}>
-                  {restaurant.name}
-                </option>
-              ))}
+              {restaurantMapping && restaurantMapping.length > 0 ? (
+                <>
+                  <option value="" disabled>
+                    Select a restaurant
+                  </option>
+                  {restaurantMapping.map((restaurant, index) => (
+                    <option key={index} value={restaurant.name}>
+                      {restaurant.name}
+                    </option>
+                  ))}
+                </>
+              ) : (
+                <option value={restaurantName}>{restaurantName}</option>
+              )}
             </select>
           </div>
 
@@ -264,11 +309,11 @@ function AddRestaurantPage1() {
                   onChange={(e) => setRestaurantComment(e.target.value)}
                 />
               </div>
-                <UploadImageButton
-                  selectedImage={selectedImage}
-                  handleImageChange={handleImageChange}
-                  handleChooseFileClick={handleChooseFileClick}
-                />
+              <UploadImageButton
+                selectedImage={selectedImage}
+                handleImageChange={handleImageChange}
+                handleChooseFileClick={handleChooseFileClick}
+              />
             </div>
           )}
         </form>
