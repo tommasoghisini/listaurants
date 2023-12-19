@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./listcards.css";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import Parse from "parse/dist/parse.min.js";
 
 function ListCards({ Wishlist, Favourites }) {
