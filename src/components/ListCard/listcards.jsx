@@ -6,6 +6,7 @@ import Parse from "parse/dist/parse.min.js";
 function ListCards({ Wishlist, Favourites }) {
   const titles = ["💖 Favourites", "🌠 Wishlist"];
   const [images, setImages] = useState([null, null]); // State to store image URLs
+  
 
   // Function to get restaurant names
   const getRestaurantNames = (list) => {
@@ -74,6 +75,7 @@ function ListCards({ Wishlist, Favourites }) {
 
 function Card({ title, text, imageSource }) {
   const navigate = useNavigate();
+  const location = useLocation();
 
   const handleClick = () => {
     console.log(title);
