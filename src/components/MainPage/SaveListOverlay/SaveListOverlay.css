@@ -8,7 +8,7 @@
 	height: 100%; /* Full height */
 	background-color: rgba(0, 0, 0, 0.5); /* Black with opacity */
 	display: flex;
-	align-items: end; /* Align vertical */
+	align-items: flex-end; /* Align vertical */
 	justify-content: center; /* Align horizontal */
 }
 

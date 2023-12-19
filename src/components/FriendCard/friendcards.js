@@ -14,24 +14,35 @@ function FriendCards({
     textDecoration: 'none', 
     color: 'inherit', 
   };
+
   
   return (
     <div>
       {filteredUsers.map((user, index) =>
         user ? (
-          <Link to={`/profile/${user.username}`} key={index} style={linkStyle}>
-          <Card
-            key={index}
-            username={user.username}
-            profilepicture={user.profilepicture}
-            currentUserName={currentUserName}
-            isFriend={allFriends?.some(friend => friend.username === user.username) ? true : false}
-            isAdded={addedUsers?.some(addedUser => addedUser.username === user.username)? true : false}
-          />
+          allFriends?.some(friend => friend.username === user.username) ? (
+            <Link to={`/profile?userParameter=${user.id}`} style={linkStyle}>
+              <Card
+                key={index}
+                username={user.username}
+                profilepicture={user.profilepicture}
+                currentUserName={currentUserName}
+                isFriend={true}
+                isAdded={addedUsers?.some(addedUser => addedUser.username === user.username) ? true : false}
+              />
             </Link>
+          ) : (
+            <Card
+              key={index}
+              username={user.username}
+              profilepicture={user.profilepicture}
+              currentUserName={currentUserName}
+              isFriend={false}
+              isAdded={addedUsers?.some(addedUser => addedUser.username === user.username) ? true : false}
+            />
+          )
         ) : null
       )}
-
     </div>
   );
 }

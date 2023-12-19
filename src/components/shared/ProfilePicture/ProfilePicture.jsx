@@ -11,7 +11,7 @@ function ProfilePicture({ imgSrc, height }) {
 	return (
 		<img
 			src={imgSrc}
-			alt="logo"
+			alt="/images/pp.jpeg"
 			style={{ height: height, width: height }}
 			className="profile-image"
 		/>

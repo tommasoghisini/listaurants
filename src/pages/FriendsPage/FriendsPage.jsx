@@ -27,9 +27,10 @@ function FriendsPage() {
           const allUsers = allUserRows.map((user) => {
             return {
               username: user.get("username"),
+              id: user.id, 
               profilepicture: user.get("profilePicture")
                 ? user.get("profilePicture").url()
-                : "images/bob.jpeg", //change to standard icon
+                : "/images/pp.jpeg"
             };
           });
 
@@ -97,7 +98,7 @@ function FriendsPage() {
       <div className="friend-search-container">
         <input
           type="text"
-          placeholder="🔍 Add a new friend by username"
+          placeholder="🔍 Add a new friend by email"
           className="friend-search-input"
           value={searchValue}
           onChange={(e) => setSearchValue(e.target.value)}
