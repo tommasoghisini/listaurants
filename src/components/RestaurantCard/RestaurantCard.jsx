@@ -9,21 +9,21 @@ function RestaurantCard({
   categories,
   comment,
   postId,
-  parameter
+  parameter,
 }) {
   return (
     <div className="restaurant-card">
       <div className="list-image-container">
-        <div className="edit-icon">
-          {parameter !== true && (
+        {parameter !== true && (
+          <div className="edit-icon-listing">
             <Link to={`/add?restIdParameter=&edit=${postId}`}>
               <img
                 src="https://www.svgrepo.com/show/75500/edit-button.svg"
                 alt="Edit"
               />
             </Link>
-          )}
-        </div>
+          </div>
+        )}
         <img src={imgSrcRestaurant} alt="Restaurant" className="list-image" />
         <div className="image-overlay">
           <div className="image-overlay-text">

@@ -10,11 +10,25 @@
 	margin-bottom: 20px;
 }
 
+.edit-icon-listing {
+	position: absolute;
+	bottom: 8%;
+	right: 5%;
+	z-index: 2;
+}
+
 .edit-icon {
 	position: absolute;
 	bottom: 10%;
 	right: -60%;
 	z-index: 2;
+}
+
+.edit-icon-listing img {
+	width: 30px;
+	height: 30px;
+	cursor: pointer;
+	filter: invert(100%);
 }
 
 .edit-icon img {
