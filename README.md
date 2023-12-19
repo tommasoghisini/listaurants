@@ -1,10 +1,14 @@
 # Listaurants
 
-TODO
+Listaurants is a mobile-first React application designed to simplify restaurant discovery in Copenhagen. The application allows users to create, share, and explore lists of restaurants, facilitating a social and collaborative approach to dining out.
 
+The application is designed to simulate a mobile (touch) experience, with a maximum screen size set to mobile dimensions. This ensures that the user interface and experience are optimized for mobile users, providing an intuitive navigation experience.
 
-
-
+## Contributors
+- Jae Yoon Bae jaez@itu.dk 
+- Tommaso Ghisini togh@itu.dk 
+- Lydia Johanna Stenflo lyst@itu.dk 
+- Susanna Maria Paulina Rantala susr@itu.dk
 
 ## Run the app in dev mode
 
@@ -14,6 +18,11 @@ In the project directory, you can run:
 
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+
+
+## Docs
+In `docs` are available the prototypes and the transcript of the user interviews. Figma wireframes and user flow are available [here](https://www.figma.com/file/7xtKxqYP6RxX2bAER2P6cD/Wireframes?type=design&node-id=0%3A1&mode=design&t=ELlkeUCB5B9vhhRc-1).
+
 
 
 ## Project Structure
@@ -98,7 +107,5 @@ Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
     │   ├── MainPage
     │   ├── NotificationPage
     │   └── ProfilePage
-    ├── reportWebVitals.js
-    ├── setupTests.js
-    └── test.js
+    └── reportWebVitals.js
 ```
