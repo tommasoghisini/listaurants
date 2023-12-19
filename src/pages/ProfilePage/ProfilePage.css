@@ -35,7 +35,7 @@ body {
 }
 
 .button.pressed {
-  background-color: #a080e0; /* Change to the color you want when pressed */
+  background-color: #a080e0; /* Changes to the color you want when pressed */
 }
 
 .cards-container {
@@ -50,7 +50,6 @@ body {
   margin: 20px;
 }
 
-/* from here down for the go back button*/
 .back-button-container {
   position: absolute;
   top: 10px;
