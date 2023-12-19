@@ -18,6 +18,7 @@ function ListPage() {
   const [posts, setPosts] = useState([]);
   const [currentUser, setCurrentUser] = useState("");
   const [profileUser, setProfileUser] = useState("");
+  const [parameterExists, setParameterExists] = useState("");
 
   const goBack = () => {
     navigate(-1); // Use the history object to go back to the previous page
@@ -70,6 +71,8 @@ function ListPage() {
         const query = new Parse.Query(UserData);
         query.equalTo("objectId", parameter);
         const friends = await query.find();
+        setParameterExists(true);
+        
 
         if (friends.length > 0) {
           const friend = friends[0];
@@ -91,6 +94,7 @@ function ListPage() {
         console.log("No profile user");
         return;
       }
+      
 
       const PostData = Parse.Object.extend("Post");
       const query = new Parse.Query(PostData);
@@ -99,19 +103,19 @@ function ListPage() {
       query.equalTo("userId", profileUser.id);
       query.equalTo("savedToList", decodedListName);
       const results = await query.find();
-      console.log("results", results);
 
       const postPromises = results.map(async (userPost) => {
         const restaurantId = userPost.get("restaurantId");
         let [category_1, category_2, category_3, tempRestaurantImage] =
           await fetchRestaurantData(restaurantId);
-
+        
         const categories = [category_1, category_2, category_3];
         const postText = userPost.get("text");
         const restaurantName = userPost.get("restaurantName");
         const restaurantAddress = userPost.get("restaurantAddress");
         const time = userPost.get("updatedAt");
         const id = userPost.id;
+        const parameter=parameterExists;
         const imgSrcRestaurant = userPost.get("image")
           ? userPost.get("image").url()
           : tempRestaurantImage;
@@ -126,6 +130,7 @@ function ListPage() {
             categories={categories}
             comment={postText}
             postId={id}
+            parameter={parameter}
           />,
         ];
       });

@@ -8,18 +8,21 @@ function RestaurantCard({
   restaurantAddress,
   categories,
   comment,
-  postId
+  postId,
+  parameter
 }) {
   return (
     <div className="restaurant-card">
       <div className="list-image-container">
         <div className="edit-icon">
-		<Link to={`/add?restIdParameter=&edit=${postId}`}>
-          <img
-            src="https://www.svgrepo.com/show/75500/edit-button.svg"
-            alt="Edit"
-          />
-		    </Link>
+          {parameter !== true && (
+            <Link to={`/add?restIdParameter=&edit=${postId}`}>
+              <img
+                src="https://www.svgrepo.com/show/75500/edit-button.svg"
+                alt="Edit"
+              />
+            </Link>
+          )}
         </div>
         <img src={imgSrcRestaurant} alt="Restaurant" className="list-image" />
         <div className="image-overlay">
