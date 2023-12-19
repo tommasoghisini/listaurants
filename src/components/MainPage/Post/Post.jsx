@@ -51,7 +51,7 @@ function Post({
     const postQuery = new Parse.Query(Post);
     const postObject = await postQuery.get(id);
 
-    // since notifications page is using pointers and not string i neeed to add this shit
+    // since notifications page is using pointers and not string i neeed to add this
     const User = Parse.Object.extend("User");
     const userPointer = new User();
     userPointer.id = Parse.User.current().id;
