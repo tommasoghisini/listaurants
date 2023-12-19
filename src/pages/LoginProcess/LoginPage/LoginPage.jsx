@@ -67,7 +67,7 @@ function LoginPage({ setIsAuthenticated }) {
 
 	return (
 		<div>
-			<h1 className="title">Your Restaurant Finder</h1>
+			<h1 className="title">Listaurants</h1>
 			<LoginForm
 				email={email}
 				password={password}

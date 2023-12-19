@@ -38,22 +38,26 @@ function AddProfilePicture() {
 
   return (
     <div className="verification-page">
-      <TopbarSignup prevProgress={0.6} progressMax={0.8} />
+      <div>
+        <TopbarSignup prevProgress={0.6} progressMax={0.8} />
 
-      <h1 className="title">
-        Add a profile picture <span className="optional-text">(Optional)</span>
-      </h1>
-      <label htmlFor="file-input" className="profile-img-label">
-        <img src={image} height={200} alt="profile-img" />
-      </label>
-      <input
-        type="file"
-        id="file-input"
-        style={{ display: "none" }}
-        accept="image/*"
-        onChange={handleImageChange}
-        ref={fileInputRef}
-      />
+        <h1 className="title">
+          Add a profile picture <span className="optional-text">(Optional)</span>
+        </h1>
+        <div className="profile-img-default">
+          <label htmlFor="file-input" className="profile-img-label">
+            <img src={image} height={200} alt="profile-img" />
+          </label>
+          <input
+            type="file"
+            id="file-input"
+            style={{ display: "none" }}
+            accept="image/*"
+            onChange={handleImageChange}
+            ref={fileInputRef}
+          />
+        </div>
+      </div>
       <Button text="Add photo" onClick={handleChooseFileClick} />
     </div>
   );
