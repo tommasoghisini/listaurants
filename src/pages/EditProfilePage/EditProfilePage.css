@@ -6,13 +6,22 @@
 }
 
 .profile-picture-edit-page {
-  /* Styling for profile picture, not sure what i need yet */
+  width: 100px;
+  height: 100px;
+  position: sticky;
+  top: 0px;
+  margin-bottom: 20px;
 }
 
 .name-and-buttons-container {
-  text-align: center;
-  width: fit-content;
-  margin: auto;
+  /* position: fixed;
+  top: 20px;
+  left: 20px; */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* text-align: center;
+  gap: 10px; */
 }
 
 .profile-name-edit {
@@ -31,7 +40,6 @@
   color: #9746ff;
 }
 
-/* .button-container-edit-profile button, */
 .buttons-container-edit-profile button {
   background-color: #f9f3ef;
   color: #9746ff;
@@ -42,14 +50,15 @@
   transition: background-color 0.3s;
 }
 
-/* .button-container-edit-profile button:hover, */
 .buttons-container-edit-profile button:hover {
   background-color: #9746ff;
   color: #f9f3ef;
 }
 
 .profile-name-container {
+  position: relative;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   gap: 10px;
