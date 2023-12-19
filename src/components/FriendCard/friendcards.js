@@ -8,29 +8,25 @@ function FriendCards({
   filteredUsers,
   allFriends,
   currentUserName,
-  addedUsers
+  //addedUsers
 }) {
-  const linkStyle = {
-    textDecoration: 'none', 
-    color: 'inherit', 
-  };
 
-  
   return (
     <div>
       {filteredUsers.map((user, index) =>
         user ? (
           allFriends?.some(friend => friend.username === user.username) ? (
-            <Link to={`/profile?userParameter=${user.id}`} style={linkStyle}>
+           
               <Card
                 key={index}
                 username={user.username}
+                userid={user.id}
                 profilepicture={user.profilepicture}
                 currentUserName={currentUserName}
                 isFriend={true}
-                isAdded={addedUsers?.some(addedUser => addedUser.username === user.username) ? true : false}
+                //isAdded={addedUsers?.some(addedUser => addedUser.username === user.username) ? true : false}
               />
-            </Link>
+         
           ) : (
             <Card
               key={index}
@@ -38,7 +34,7 @@ function FriendCards({
               profilepicture={user.profilepicture}
               currentUserName={currentUserName}
               isFriend={false}
-              isAdded={addedUsers?.some(addedUser => addedUser.username === user.username) ? true : false}
+              //isAdded={addedUsers?.some(addedUser => addedUser.username === user.username) ? true : false}
             />
           )
         ) : null
@@ -48,19 +44,21 @@ function FriendCards({
 }
 
 const Card = React.memo(
-  ({ username, profilepicture, isFriend, currentUserName, isAdded }) => {
-    const [added, setAdded] = useState(isAdded);
+  ({ username, profilepicture, isFriend, currentUserName, userid}) => {
+    //const [added, setAdded] = useState(isAdded);
     const [friend, setFriend] = useState(isFriend);
     useEffect(() => {
-      setAdded(isAdded);
+      //setAdded(isAdded);
       setFriend(isFriend);
-    }, [isAdded, isFriend]);
+    }, [isFriend]);
+
+    const linkStyle = {
+      textDecoration: 'none', 
+      color: 'inherit', 
+    };
 
     const handleAction = async () => {
-      if (added) {
-        console.log("Already added");
-        return;
-      } else if (friend) {
+     if (friend) {
         console.log("Trying to remove friend");
         try {
           const Friendship = Parse.Object.extend("Friendship");
@@ -108,7 +106,7 @@ const Card = React.memo(
           console.error("Error removing friend:", error);
         }
       } else {
-        console.log(`Adding friend: ${username}`);
+        console.log(`New friendship with: ${username}`);
         try {
           const Friendship = Parse.Object.extend("Friendship");
           const newFriendship = new Friendship();
@@ -124,11 +122,11 @@ const Card = React.memo(
             objectId: username,
           });
 
-          newFriendship.set("status", "Pending");
+          newFriendship.set("status", "Friends");
 
           const result = await newFriendship.save();
-          setAdded(true);
-          isAdded = true;
+          setFriend(true);
+          isFriend = true;
 
           console.log("Friendship added successfully:", result);
 
@@ -145,10 +143,12 @@ const Card = React.memo(
             <ProfilePicture imgSrc={profilepicture}  height="50px" />
           </div>
           <div className="text-container">
+          <Link to={`/profile?userParameter=${userid}`} style={linkStyle}>
             <h1 className="friend-name">{username}</h1>
+            </Link>
           </div>
           <button className="action-button" onClick={handleAction}>
-            {added ? "Added" : friend ? "Remove" : "Add"}
+            {friend ? "Remove" : "Add"}
           </button>
         </div>
       </div>

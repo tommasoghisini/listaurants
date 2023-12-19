@@ -10,7 +10,7 @@ function FriendsPage() {
   const [currentUser, setCurrentUser] = useState("");
   const [searchValue, setSearchValue] = useState("");
   const [allFriends, setAllFriends] = useState([]);
-  const [addedUsers, setAddedUsers] = useState([]);
+  //const [addedUsers, setAddedUsers] = useState([]); //Left out due to not implementing accepting friend requests
 
   useEffect(() => {
     async function fetchAll() {
@@ -64,18 +64,21 @@ function FriendsPage() {
           console.log("All friends", allFriends);
           setAllFriends(allFriends);
 
-          const friendshipQuery3 = new Parse.Query("Friendship");
-          friendshipQuery3.equalTo("user1", currentUserName);
-          friendshipQuery3.equalTo("status", "Pending");
-          const result3 = await friendshipQuery3.find();
-          const addedUsers = result3.map(
-            (friendship) => friendship.get("user2").id);
+          // Here, the users the user has added, but is not friends with yet would be fetched
+          // With this implementation status of the friendship could be "Pending", meaning awaiting response from the other user
 
-          const addedSubset = allUsers.filter((user) =>
-            addedUsers.includes(user.username)
-          );
+          //const friendshipQuery3 = new Parse.Query("Friendship");
+          //friendshipQuery3.equalTo("user1", currentUserName);
+          //friendshipQuery3.equalTo("status", "Pending");
+          //const result3 = await friendshipQuery3.find();
+          //const addedUsers = result3.map(
+            //(friendship) => friendship.get("user2").id);
 
-          setAddedUsers(addedSubset);
+          //const addedSubset = allUsers.filter((user) =>
+            //addedUsers.includes(user.username)
+          //);
+
+          //setAddedUsers(addedSubset);
 
         } catch (error) {
           console.error("Error fetching friend data:", error);
@@ -109,7 +112,7 @@ function FriendsPage() {
           filteredUsers={filteredUsers}
           allFriends={allFriends}
           currentUserName={currentUserName}
-          addedUsers={addedUsers}
+          //addedUsers={addedUsers}
         />
       </div>
     </div>
