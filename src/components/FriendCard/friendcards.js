@@ -5,158 +5,151 @@ import "./friendcards.css";
 import ProfilePicture from "../shared/ProfilePicture/ProfilePicture";
 
 function FriendCards({
-	filteredUsers,
-	allFriends,
-	currentUserName,
-	//addedUsers
+  filteredUsers,
+  allFriends,
+  currentUserName
 }) {
-	return (
-		<div>
-			{filteredUsers.map((user, index) =>
-				user ? (
-					allFriends?.some((friend) => friend.username === user.username) ? (
-						<Card
-							key={index}
-							username={user.username}
-							userid={user.id}
-							profilepicture={user.profilepicture}
-							currentUserName={currentUserName}
-							isFriend={true}
-							//isAdded={addedUsers?.some(addedUser => addedUser.username === user.username) ? true : false}
-						/>
-					) : (
-						<Card
-							key={index}
-							username={user.username}
-							profilepicture={user.profilepicture}
-							currentUserName={currentUserName}
-							isFriend={false}
-							//isAdded={addedUsers?.some(addedUser => addedUser.username === user.username) ? true : false}
-						/>
-					)
-				) : null
-			)}
-		</div>
-	);
+  return (
+    <div>
+      {filteredUsers.map((user, index) =>
+        user ? (
+          allFriends?.some((friend) => friend.username === user.username) ? (
+            <Card
+              key={index}
+              username={user.username}
+              userid={user.id}
+              profilepicture={user.profilepicture}
+              currentUserName={currentUserName}
+              isFriend={true}
+            />
+          ) : (
+            <Card
+              key={index}
+              username={user.username}
+              profilepicture={user.profilepicture}
+              currentUserName={currentUserName}
+              isFriend={false}
+            />
+          )
+        ) : null
+      )}
+    </div>
+  );
 }
 
 const Card = React.memo(
-	({ username, profilepicture, isFriend, currentUserName, userid }) => {
-		//const [added, setAdded] = useState(isAdded);
-		const [friend, setFriend] = useState(isFriend);
-		useEffect(() => {
-			//setAdded(isAdded);
-			setFriend(isFriend);
-		}, [isFriend]);
+  ({ username, profilepicture, isFriend, currentUserName, userid }) => {
 
-		const linkStyle = {
-			textDecoration: "none",
-			color: "inherit",
-		};
+    const [friend, setFriend] = useState(isFriend);
+    useEffect(() => {
+      setFriend(isFriend);
+    }, [isFriend]);
 
-		const handleAction = async () => {
-			if (friend) {
-				console.log("Trying to remove friend");
-				try {
-					const Friendship = Parse.Object.extend("Friendship");
-					const query1 = new Parse.Query(Friendship);
-					const query2 = new Parse.Query(Friendship);
+    const linkStyle = {
+      textDecoration: "none",
+      color: "inherit",
+    };
 
-					// Query for the friendship where user2=user
-					query1.equalTo("user1", {
-						__type: "Pointer",
-						className: "_User",
-						objectId: currentUserName,
-					});
-					query1.equalTo("user2", {
-						__type: "Pointer",
-						className: "_User",
-						objectId: username,
-					});
+    const handleAction = async () => {
+      if (friend) {
+        console.log("Trying to remove friend");
+        try {
+          const Friendship = Parse.Object.extend("Friendship");
+          const query1 = new Parse.Query(Friendship);
+          const query2 = new Parse.Query(Friendship);
 
-					// Query for the friendship where user1=user
-					query2.equalTo("user1", {
-						__type: "Pointer",
-						className: "_User",
-						objectId: username,
-					});
-					query2.equalTo("user2", {
-						__type: "Pointer",
-						className: "_User",
-						objectId: currentUserName,
-					});
+          // Query for the friendship where user2=user
+          query1.equalTo("user1", {
+            __type: "Pointer",
+            className: "_User",
+            objectId: currentUserName,
+          });
+          query1.equalTo("user2", {
+            __type: "Pointer",
+            className: "_User",
+            objectId: username,
+          });
 
-					const mainQuery = Parse.Query.or(query1, query2);
+          // Query for the friendship where user1=user
+          query2.equalTo("user1", {
+            __type: "Pointer",
+            className: "_User",
+            objectId: username,
+          });
+          query2.equalTo("user2", {
+            __type: "Pointer",
+            className: "_User",
+            objectId: currentUserName,
+          });
 
-					const rowToDelete = await mainQuery.first();
-					if (rowToDelete) {
-						const result = await rowToDelete.destroy();
+          const mainQuery = Parse.Query.or(query1, query2);
 
-						setFriend(false);
-						isFriend = false;
+          const rowToDelete = await mainQuery.first();
+          if (rowToDelete) {
+            const result = await rowToDelete.destroy();
 
-						console.log("Friendship removed successfully:", result);
-					} else {
-						console.log("Friendship not found");
-					}
-				} catch (error) {
-					console.error("Error removing friend:", error);
-				}
-			} else {
-				console.log(`New friendship with: ${username}`);
-				try {
-					const Friendship = Parse.Object.extend("Friendship");
-					const newFriendship = new Friendship();
+            setFriend(false);
+            isFriend = false;
 
-					newFriendship.set("user1", {
-						__type: "Pointer",
-						className: "_User",
-						objectId: currentUserName,
-					});
-					newFriendship.set("user2", {
-						__type: "Pointer",
-						className: "_User",
-						objectId: username,
-					});
+            console.log("Friendship removed successfully:", result);
+          } else {
+            console.log("Friendship not found");
+          }
+        } catch (error) {
+          console.error("Error removing friend:", error);
+        }
+      } else {
+        console.log(`New friendship with: ${username}`);
+        try {
+          const Friendship = Parse.Object.extend("Friendship");
+          const newFriendship = new Friendship();
 
-					newFriendship.set("status", "Friends");
+          newFriendship.set("user1", {
+            __type: "Pointer",
+            className: "_User",
+            objectId: currentUserName,
+          });
+          newFriendship.set("user2", {
+            __type: "Pointer",
+            className: "_User",
+            objectId: username,
+          });
 
-					const result = await newFriendship.save();
-					setFriend(true);
-					isFriend = true;
+          newFriendship.set("status", "Friends");
 
-					console.log("Friendship added successfully:", result);
-				} catch (error) {
-					console.error("Error adding friend:", error);
-				}
-			}
-		};
+          const result = await newFriendship.save();
+          setFriend(true);
+          isFriend = true;
 
-		return (
-			<div className="friend-card">
-				<div className="friend-content">
-					<div className="image-container">
-						<ProfilePicture
-							imgSrc={profilepicture}
-							height="50px"
-						/>
-					</div>
-					<div className="text-container">
-						<Link
-							to={`/profile?userParameter=${userid}`}
-							style={linkStyle}>
-							<h1 className="friend-name">{username}</h1>
-						</Link>
-					</div>
-					<button
-						className="action-button"
-						onClick={handleAction}>
-						{friend ? "Remove" : "Add"}
-					</button>
-				</div>
-			</div>
-		);
-	}
+          console.log("Friendship added successfully:", result);
+        } catch (error) {
+          console.error("Error adding friend:", error);
+        }
+      }
+    };
+
+    return (
+      <div className="friend-card">
+        <div className="friend-content">
+          <div className="image-container">
+            <ProfilePicture imgSrc={profilepicture} height="50px" />
+          </div>
+          <div className="text-container">
+            {userid ? (
+              <Link to={`/profile?userParameter=${userid}`} style={linkStyle}>
+                <h1 className="friend-name">{username}</h1>
+              </Link>
+            ) : (
+              <h1 className="friend-name">{username}</h1>
+            )}
+          </div>
+          <button className="action-button" onClick={handleAction}>
+            {friend ? "Remove" : "Add"}
+          </button>
+        </div>
+      </div>
+    );
+  }
 );
 
 export default FriendCards;
