@@ -1,0 +1,54 @@
+.friend-card {
+    background-color: #fff;
+    width: 90%;
+    padding: 20px;
+    border: 1px solid #fff;
+    display: flex;
+    align-items: center;
+    border-radius: 2vh;
+    margin-bottom: 2vh;
+    overflow: hidden;
+  }
+  
+  .friend-content {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    overflow: hidden;
+  }
+
+  .friend-name {
+    color: #000;
+    font-family: "Inter", sans-serif; 
+    font-weight: 600; 
+    font-size:  1.7vh;
+    text-align: left;
+    margin-bottom: 5px;
+  }
+
+  .friend-text {
+    color: #000;
+    font-family: "Inter", sans-serif; 
+    font-size:  1.5vh;
+    text-align: left;
+    margin-bottom: 10px;
+    font-weight: 100;
+  }
+
+
+  .profile-image-border {
+    border-radius: 50%; 
+    border: 2px solid black; 
+    overflow: hidden; 
+  }
+  
+
+  .action-button{
+    background-color: #d9d9d9; 
+    color: #000; 
+    font-size:  1.5vh; 
+    padding: 5px 20px; 
+    border: none; 
+    border-radius: 5px; 
+
+  }

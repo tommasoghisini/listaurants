@@ -1,0 +1,25 @@
+.signup-page {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	padding: 10% 6%;
+	height: 100vh;
+}
+
+.progress-indicator-wrapper {
+	flex-grow: 1;
+	display: flex;
+	justify-content: center; /* Centers the progress indicator */
+}
+
+.title {
+	font-size: 32px;
+	font-weight: bold;
+	text-align: left;
+	margin-bottom: 10%;
+	margin-top: 10%;
+}
+
+.error-message {
+	color: red;
+}

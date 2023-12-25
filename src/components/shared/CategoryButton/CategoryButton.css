@@ -1,0 +1,20 @@
+:root {
+    --category-button-color: #BFBFBF;
+  }
+  
+  .restaurant-category {
+    border-radius: 20px;
+    border: 1.5px var(--category-button-color) solid;
+    justify-content: center;
+    align-items: center;
+    display: inline-flex;
+    font-size: 1.7vh;
+    height: 3vh;
+    font-family: "Inter", sans-serif;
+    font-weight: 600;
+    color: var(--category-button-color);
+    width: 20vw;
+    margin-right: 6px;
+    margin-top: 3px;
+  }
+  
