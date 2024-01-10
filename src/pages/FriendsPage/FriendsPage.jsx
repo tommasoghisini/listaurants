@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Parse from "parse/dist/parse.min.js";
-import FriendCards from "../../components/FriendCard/friendcards";
+import FriendCards from "../../components/FriendCard/FriendCards";
 import "./FriendsPage.css";
 import TopBar from "../../components/shared/TopBar/TopBar";
 

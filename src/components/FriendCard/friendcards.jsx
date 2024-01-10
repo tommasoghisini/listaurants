@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Parse from "parse/dist/parse.min.js";
 import { Link } from "react-router-dom";
-import "./friendcards.css";
+import "./FriendCards.css";
 import ProfilePicture from "../shared/ProfilePicture/ProfilePicture";
 
 function FriendCards({

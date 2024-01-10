@@ -1,5 +1,5 @@
 import React from "react";
-import "./notificationcards.css";
+import "./NotificationCards.css";
 import ProfilePicture from "../shared/ProfilePicture/ProfilePicture";
 
 function NotificationCard({ notifications }) {

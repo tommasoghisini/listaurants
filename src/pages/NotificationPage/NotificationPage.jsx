@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import NotificationCards from "../../components/NotificationCard/notificationcards";
+import NotificationCards from "../../components/NotificationCard/NotificationCards";
 import TopBar from "../../components/shared/TopBar/TopBar";
 import Parse from "parse/dist/parse.min.js";
 
