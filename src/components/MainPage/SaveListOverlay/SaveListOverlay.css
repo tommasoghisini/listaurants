@@ -1,0 +1,46 @@
+/* Overlay styles */
+.overlay {
+	position: fixed; /* Stay in place */
+
+	top: 0;
+	max-width: 450px;
+	width: 100%; /* Full width */
+	height: 100%; /* Full height */
+	background-color: rgba(0, 0, 0, 0.5); /* Black with opacity */
+	display: flex;
+	align-items: flex-end; /* Align vertical */
+	justify-content: center; /* Align horizontal */
+}
+
+/* Save options box styles */
+.save-options {
+	display: flex;
+	flex-direction: column;
+	background: var(--background-color);
+	padding: 10px 20px;
+	border-radius: 10px 10px 0 0;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+	text-align: center;
+	width: 100%;
+	max-width: 450px;
+	height: 15%;
+}
+
+/* Buttons inside the overlay */
+.save-options button {
+	margin: 8px;
+	padding: 9px 10px;
+	height: 100%;
+	border: none;
+	border-radius: 5px;
+	background-color: var(--secondary-color);
+	color: var(--primary-color);
+	font-size: 18px;
+	font-weight: 600;
+	cursor: pointer;
+	transition: background-color 0.3s;
+}
+
+.save-options button:hover {
+	background-color: #3700b3; /* A darker purple for hover state */
+}

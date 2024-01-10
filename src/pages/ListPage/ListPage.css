@@ -1,0 +1,32 @@
+.list-top-bar {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	padding: 20px 30px 10px;
+	position: fixed;
+	top: 0;
+	width: 100%;
+	max-width: 450px;
+	background-color: rgba(249, 243, 239, 0.7); /* Semi-transparent white */
+	backdrop-filter: blur(10px); /* Add this line */
+	z-index: 9999;
+	box-sizing: border-box;
+	display: inline-block;
+	white-space: nowrap;
+}
+
+.list-items {
+	display: flex;
+	flex-direction: column;
+	padding-top: 20px;
+
+	overflow-y: auto; /* Enables vertical scrolling */
+	overflow-x: hidden; /* Disables horizontal scrolling */
+}
+
+.list-top-bar-name {
+	padding-left: 6%;
+	font-size: 24px;
+	font-weight: 600;
+	display: inline;
+}

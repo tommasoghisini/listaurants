@@ -9,7 +9,8 @@
 /coverage
 
 # docs
-/docs
+docs/TODO
+.idea
 
 # production
 /build

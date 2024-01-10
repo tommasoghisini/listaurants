@@ -1,0 +1,69 @@
+.container-sana {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center everything in the main container */
+}
+
+.profile-picture-edit-page {
+  width: 100px;
+  height: 100px;
+  position: sticky;
+  top: 0px;
+  margin-bottom: 20px;
+}
+
+.name-and-buttons-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.profile-name-edit {
+  width: 100%;
+  text-align: center;
+  padding-bottom: 120px;
+  padding-top: 30px;
+}
+
+.buttons-container-edit-profile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  color: #9746ff;
+}
+
+.buttons-container-edit-profile button {
+  background-color: #f9f3ef;
+  color: #9746ff;
+  border: 2px solid #9746ff;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.buttons-container-edit-profile button:hover {
+  background-color: #9746ff;
+  color: #f9f3ef;
+}
+
+.profile-name-container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 30px;
+  margin-bottom: 120px;
+}
+
+.profile-name {
+  margin: 0;
+}
+
+.edit-icon {
+  cursor: pointer;
+}

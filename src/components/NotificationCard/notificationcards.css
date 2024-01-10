@@ -1,0 +1,10 @@
+
+.notification-text {
+  color: #000;
+  font-family: "Inter", sans-serif; 
+  font-size:  1.8vh;
+  text-align: left;
+  margin-bottom: 10px;
+  font-weight: 400; 
+}
+

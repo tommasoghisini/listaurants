@@ -1,0 +1,24 @@
+.app-container {
+	margin: 0 auto;
+	max-width: 450px; /* Set this to the max width you want */
+	min-height: 100vh; /* This makes sure your app takes up the full height of the screen */
+}
+
+body {
+	margin-bottom: 0;
+}
+
+.content {
+padding-bottom: 77px; /* Height of the nav bar */
+padding-top: 57.5px;
+overflow-y: auto; /* Enable scrolling */
+}
+  
+.bottom-nav-bar {
+position: fixed;
+bottom: 0;
+width: 100%;
+max-width: 450px;
+height: 77px;
+}
+  

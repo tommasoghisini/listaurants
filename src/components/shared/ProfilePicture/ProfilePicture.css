@@ -1,0 +1,9 @@
+.profile-image {
+	border-radius: 50%;
+	width: 40px; /* Set a fixed width */
+	height: 40px;
+	object-fit: cover; /* This makes the image cover the area, maintaining aspect ratio */
+	border: 1px solid var(--primary-color);
+	box-sizing: border-box;
+	flex-shrink: 0;
+}

@@ -1,0 +1,13 @@
+{
+    "userName": "Bob",
+    "restaurantName": "Noma",
+    "listName": "Favorites", 
+    "category_1": "$$$", 
+    "category_2": "Danish",
+    "category_3": "Vegan",
+    "postText": "I think this was a cool place. There is a variety of vegan options! ",
+    "restaurantAddress": "Strandgade 93, 1401 København, Denmark",
+    "imgSrcUser": "./images/profilePic2.png",
+    "imgSrcCommenter":"./images/profilePic.png",
+    "imgSrcRestaurant": "./images/restaurant1.jpeg"
+}
