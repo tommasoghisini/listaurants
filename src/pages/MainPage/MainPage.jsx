@@ -162,6 +162,7 @@ function MainPage({ setIsNavbarVisible }) {
 
       // Combine the queries
       const combinedQuery = Parse.Query.or(queryUser1, queryUser2);
+      
       const results = await combinedQuery.find();
 
       const friends = results.map((friendship) => {

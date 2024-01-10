@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useMemo} from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import ListCards from "../../components/ListCard/listcards";
+import ListCards from "../../components/ListCard/ListCards";
 import ProfilePicture2 from "../../components/ProfilePicture2/ProfilePicture2";
 import ProfilePicture from "../../components/shared/ProfilePicture/ProfilePicture";
 import ButtonSh from "../../components/shared/ButtonShort/ButtonShort";
