@@ -91,10 +91,10 @@ function App() {
 			<Fragment>
 				<div className="app-container">
 					<div className="content">
-						// Routes is wrapper that containes all the routes components
+						{/* Routes is wrapper that containes all the routes components */}
 						<Routes>
-							// Iterate through the routes array and element prop is used to
-							// conditionally render a protected route or a normal route
+							{/* Iterate through the routes array and element prop is used to
+							conditionally render a protected route or a normal route */}
 							{routes.map((route) => (
 								<Route
 									path={route.path}
@@ -111,7 +111,7 @@ function App() {
 							))}
 						</Routes>
 					</div>
-					// BottomNavBar is rendered only if page is not in the noNavBarPaths array
+					{/* BottomNavBar is rendered only if page is not in the noNavBarPaths array */}
 					{isNavbarVisible && !noNavBarPaths.includes(basePath) && (
 						<BottomNavBar />
 					)}
