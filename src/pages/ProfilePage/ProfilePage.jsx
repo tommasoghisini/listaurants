@@ -10,16 +10,20 @@ import Parse from "parse/dist/parse.min";
 
 const ProfilePage = () => {
   const navigate = useNavigate();
+  // State variables to keep track of which button is pressed
   const [editProfilePressed, setEditProfilePressed] = useState(false);
   const [friendsPressed, setFriendsPressed] = useState(false);
-  const [userName, setUserName] = useState(""); // State to store the user's name
 
+  // State variables to store the user's name and information
+  const [userName, setUserName] = useState("");
   const [currentUser, setCurrentUser] = useState("");
   const [profileUser, setProfileUser] = useState("");
   const [profileUserImg, setProfileUserImg] = useState("");
   const [friendsNumber, setFriendsNumber] = useState(0); // State to store the number of friends
   const [Wishlist, setWishlist] = useState([]);
   const [Favourites, setFavourites] = useState([]);
+
+  // State variable to store whether the user is the current user or another one
   const [isOther, setIsOther] = useState("");
 
   const location = useLocation();
@@ -35,15 +39,21 @@ const ProfilePage = () => {
           const urlSearchParams = new URLSearchParams(location.search);
           const parameter = urlSearchParams.get("userParameter");
 
+          // if there is a parameter, it means that the user is not the current user but another one
           if (parameter) {
             setIsOther(true);
             const UserData = Parse.Object.extend("_User");
+
+            // creates a query object to search for the user with the given id
             const query = new Parse.Query(UserData);
             query.equalTo("objectId", parameter);
+
+            // executes the query and stores the results in the friends array
             const friends = await query.find();
 
+            // if the user is found, it stores the user's name and profile picture
             if (friends.length > 0) {
-              const friend = friends[0];
+              const friend = friends[0]; // could use better 
               setProfileUser(friend);
               const image = friend.get("profilePicture")
                 ? friend.get("profilePicture").url()
