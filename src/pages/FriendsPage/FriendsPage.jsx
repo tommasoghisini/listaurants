@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Parse from "parse/dist/parse.min.js";
-import FriendCards from "../../components/FriendCard/friendcards";
+import FriendCards from "../../components/FriendCard/FriendCards";
 import "./FriendsPage.css";
 import TopBar from "../../components/shared/TopBar/TopBar";
 
@@ -10,7 +10,6 @@ function FriendsPage() {
 
 	const [searchValue, setSearchValue] = useState("");
 	const [allFriends, setAllFriends] = useState([]);
-	//const [addedUsers, setAddedUsers] = useState([]); //Left out due to not implementing accepting friend requests
 
 	useEffect(() => {
 		async function fetchAll() {
@@ -64,21 +63,6 @@ function FriendsPage() {
 					console.log("All friends", allFriends);
 					setAllFriends(allFriends);
 
-					// Here, the users the user has added, but is not friends with yet would be fetched
-					// With this implementation status of the friendship could be "Pending", meaning awaiting response from the other user
-
-					//const friendshipQuery3 = new Parse.Query("Friendship");
-					//friendshipQuery3.equalTo("user1", currentUserName);
-					//friendshipQuery3.equalTo("status", "Pending");
-					//const result3 = await friendshipQuery3.find();
-					//const addedUsers = result3.map(
-					//(friendship) => friendship.get("user2").id);
-
-					//const addedSubset = allUsers.filter((user) =>
-					//addedUsers.includes(user.username)
-					//);
-
-					//setAddedUsers(addedSubset);
 				} catch (error) {
 					console.error("Error fetching friend data:", error);
 				}
@@ -111,7 +95,6 @@ function FriendsPage() {
 					filteredUsers={filteredUsers}
 					allFriends={allFriends}
 					currentUserName={currentUserName}
-					//addedUsers={addedUsers}
 				/>
 			</div>
 		</div>

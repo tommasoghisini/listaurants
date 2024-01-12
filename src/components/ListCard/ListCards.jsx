@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import "./listcards.css";
+import "./ListCards.css";
 import { useNavigate, useLocation } from "react-router-dom";
 import Parse from "parse/dist/parse.min.js";
 
